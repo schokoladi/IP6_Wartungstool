@@ -16,15 +16,16 @@ class CreateWartungsvertraegeTable extends Migration
       {
         Schema::create('Wartungsvertraege', function (Blueprint $table) {
           $table->increments('ID');
-          $table->string('Vertragsnummer');
+          $table->string('Vertragsnummer', 50);
           $table->text('Beschreibung')->nullable();
-          /*$table->boolean('Status')->default(TRUE);
+          $table->boolean('Inaktiv')->default(FALSE);
+          $table->string('Zuständigkeit', 50);
 
-          // unsigned ist notwendig bei Fremdschlüsseln!
           $table->integer('Kunden_ID')->unsigned();
           $table->foreign('Kunden_ID')->references('ID')->on('Kunden');
+
           $table->integer('Kontaktpersonen_ID')->unsigned();
-          $table->foreign('Kontaktpersonen_ID')->references('ID')->on('Kontaktpersonen');*/
+          $table->foreign('Kontaktpersonen_ID')->references('ID')->on('Kontaktpersonen');
 
           $table->timestamps();
         });
