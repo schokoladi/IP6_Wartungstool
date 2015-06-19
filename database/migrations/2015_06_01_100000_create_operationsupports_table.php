@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHerstellerTable extends Migration
+class CreateOperationsupportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateHerstellerTable extends Migration
      */
     public function up()
     {
-      if (!Schema::hasTable('Hersteller'))
+      if (!Schema::hasTable('OperationSupports'))
         {
-          Schema::create('Hersteller', function (Blueprint $table) {
+          Schema::create('OperationSupports', function (Blueprint $table) {
               $table->increments('ID');
 
-              $table->string('Herstellername', 100);
+              $table->string('OperationSupport');
 
               $table->timestamps();
           });
@@ -31,6 +31,6 @@ class CreateHerstellerTable extends Migration
      */
     public function down()
     {
-        Schema::drop('Hersteller');
+        Schema::drop('OperationSupports');
     }
 }

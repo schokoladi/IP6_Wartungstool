@@ -19,13 +19,13 @@ class CreateWartungsvertraegeTable extends Migration
           $table->string('Vertragsnummer', 50);
           $table->text('Beschreibung')->nullable();
           $table->boolean('Inaktiv')->default(FALSE);
-          $table->string('Zuständigkeit', 50);
+          $table->string('Zustaendigkeit', 50);
 
-          $table->integer('Kunden_ID')->unsigned();
-          $table->foreign('Kunden_ID')->references('ID')->on('Kunden');
+          $table->integer('Wartungsvertraege_Kunden_ID')->unsigned();
+          $table->foreign('Wartungsvertraege_Kunden_ID')->references('ID')->on('Kunden');
 
-          $table->integer('Kontaktpersonen_ID')->unsigned();
-          $table->foreign('Kontaktpersonen_ID')->references('ID')->on('Kontaktpersonen');
+          $table->integer('Wartungsvertraege_Kontaktpersonen_ID')->unsigned();
+          $table->foreign('Wartungsvertraege_Kontaktpersonen_ID')->references('ID')->on('Kontaktpersonen');
 
           $table->timestamps();
         });

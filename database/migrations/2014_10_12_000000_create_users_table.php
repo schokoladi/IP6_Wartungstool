@@ -1,6 +1,3 @@
-/**das isch e chline tescht
-*/
-
 <?php
 
 use Illuminate\Database\Schema\Blueprint;

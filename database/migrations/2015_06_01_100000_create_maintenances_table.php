@@ -12,10 +12,16 @@ class CreateMaintenancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Maintenances', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+      if (!Schema::hasTable('Maintenances'))
+        {
+          Schema::create('Maintenances', function (Blueprint $table) {
+              $table->increments('ID');
+
+              $table->string('Maintenance');
+
+              $table->timestamps();
+          });
+        }
     }
 
     /**

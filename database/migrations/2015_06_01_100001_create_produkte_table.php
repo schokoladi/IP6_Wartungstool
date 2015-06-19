@@ -18,10 +18,10 @@ class CreateProdukteTable extends Migration
               $table->increments('ID');
 
               $table->string('Artikelnummer', 100);
-              $table->string('Produktname', 150);
+              $table->string('Name', 150);
 
-              $table->integer('Hersteller_ID')->unsigned();
-              $table->foreign('Hersteller_ID')->references('ID')->on('Hersteller');
+              $table->integer('Produkte_Hersteller_ID')->unsigned();
+              $table->foreign('Produkte_Hersteller_ID')->references('ID')->on('Hersteller');
 
               $table->timestamps();
           });

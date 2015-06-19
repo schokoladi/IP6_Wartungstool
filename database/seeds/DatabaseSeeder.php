@@ -15,8 +15,18 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call('UserTableSeeder');
-        $this->call('WartungsvertraegeTableSeeder');
-        $this->command->info('Wartungsvertraege table seeded!');
+        //$this->call('WartungsvertraegeTableSeeder');
+        //$this->command->info('Wartungsvertraege table seeded!');
+
+        $this->call('WaehrungenTableSeeder');
+        $this->command->info('Waehrungen table seeded!');
+
+        $this->call('MaintenancesTableSeeder');
+        $this->command->info('Maintenances table seeded!');
+
+        $this->call('OperationSupportsTableSeeder');
+        $this->command->info('Operation Supports table seeded!');
+
 
         Model::reguard();
     }
