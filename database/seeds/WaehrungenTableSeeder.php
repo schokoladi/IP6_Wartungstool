@@ -27,21 +27,6 @@ class WaehrungenTableSeeder extends Seeder
               'Waehrung' => 'USD',
               'created_at' => new DateTime,
               'updated_at' => new DateTime
-          ],
-          [
-              'Waehrung' => 'GBP',
-              'created_at' => new DateTime,
-              'updated_at' => new DateTime
-          ],
-          [
-              'Waehrung' => 'CNY',
-              'created_at' => new DateTime,
-              'updated_at' => new DateTime
-          ],
-          [
-              'Waehrung' => 'JPY',
-              'created_at' => new DateTime,
-              'updated_at' => new DateTime
           ]
       ]);
     }

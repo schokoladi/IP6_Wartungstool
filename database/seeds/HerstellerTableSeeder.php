@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class WartungsvertraegeTableSeeder extends Seeder
+class HerstellerTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,17 +11,20 @@ class WartungsvertraegeTableSeeder extends Seeder
      */
     public function run()
     {
-      DB::table('Wartungsvertraege')->delete();
-      DB::table('Wartungsvertraege')->insert([
+      DB::table('Hersteller')->delete();
+      DB::table('Hersteller')->insert([
           [
-            'Vertragsnummer' => 'A14TL919-150-500120',
-            'Beschreibung' => 'Test hallo Velo',
+            'Name' => 'ManageEngine',
             'created_at' => new DateTime,
             'updated_at' => new DateTime
           ],
           [
-            'Vertragsnummer' => 'A14TL919-150-500122',
-            'Beschreibung' => 'Zweiter Vertrag',
+            'Name' => 'Compuware',
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime
+          ],
+          [
+            'Name' => 'Infoblox',
             'created_at' => new DateTime,
             'updated_at' => new DateTime
           ]
