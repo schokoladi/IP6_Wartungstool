@@ -11,10 +11,22 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+});*/
+
+Route::get('/', function () {
+    return View::make('index');
 });
 
-Route::get('home', function () {
-    return view('index');
+//Route::controller('Produkte', 'ProdukteController');
+Route::resource('Produkte', 'ProdukteController');
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+// Catch Exceptions
+App::missing(function($exception) {
+    return View::make('index');
 });
