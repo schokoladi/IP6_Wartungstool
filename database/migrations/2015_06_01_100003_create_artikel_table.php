@@ -16,7 +16,7 @@ class CreateArtikelTable extends Migration
         {
           Schema::create('Artikel', function (Blueprint $table) {
               $table->increments('ID');
-              $table->string('Seriennummer', 100);
+              $table->string('Seriennummer', 100)->unique();
 
               // Artikel
               $table->double('EKP_Artikel', 20, 2); // 20 total, 2 after decimal
