@@ -1,0 +1,161 @@
+/*!
+ * Custom Bootstrap CSS
+ */
+
+/* overwrite standard width */
+@media (min-width: 1000px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/* custom font */
+@font-face {
+  font-family: 'DIN Next LT Pro';
+  src: url('../fonts/DINNextLTPro-Light.ttf');
+}
+
+/* Overide body style */
+body {
+	font-family: "DIN Next LT Pro";
+	font-size: 15px;
+	margin: auto;
+	padding-top: 70px;
+	margin-bottom: 50px;
+	background-color: #fff;
+}
+
+/* override navbar style */
+.custom-navbar {
+	background-color: #eee;
+	color: #4b4a4d;
+	border-bottom: 1px #4b4a4d solid;
+}
+.custom-navbar-color {
+	color: #4b4a4d;
+}
+.custom-navbar-brand {
+	padding: 10px 10px 10px 20px;
+}
+.custom-navbar-container {
+	padding-left: 20px;
+	padding-right: 20px;
+	/*max-width: 1000px;*/
+}
+
+/* Override Container */
+
+/* custom text styles */
+.custom-h4 {
+	color: #3e94b9;
+	border-bottom: 1px solid #ccc;
+	padding-left: 15px;
+	padding-bottom: 8px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* override  */
+.custom-alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.custom-panel {
+	height: 48px;
+	padding: 0;
+	margin-top: 10px;
+ 	margin-bottom: 10px;
+}
+.panel-body {
+	height: 48px;
+	background-color: #eee;
+}
+.custom-panel-fixed {
+	min-width: 210px;
+}
+.custom-list-group {
+	min-width: 210px;
+	min-height: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.custom-list-group-fixed {
+	position: fixed;
+}
+
+/* Sticky stuff */
+.sticky-top {
+	position: -webkit-sticky;
+	top: 60px;
+	z-index: 1;
+	background-color: #fff;
+}
+.sticky {
+    position: fixed;
+    top: 60px;
+    z-index: 100;
+    margin-bottom: 30px;
+}
+
+.custom-container {
+	background-color: #fff;
+}
+
+/*
+.fixed-container {
+	padding-top: 80px;
+	background-color: #0f0;
+}
+.sticky-top {
+	top: 0px;
+	background-color: #003;
+}
+#sticky-top {
+	top: 30px;
+}*/
+
+/* custom login form */
+.custom-form-login {
+	margin: 10px;
+}
+
+/* custom table styles */
+.custom-border-left {
+	border-left: 1px solid #ddd;
+}
+.custom-table > tfoot > tr > td {
+  vertical-align: bottom;
+}
+
+/* overide glyphicon styles */
+.custom-glyphicon-left {
+	margin-right: 10px;
+}
+.custom-glyphicon-right {
+	margin-left: 10px;
+}
+.green {
+	color: green;
+}
+.red {
+	color: red;
+}
+.custom-panel-danger{
+	background-color: #f2dede;
+
+}
+.custom-panel-warning{
+	background-color: #fcf8e3;
+	padding-bottom: 20px;
+}
+.custom-list-inline{
+
+}
+.custom-alert-orange{
+	color: ;
+}
+.custom-alert-red{
+	color: ;
+}
