@@ -20,13 +20,13 @@ Route::get('/', function () {
 });
 
 //Route::controller('Produkte', 'ProdukteController');
-Route::resource('Produkte', 'ProdukteController');
+Route::resource('Produkte', 'ProduktController');
 
-Route::get('/home', function () {
+/*Route::get('/home', function () {
     return view('home');
-});
+});*/
 
-// Catch Exceptions
-App::missing(function($exception) {
+// Catch Exceptions -> führt zu Exception :(
+/*App::missing(function($exception) {
     return View::make('index');
-});
+});*/
