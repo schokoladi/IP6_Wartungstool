@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-4">
+		<h3>Übersicht Wartungsverträge</h3>
+	</div>
+	<div class="col-xs-4 col-sm-4 col-md-offset-2 col-md-3">
+		<a href="wartungsvertrag"><button type="button" class="btn btn-default custom-btn"><span class="glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>Neuer Wartungsvertrag</button></a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-ms-12 col-md-9">
+		<div class="table-responsive">
+			<table class="table table-hover table-striped">ng-hide="loading" ng-repeat="produkt in produkte | filter:prfilter | orderBy : 'Name'"
+				<thead>
+					<tr>
+						<th>Kunde<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
+						<th>Vertragsnummmer<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
+						<th class="text-right">Status<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-hide="loading" ng-repeat="wartungsvertrag in wartungsvertraege | filter:wvfilter" data-href="wv-detail" class="clickable-row">
+						<td>{{ wartungsvertrag.Wartungsvertraege_Kunden_ID }}</td>
+						<td>{{ wartungsvertrag.Vertragsnummer }}</td>
+						<td class="text-right"><span class="glyphicon glyphicon-ok green" aria-hidden="true"></span></td>
+						<td class="text-right"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-3">
+		<div class="panel panel-default custom-panel-fixed">
+			<div class="panel-body">
+				<form class="form-horizontal">
+					<div class="form-group form-group-sm">
+						<div class="col-xs-10 col-sm-9">
+							<!-- .sr-only hides the label field which is needed for screen readers... -->
+							<label class="sr-only" for="filter">Filter</label>
+							<input type="text" ng-model="wvfilter" class="form-control input-sm" id="filter" placeholder="Filter">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
