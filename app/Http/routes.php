@@ -19,6 +19,8 @@ Route::get('/', function () {
     return View::make('index');
 });
 
+Route::resource('Wartungsvertraege', 'WartungsvertragController');
+
 //Route::controller('Produkte', 'ProdukteController');
 Route::resource('Produkte', 'ProduktController');
 
