@@ -1,0 +1,54 @@
+<nav class="navbar navbar-default navbar-fixed-top custom-navbar">
+  <div class="container custom-navbar-container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand custom-navbar-brand" href="home">
+        <img alt="Amanox Wartungstool" width="30" height="30" src="images/Amanox_Logo.png">
+      </a>
+      <p class="navbar-text"><a href="home" class="navbar-link">Wartungstool</a></p>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="wartungsvertraege">Wartungsverträge</a></li>
+        <li><a href="produkte">Produkte</a></li>
+        <li class="dropdown">
+          <a onclick='selectedDropdown("reports")' href="reports" class="dropdown-toggle reports" data-toggle="dropdown" role="button" aria-expanded="false">Reports <span class="caret"></span></a>
+          <ul class="dropdown-menu reports" role="menu">
+            <li class="reports"><a href="summe-wv"><span class="glyphicon glyphicon-usd custom-glyphicon-left" aria-hidden="true"></span>Summe</a></li>
+            <li class="reports"><a href="kontrolle"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>Kontrolle</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Login-Part starts -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle custom-dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user custom-glyphicon-left red" aria-hidden="true"></span><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <form class="custom-form-login">
+                <div class="form-group">
+                  <label class="sr-only" for="username">Username</label>
+                  <input type="text" class="form-control" id="username" placeholder="Benutzername">
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Passwort">
+                </div>
+                <button type="submit" class="btn btn-default">Login</button>
+              </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
