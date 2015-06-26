@@ -12,23 +12,31 @@
 */
 
 /*Route::get('/', function () {
-    return view('welcome');
+return view('welcome');
 });*/
 
 Route::get('/', function () {
-    return View::make('index');
+  return View::make('index');
 });
 
-Route::resource('Wartungsvertraege', 'WartungsvertragController');
+// API-Prefix -> /api/Produkte/...
+Route::group(array('prefix' => 'api'), function() {
+
+  // Hier wird von Deutsch auf Englisch weitergeleitet
+  Route::resource('contracts', 'ContractController');
+
+  // Produkte-Routing
+  Route::resource('products', 'ProductController');
+
+});
 
 //Route::controller('Produkte', 'ProdukteController');
-Route::resource('Produkte', 'ProduktController');
 
 /*Route::get('/home', function () {
-    return view('home');
+return view('home');
 });*/
 
 // Catch Exceptions -> führt zu Exception :(
 /*App::missing(function($exception) {
-    return View::make('index');
+return View::make('index');
 });*/
