@@ -1,0 +1,256 @@
+/*!
+* Custom Bootstrap CSS
+*/
+
+/* overwrite standard width */
+@media (min-width: 1000px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/* custom font */
+@font-face {
+  font-family: 'DIN Next LT Pro';
+  src: url('../fonts/DINNextLTPro-Light.ttf');
+}
+
+/* Overide body style */
+body {
+  font-family: "DIN Next LT Pro";
+  font-size: 15px;
+  margin: auto;
+  padding-top: 70px;
+  margin-bottom: 50px;
+  background-color: #ffffff;
+}
+
+/* override navbar style */
+.custom-navbar {
+  background-color: #ffffff;
+  color: #4b4a4d;
+  border-bottom: 1px #999999 solid;
+}
+.custom-navbar-color {
+  background-color: #d5cf54;
+}
+.custom-navbar-brand {
+  padding: 10px 10px 10px 20px;
+}
+.custom-navbar-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  /*max-width: 1000px;*/
+}
+.highlight{
+  background-color: #d5cf54;
+}
+
+/* Override Container */
+
+/* custom text styles */
+.custom-h4 {
+  color: #3e94b9;
+  border-bottom: 1px solid #ccc;
+  padding-left: 15px;
+  padding-bottom: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* override  */
+.custom-alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.custom-panel {
+  height: 48px;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.panel-body {
+  height: 48px;
+  background-color: #CC3C53;
+  border-radius: 4px
+}
+.custom-panel-fixed {
+  min-width: 210px;
+}
+.custom-list-group {
+  min-width: 210px;
+  min-height: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.custom-list-group-fixed {
+  position: fixed;
+}
+
+/* Sticky stuff */
+.sticky-top {
+  position: -webkit-sticky;
+  top: 60px;
+  z-index: 1;
+  background-color: #fff;
+}
+.sticky {
+  position: fixed;
+  top: 60px;
+  z-index: 100;
+  margin-bottom: 30px;
+}
+
+.custom-container {
+  background-color: #fff;
+}
+
+/*
+.fixed-container {
+padding-top: 80px;
+background-color: #0f0;
+}
+.sticky-top {
+top: 0px;
+background-color: #003;
+}
+#sticky-top {
+top: 30px;
+}*/
+
+/* custom login form */
+.custom-form-login {
+  margin: 10px;
+}
+
+/* custom table styles */
+.custom-border-left {
+  border-left: 1px solid #ddd;
+}
+.custom-table > tfoot > tr > td {
+  vertical-align: bottom;
+}
+
+/* overide glyphicon styles */
+.custom-glyphicon-left {
+  margin-right: 10px;
+}
+.custom-glyphicon-right {
+  margin-left: 10px;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+.custom-well{
+  background-color: #;
+  border: 0px solid  #;
+  border-bottom: 1px solid grey;
+  padding-left: 15px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  margin-bottom: 40px;
+}
+.custom-btn{
+  background-color: #1e7499;
+  border: #1e7499;
+  color: white;
+  margin: 5px;
+}
+.custom-btn-wv{
+  background-color: #CC3C53;
+  border: #CC3C53;
+  color: white;
+  margin: 5px;
+}
+.custom-btn-article{
+  background-color: #d5cf54;
+  border: #d5cf54;
+  color: white;
+  margin: 5px;
+}
+.custom-btn-stundenpool{
+  background-color: #1e7499;
+  border: #1e7499;
+  color: white;
+  margin: 5px;
+}
+.custom-btn-wv-inactive{
+  background-color: #f1c8ce;
+  border: #f1c8ce;
+  color: white;
+  margin: 5px;
+}
+.custom-btn-article-inactive{
+  background-color: #f4f3d2;
+  border: #f4f3d2;
+  color: white;
+  margin: 5px;
+}
+.custom-btn-stundenpool-inactive{
+  background-color: #e4f3fa;
+  border: #e4f3fa;
+  color: white;
+  margin: 5px;
+}
+.custom-btn-circle{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+.well-warning{
+  background-color: #f1c8ce;
+  min-height: 120px;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.custom-btn-circle-1{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #CC3C53;
+  border: #CC3C53;
+  color: white;
+  margin: 10px;
+}
+.custom-btn-circle-2{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: red;
+  border: red;
+  color: white;
+  margin-top: 15px;
+}
+.custom-btn-circle-3{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: orange;
+  border: orange;
+  color: white;
+  margin-top: 15px;
+}
+.warning{
+  margin-left: 20px;
+}
+.well-sum{
+  background-color: #f4f3d2;
+  min-height: 120px;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.sum{
+  background-color: #d5cf54;
+}
