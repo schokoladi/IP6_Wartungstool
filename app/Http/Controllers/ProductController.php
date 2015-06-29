@@ -23,8 +23,44 @@ class ProductController extends Controller
         /*$produkte = Produkt::all();
         return view('flight.index', ['flights' => $flights]);*/
 
-        // Ergebnis als json übergeben
-        return response()->json(Product::get());
+        /*
+        Flight::chunk(200, function ($flights) {
+          foreach ($flights as $flight) {
+            //
+          }
+        });
+        */
+
+        $products = product::all();
+        $json = array();
+        $i = 0;
+
+        // Das Array wird neu zusammengestellt damit der Herstellername drin ist
+        foreach($products as $product)
+        {
+          $json[$i]['ID'] = $product->ID;
+          $json[$i]['Name'] = $product->Name;
+          $json[$i]['Artikelnummer'] = $product->Artikelnummer;
+          $manufacturer = Product::find($product->ID);
+          $json[$i]['Hersteller'] = $product->manufacturer->Name;
+          $i++;
+        }
+
+        return response()->json($json);
+
+        //var_dump($response);
+
+        //return response()->json(Product::get()); // ok
+
+        /*  Bsp.
+        [{"ID":1,"Artikelnummer":"TE-810-NS1GRID-AC","Name":"Trinzic 810","Produkte_Hersteller_ID":3,"created_at":"2015-06-20 07:59:37","updated_at":"2015-06-20 07:59:37"},
+        {"ID":2,"Artikelnummer":"TE-820-NS1GRID-AC","Name":"Trinzic 820","Produkte_Hersteller_ID":3,"created_at":"2015-06-20 07:59:37","updated_at":"2015-06-20 07:59:37"}]
+        */
+
+        /*
+        $product = Product::find(1);
+        return $product->manufacturer->Name;
+        */
     }
 
     /**
