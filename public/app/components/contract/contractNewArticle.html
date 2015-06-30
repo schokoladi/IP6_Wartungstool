@@ -68,15 +68,7 @@
 						<label for="inputArtikel-Nr." class="col-md-4 control-label">Artikel-Nr.</label>
 						<div class="col-md-8">
 							<select class="form-control">
-								<option>select</option>
-								<option>TE-810-NS1GRID-AC</option>
-								<option>TE-820-NS1GRID-AC</option>
-								<option>TE-1420-NS1GRID-AC</option>
-								<option>IB-1102-A-MRI</option>
-								<option>NT-SPM-500-100</option>
-								<option>IB-800-MOD-DFW</option>
-								<option>SUB-DYNATRACE-PROD</option>
-								<option>ADAudit Plus 5 File Server</option>
+								<option ng-hide="loading" ng-repeat="product in products">{{product.Artikelnummer}}</option>
 							</select>
 						</div>
 					</div>
@@ -84,7 +76,7 @@
 			</div>
 			<div class="col-sm-6 col-md-6">
 				<form class="form-horizontal">
-					<div class="form-group">
+					<div class="form-group move-down">
 						<label for="inputName" class="col-md-4 control-label">Name</label>
 						<div class="col-md-8">
 							<input type="text" name="Name" id="inputName" class="form-control" value="" required="required" pattern="" title="">
