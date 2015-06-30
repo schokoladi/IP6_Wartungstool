@@ -19,10 +19,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-hide="loading" ng-repeat="produkt in produkte | filter:prfilter | orderBy : 'Name'" class="clickable-row">
-						<td>{{ produkt.Artikelnummer }}</td>
-						<td>{{ produkt.Name }}</td>
-						<td>{{ produkt.Hersteller }}</td>
+					<tr class="clickable-row" ng-hide="loading" ng-repeat="product in products | filter:prfilter | orderBy : 'Name'">
+						<td>{{ product.Artikelnummer }}</td>
+						<td>{{ product.Name }}</td>
+						<td>{{ product.Hersteller }}</td>
 					</tr>
 				</tbody>
 			</table>

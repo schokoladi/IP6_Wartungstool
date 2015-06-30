@@ -16,6 +16,16 @@ app.config(function($routeProvider){
       templateUrl: "app/components/product/productView.html",
       controller: "productController"
     })
+    // produkte neu
+    .when("/produkte/neu", {
+      templateUrl: "app/components/product/productEdit.html",
+      controller: "productController"
+    })
+    // produkte neu
+    .when("/produkte/:ID/edit", {
+      templateUrl: "app/components/product/productEdit.html",
+      controller: "productController"
+    })
     // wartungsvertraege
     .when("/wartungsvertraege", {
       templateUrl: "app/components/contract/contractView.html",

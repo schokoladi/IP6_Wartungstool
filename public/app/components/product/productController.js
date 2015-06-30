@@ -2,7 +2,10 @@
 app.controller('productController', function($scope, $http) {
   console.log("Product Controller loaded.");
   $http.get("/api/products").success(function(response) {
-    $scope.produkte = response;
+    $scope.products = response;
+  })
+  $http.get("/api/manufacturers").success(function(response){
+    $scope.manufacturers = response;
   });
 });
 
