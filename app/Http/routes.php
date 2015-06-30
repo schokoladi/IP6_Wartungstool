@@ -28,6 +28,8 @@ Route::group(array('prefix' => 'api'), function() {
   // Produkte-Routing
   Route::resource('products', 'ProductController');
 
+  Route::resource('manufacturers', 'ManufacturerController');
+
 });
 
 //Route::controller('Produkte', 'ProdukteController');
