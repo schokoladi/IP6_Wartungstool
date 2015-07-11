@@ -38,6 +38,14 @@ class DatabaseSeeder extends Seeder
         $this->call('ProdukteTableSeeder');
         $this->command->info('Produkte table seeded!');
 
+        // Tabelle Produkte mit Werten füllen
+        $this->call('KundenTableSeeder');
+        $this->command->info('Kunden table seeded!');
+
+        // Tabelle Produkte mit Werten füllen
+        $this->call('KontaktpersonenTableSeeder');
+        $this->command->info('Kontaktpersonen table seeded!');
+
         Model::reguard();
     }
 }
