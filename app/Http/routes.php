@@ -28,7 +28,14 @@ Route::group(array('prefix' => 'api'), function() {
   // Produkte-Routing
   Route::resource('products', 'ProductController');
 
+  // Hersteller-Routing
   Route::resource('manufacturers', 'ManufacturerController');
+
+  // Kunden-Routing
+  Route::resource('customers', 'CustomerController');
+
+  // Kontaktpersonen-Routing
+  Route::resource('contacts', 'ContactController');
 
 });
 
