@@ -1,4 +1,6 @@
-<div ng-include='"app/shared/contractmenu/contractMenu.html"'></div>
+<div class="row">
+  <div ng-include='"app/shared/contractmenu/contractMenu.html"'></div>
+</div>
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-9">
@@ -9,16 +11,10 @@
       <div class="col-sm-6 col-md-6">
         <form class="form-horizontal">
           <div class="form-group">
-            <label for="inputName" class="col-md-4 control-label">Name</label>
+            <label for="inputName" class="col-md-4 control-label">Kunde</label>
             <div class="col-md-8">
               <select class="form-control">
-                <option>select</option>
-                <option>BKW Energie AG</option>
-                <option>Swisscom Schweiz AG</option>
-                <option>Actelion</option>
-                <option>Die schweizerische Post</option>
-                <option>BonusCard.ch AG</option>
-                <option>Emmi AG</option>
+                <option value="{{ customer.ID }}" ng-hide="loading" ng-repeat="customer in customers">{{ customer.Name }}</option>
               </select>
             </div>
           </div>
@@ -29,7 +25,10 @@
           <div class="form-group">
             <label for="inputKontakt" class="col-md-4 control-label">Kontakt</label>
             <div class="col-md-8">
-              <input type="text" name="Kontakt" id="inputKontakt" class="form-control" value="" required="required" pattern="" title="">
+              <select class="form-control">
+                <option value="{{ contact.ID }}" ng-hide="loading" ng-repeat="contact in contacts">{{ contact.Vorname }} {{ contact.Name }}</option>
+                <!-- <input type="text" name="Kontakt" id="inputKontakt" class="form-control" value="" required="required" pattern="" title=""> -->
+              </select>
             </div>
           </div>
         </form>
