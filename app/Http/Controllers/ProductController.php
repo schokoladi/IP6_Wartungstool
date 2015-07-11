@@ -19,13 +19,7 @@ class ProductController extends Controller
   */
   public function index()
   {
-    /*
-    Flight::chunk(200, function ($flights) {
-      foreach ($flights as $flight) {
-        //
-      }
-    });
-    */
+    
     // Hol alle Produkte via Model
     $products = Product::all();
     $json = array();
