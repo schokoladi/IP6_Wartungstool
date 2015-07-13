@@ -9,6 +9,8 @@ use App\Product;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
+use DateTime;
 
 class ProductController extends Controller
 {
@@ -19,7 +21,7 @@ class ProductController extends Controller
   */
   public function index()
   {
-    
+
     // Hol alle Produkte via Model
     $products = Product::all();
     $json = array();
@@ -58,66 +60,71 @@ class ProductController extends Controller
   */
   public function store()
   {
+
     $product = new Product;
-    $product->Artikelnummer = $request->Artikelnummer;
-    $product->Name = $request->Name;
-    $product->Produkte_Hersteller_ID = $request->Hersteller_ID;
+    $product->Artikelnummer = Input::get('articleNr');
+    $product->Name = Input::get('name');
+    $product->Produkte_Hersteller_ID = Input::get('manufacturer');
+    $product->created_at = new DateTime;
+    $product->updated_at = new DateTime;
     $product->save();
-    /*Produkt::create(array(
-    'Artikelnummer' => Input::get('Artikelnummer'),
-    'Name' => Input::get('Name'),
-    'Produkte_Hersteller_ID' => Input::get('Hersteller_ID'),
+
+    /* this works bit th other one is prettier
+    Product::create([
+    'Artikelnummer' => Input::get('articleNr'),
+    'Name' => Input::get('name'),
+    'Produkte_Hersteller_ID' => Input::get('manufacturer'),
     'created_at' => new DateTime,
-    'updated_at' => new DateTime
-  ));*/
-  //return Response::json(array('success' => true));
-  return response()->json(['success' => true]);
-}
+    'updated_at' => new DateTime]);
+    */
 
-/**
-* Display the specified resource.
-*
-* @param  int  $id
-* @return Response
-*/
-public function show($id)
-{
-  //
-}
+    return response()->json(['success' => true]);
 
-/**
-* Show the form for editing the specified resource.
-*
-* @param  int  $id
-* @return Response
-*/
-public function edit($id)
-{
-  //
-}
+  }
 
-/**
-* Update the specified resource in storage.
-*
-* @param  int  $id
-* @return Response
-*/
-public function update($id)
-{
-  //
-}
+  /**
+  * Display the specified resource.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function show($id)
+  {
+    //
+  }
 
-/**
-* Remove the specified resource from storage.
-*
-* @param  int  $id
-* @return Response
-*/
-public function destroy($id)
-{
-  echo 'lol';
-  /*Produkt::destroy($id);
+  /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function edit($id)
+  {
+    //
+  }
 
-  return Response::json(array('success' => true));*/
-}
+  /**
+  * Update the specified resource in storage.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function update($id)
+  {
+    //
+  }
+
+  /**
+  * Remove the specified resource from storage.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function destroy($id)
+  {
+    Product::destroy($id);
+
+    return Response::json(array('success' => true));
+  }
 }
