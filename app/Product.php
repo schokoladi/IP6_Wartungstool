@@ -15,6 +15,8 @@ class Product extends Model
   protected $table = 'Produkte';
   protected $primaryKey = 'ID';
 
+  protected $fillable = ['Artikelnummer', 'Name', 'Produkte_Hersteller_ID'];
+
   public $timestamps = true;
 
 
