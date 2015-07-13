@@ -90,7 +90,7 @@ class ProductController extends Controller
   */
   public function show($id)
   {
-    //
+    // siehe edit!
   }
 
   /**
@@ -101,7 +101,18 @@ class ProductController extends Controller
   */
   public function edit($id)
   {
-    //
+    //$product = Product::find($id);
+
+    // Das Array wird mit dem Hersteller neu zusammengestellt
+    /*
+    $json['ID'] = $product->ID;
+    $json['Name'] = $product->Name;
+    $json['Artikelnummer'] = $product->Artikelnummer;
+    // Hol den zum Produkt gehörigen Hersteller
+    $json['Hersteller'] = $product->manufacturer->Name;
+    */
+    // gib das Array als json-String
+    return response()->json(Product::find($id));
   }
 
   /**
@@ -125,6 +136,6 @@ class ProductController extends Controller
   {
     Product::destroy($id);
 
-    return Response::json(array('success' => true));
+    return response()->json(['success' => true]);
   }
 }
