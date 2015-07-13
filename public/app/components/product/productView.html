@@ -16,6 +16,7 @@
 						<th>Artikelnummer<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
 						<th>Name<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
 						<th>Hersteller<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -23,6 +24,7 @@
 						<td>{{ product.Artikelnummer }}</td>
 						<td>{{ product.Name }}</td>
 						<td>{{ product.Hersteller }}</td>
+						<td><a href="#" ng-click="deleteProduct(product.ID)" class="text-muted">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>
