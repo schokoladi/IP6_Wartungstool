@@ -22,16 +22,32 @@ app.factory('Product', function($http) {
         data: $.param(productData)
       });
     },
+
+    saveManufacturer : function(manufacturerData) {
+      return $http({
+        method: 'POST',
+        url: '/api/manufacturers',
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param(manufacturerData)
+      });
+    },
+
+    edit : function(editId) {
+      return $http.get('/api/products/' + editId + '/edit');
+    },
+
     // destroy a product
     destroy : function(id) {
-      return $http.delete('/api/products' + id);
+      return $http.delete('/api/products/' + id);
     }
   }
 });
 
 // Controller
 // $scope, $http und $location werden 'injected', damit sie verwendet werden können
-app.controller('productController', function($scope, $http, $location, Product) {
+app.controller('productController', function($scope, $http, $location, $routeParams, Product) {
+
+  var editId = $routeParams.ID;
 
   // Produkte via api aus der Datenbank holen
   Product.get()
@@ -51,12 +67,21 @@ app.controller('productController', function($scope, $http, $location, Product) 
   };
   $scope.reset();
 
+  // Produkt editieren
+  Product.edit(editId)
+  .success(function(response) {
+    $scope.productData = response;
+    $scope.loading = false;
+  });
+
   // Produkt speichern
   $scope.storeProduct = function() {
     $scope.loading = true;
 
     // save the comment. pass in comment data from the form
     // use the function we created in our service
+
+
     Product.save($scope.productData)
     .success(function(data) {
       console.log("successfully stored product");
@@ -68,75 +93,16 @@ app.controller('productController', function($scope, $http, $location, Product) 
       console.log(data);
     });
   };
-});
-/*
-$scope.storeProduct = function() {
-var data = $.param({
-json: JSON.stringify({
-articleNr: $scope.articleNr,
-name: $scope.name,
-manufacturer: $scope.manufacturer
-})
-});
-$http.post("/api/products", data).success(function(data, status) {
-$scope.master = data;
-})
-}*/
+  $scope.deleteProduct = function(id) {
+    $scope.loading = true;
 
-/*
-app.controller('produktController', function($scope, $http, Produkt) {
-// object to hold all the data for the new s form
-$scope.produktData = {};
-
-// loading variable to show the spinning loading icon
-$scope.loading = true;
-
-// get all the comments first and bind it to the $scope.comments object
-// use the function we created in our service
-// GET ALL COMMENTS ==============
-Produkt.get().success(function(data) {
-$scope.produkte = data;
-$scope.loading = false;
-});
-
-// function to handle submitting the form
-// SAVE A COMMENT ================
-$scope.submitProdukt = function() {
-
-$scope.loading = true;
-
-// save the comment. pass in comment data from the form
-// use the function we created in our service
-Produkt.save($scope.produktData).success(function(data) {
-
-// if successful, we'll need to refresh the comment list
-Produkt.get().success(function(getData) {
-$scope.produkte = getData;
-$scope.loading = false;
-});
-
-})
-.error(function(data) {
-console.log(data);
-});
-};
-
-// function to handle deleting a comment
-// DELETE A COMMENT ====================================================
-$scope.deleteProdukt = function(id) {
-$scope.loading = true;
-
-// use the function we created in our service
-Produkt.destroy(id).success(function(data) {
-
-// if successful, we'll need to refresh the comment list
-Produkt.get().success(function(getData) {
-$scope.produkte = getData;
-$scope.loading = false;
-});
+    // use the function we created in our service
+    Product.destroy(id)
+    .success(function(data) {
+      console.log("successfully deleted product");
+      $location.path("/produkte"); // ok, TODO: also send message
+      // bsp: ?msg="Erfolgreich erfasst"&status=ok
+    });
+  };
 
 });
-};
-
-});
-*/

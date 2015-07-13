@@ -20,11 +20,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="clickable-row" ng-hide="loading" ng-repeat="product in products | filter:prfilter | orderBy : 'Name'">
+					<tr ng-hide="loading" ng-repeat="product in products | filter:prfilter | orderBy : 'Name'">
 						<td>{{ product.Artikelnummer }}</td>
 						<td>{{ product.Name }}</td>
 						<td>{{ product.Hersteller }}</td>
-						<td><a href="#" ng-click="deleteProduct(product.ID)" class="text-muted">Delete</a></td>
+						<td><a href="/#/produkte/{{ product.ID }}/edit" class="text-muted">Edit</a>
+							<a href="#" ng-click="deleteProduct(product.ID)" class="text-muted">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>

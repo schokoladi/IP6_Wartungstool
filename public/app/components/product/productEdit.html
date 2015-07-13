@@ -14,18 +14,30 @@
           <div class="row">
 
             <div class="col-sm-6 col-md-6">
-              <div class="form-group">
-                <label for="inputName" class="col-md-4 control-label">Hersteller</label>
+              <div class="form-group" ng-hide="!manufacturerToggle" ng-init="manufacturerToggle=true">
+                <label for="manufacturer" class="col-md-4 control-label">Neuer Hersteller</label>
                 <div class="col-md-8">
-                  <select class="form-control" ng-model="productData.manufacturer">
-                    <option value="{{ manufacturer.ID }}" ng-hide="loading" ng-repeat="manufacturer in manufacturers | orderBy : 'Name'">{{ manufacturer.Name }}</option>
+                  <input type="text" name="manufacturer" id="manufacturer" class="form-control"
+                  ng-model="productData.manufacturer" ng-init="productData.manufacturerId=0">
+                </div>
+              </div>
+              <div class="form-group" ng-hide="manufacturerToggle" ng-init="manufacturerToggle=false">
+                <label for="manufacturer" class="col-md-4 control-label">Hersteller wählen</label>
+                <div class="col-md-8">
+                  <select class="form-control" id="manufacturer" ng-model="productData.Produkte_Hersteller_ID">
+                    <option value="{{ manufacturer.ID }}" ng-hide="loading" ng-repeat="manufacturer in manufacturers | orderBy : 'Name'">
+                      {{ manufacturer.Name }}
+                    </option>
                   </select>
                 </div>
               </div>
             </div>
 
             <div class="col-sm-6 col-md-6">
-              <a href="produkt-neu-hersteller"><button type="submit" class="btn btn-default custom-btn">Neuen Hersteller erfassen</button></a>
+              <!-- <button type="submit" class="btn btn-default custom-btn" ng-model="newManufacturer">Neuen Hersteller erfassen</button> -->
+              <a class="btn btn-default custom-btn" ng-click="manufacturerToggle=!manufacturerToggle;productData.manufacturerId=''; productData.manufacturer=''">
+                Hersteller erfassen / auswählen
+              </a>
             </div>
           </div>
 
@@ -34,7 +46,7 @@
               <div class="form-group">
                 <label for="produktName" class="col-md-4 control-label">Produktname</label>
                 <div class="col-md-8">
-                  <input type="text" name="produktName" id="produktName" class="form-control" ng-model="productData.name">
+                  <input type="text" name="produktName" value="productData.Name" id="produktName" class="form-control" ng-model="productData.Name">
                 </div>
               </div>
             </div>
@@ -43,7 +55,7 @@
               <div class="form-group">
                 <label for="artikelNummer" class="col-md-4 control-label">Artikelnummer</label>
                 <div class="col-md-8">
-                  <input type="text" name="artikelNummer" id="artikelNummer" class="form-control" ng-model="productData.articleNr">
+                  <input type="text" name="artikelNummer" value="productData.Artikelnummer" id="artikelNummer" class="form-control" ng-model="productData.Artikelnummer">
                 </div>
               </div>
             </div>
