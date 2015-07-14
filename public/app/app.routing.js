@@ -13,7 +13,15 @@ app.config(function($routeProvider){
   })
 
   // produkte
-  .when("/produkte", {
+  .when("/produkte/index", {
+    templateUrl:  "app/components/product/productView.html",
+    controller:   "productController"
+  })
+  .when("/produkte/index/message/:message", {
+    templateUrl:  "app/components/product/productView.html",
+    controller:   "productController"
+  })
+  .when("/produkte/index/start/:start/limit/:limit", {
     templateUrl:  "app/components/product/productView.html",
     controller:   "productController"
   })
