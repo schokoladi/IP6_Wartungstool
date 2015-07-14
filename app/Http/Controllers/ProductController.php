@@ -62,9 +62,9 @@ class ProductController extends Controller
   {
 
     $product = new Product;
-    $product->Artikelnummer = Input::get('articleNr');
-    $product->Name = Input::get('name');
-    $product->Produkte_Hersteller_ID = Input::get('manufacturer');
+    $product->Artikelnummer = Input::get('Artikelnummer');
+    $product->Name = Input::get('Name');
+    $product->Produkte_Hersteller_ID = Input::get('Produkte_Hersteller_ID');
     $product->created_at = new DateTime;
     $product->updated_at = new DateTime;
     $product->save();
@@ -111,8 +111,10 @@ class ProductController extends Controller
     // Hol den zum Produkt gehörigen Hersteller
     $json['Hersteller'] = $product->manufacturer->Name;
     */
-    // gib das Array als json-String
-    return response()->json(Product::find($id));
+
+    // gib das Array als json-String. findOrFail gibt sonst Exception zurück
+    return response()->json(Product::findOrFail($id));
+
   }
 
   /**

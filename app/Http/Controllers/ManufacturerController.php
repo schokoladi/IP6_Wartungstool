@@ -4,86 +4,103 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Notwendig für das Model
 use App\Manufacturer;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
+use DateTime;
+use Log;
 
 class ManufacturerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
+  /**
+  * Display a listing of the resource.
+  *
+  * @return Response
+  */
+  public function index()
+  {
 
-      return response()->json(Manufacturer::all());
+    return response()->json(Manufacturer::all());
 
-    }
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
+  /**
+  * Show the form for creating a new resource.
+  *
+  * @return Response
+  */
+  public function create()
+  {
+    //
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @return Response
+  */
+  public function store()
+  {
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    // firstOrNew sucht sich bestehenden Wert mit 'Name' oder Erstellt einen neuen
+    // Log::info('Hersteller: '. Input::get('Hersteller'));
+    $manufacturer = Manufacturer::firstOrNew(['Name' => Input::get('Hersteller')]);
+    $manufacturer->created_at = new DateTime;
+    $manufacturer->updated_at = new DateTime;
+    $manufacturer->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    // gibt die ID des gerade erstellten Herstellers zurück
+    return response()->json([
+      'success' => true,
+      'Manufacturer' => Manufacturer::orderBy('ID', 'desc')->first()
+    ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+  /**
+  * Display the specified resource.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function show($id)
+  {
+    //
+  }
+
+  /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function edit($id)
+  {
+    //
+  }
+
+  /**
+  * Update the specified resource in storage.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function update($id)
+  {
+    //
+  }
+
+  /**
+  * Remove the specified resource from storage.
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function destroy($id)
+  {
+    //
+  }
 }
