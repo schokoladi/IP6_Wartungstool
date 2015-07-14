@@ -1,6 +1,6 @@
 console.log("Product Controller loaded.");
 
-// Factory
+// Factory für Produkte
 app.factory('Product', function($http) {
   return {
     // get all the comments
@@ -9,10 +9,7 @@ app.factory('Product', function($http) {
     get : function() {
       return $http.get('/api/products');
     },
-    // Hersteller aus Datenbank holen
-    getManufacturers : function() {
-      return $http.get('/api/manufacturers');
-    },
+
     // Produkt speichern
     save : function(productData) {
       return $http({
@@ -20,15 +17,6 @@ app.factory('Product', function($http) {
         url: '/api/products',
         headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
         data: $.param(productData)
-      });
-    },
-
-    saveManufacturer : function(manufacturerData) {
-      return $http({
-        method: 'POST',
-        url: '/api/manufacturers',
-        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-        data: $.param(manufacturerData)
       });
     },
 
@@ -43,11 +31,31 @@ app.factory('Product', function($http) {
   }
 });
 
+// Factory für Hersteller
+app.factory('Manufacturer', function($http) {
+  return {
+    // Hersteller aus Datenbank holen
+    get : function() {
+      return $http.get('/api/manufacturers');
+    },
+    // Hersteller speichern
+    save : function(productData) {
+      return $http({
+        method: 'POST',
+        url: '/api/manufacturers',
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param(productData)
+      });
+    }
+  }
+});
+
 // Controller
 // $scope, $http und $location werden 'injected', damit sie verwendet werden können
-app.controller('productController', function($scope, $http, $location, $routeParams, Product) {
+app.controller('productController', function($scope, $http, $location, $routeParams, Product, Manufacturer) {
 
   var editId = $routeParams.ID;
+  $scope.message = $routeParams.message;
 
   // Produkte via api aus der Datenbank holen
   Product.get()
@@ -56,7 +64,7 @@ app.controller('productController', function($scope, $http, $location, $routePar
     $scope.loading = false;
   });
   // Hersteller via api aus der Datenbank holen
-  Product.getManufacturers()
+  Manufacturer.get()
   .success(function(response){
     $scope.manufacturers = response;
   });
@@ -68,31 +76,52 @@ app.controller('productController', function($scope, $http, $location, $routePar
   $scope.reset();
 
   // Produkt editieren
-  Product.edit(editId)
-  .success(function(response) {
-    $scope.productData = response;
-    $scope.loading = false;
-  });
+  if(editId) {
+    Product.edit(editId)
+    .success(function(response) {
+      $scope.productData = response;
+      $scope.loading = false;
+    });
+  }
+
+  // separate Funktion zum Speichern des Herstellers für async
+  saveManufacturer = function(productData){
+    //var deferred = $q.defer();
+    if(productData.Hersteller != '') {
+      Manufacturer.save(productData)
+      .success(function(manufacturerData){
+        console.log("stored manufacturer");
+        $scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
+        Product.save($scope.productData)
+        .success(function(data) {
+          console.log("successfully stored product");
+          // dafür wird $routeParams benötigt
+          $location.path("/produkte/index/message/das ging ja fix"); // ok, TODO: also send message
+          // bsp: ?msg="Erfolgreich erfasst"&status=ok
+        });
+      });
+    }
+  }
 
   // Produkt speichern
   $scope.storeProduct = function() {
     $scope.loading = true;
 
-    // save the comment. pass in comment data from the form
-    // use the function we created in our service
-
-
-    Product.save($scope.productData)
-    .success(function(data) {
-      console.log("successfully stored product");
-      $location.path("/produkte"); // ok, TODO: also send message
-      // bsp: ?msg="Erfolgreich erfasst"&status=ok
-
-    })
-    .error(function(data) {
-      console.log(data);
-    });
+    // Wenn ein neuer Hersteller angegeben wurde, speichere diesen
+    if($scope.productData.Hersteller && $scope.productData.Hersteller != '' ) {
+      saveManufacturer($scope.productData);
+    // Andernfalls speichere nur das Produkt
+    } else {
+      Product.save($scope.productData)
+      .success(function(data) {
+        console.log("successfully stored product");
+        // message string kann easy so übergeben werden
+        $location.path("/produkte/index/message/das ging ja fix"); // ok, TODO: also send message
+        // bsp: ?msg="Erfolgreich erfasst"&status=ok
+      });
+    }
   };
+
   $scope.deleteProduct = function(id) {
     $scope.loading = true;
 
@@ -100,7 +129,7 @@ app.controller('productController', function($scope, $http, $location, $routePar
     Product.destroy(id)
     .success(function(data) {
       console.log("successfully deleted product");
-      $location.path("/produkte"); // ok, TODO: also send message
+      $location.path("/produkte/index/message/produkt gelöscht"); // ok, TODO: also send message
       // bsp: ?msg="Erfolgreich erfasst"&status=ok
     });
   };

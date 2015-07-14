@@ -1,30 +1,28 @@
 <div class="row">
-  <!-- medium device (Desktop) column -->
   <div class="col-md-12">
-    <!-- <h1>Produkt-neu</h1> -->
-
     <div class="row">
       <div class="col-sm-12 col-md-12">
         <h4 class="h4">Produkt erfassen</h4>
       </div>
     </div>
     <div class="row">
+
       <form ng-submit="storeProduct()">
         <div class="col-sm-12 col-md-12">
           <div class="row">
 
             <div class="col-sm-6 col-md-6">
               <div class="form-group" ng-hide="!manufacturerToggle" ng-init="manufacturerToggle=true">
-                <label for="manufacturer" class="col-md-4 control-label">Neuer Hersteller</label>
+                <label for="Hersteller" class="col-md-4 control-label">Neuer Hersteller</label>
                 <div class="col-md-8">
-                  <input type="text" name="manufacturer" id="manufacturer" class="form-control"
-                  ng-model="productData.manufacturer" ng-init="productData.manufacturerId=0">
+                  <input type="text" name="Hersteller" id="Hersteller" class="form-control"
+                  ng-model="productData.Hersteller">
                 </div>
               </div>
               <div class="form-group" ng-hide="manufacturerToggle" ng-init="manufacturerToggle=false">
-                <label for="manufacturer" class="col-md-4 control-label">Hersteller wählen</label>
+                <label for="Hersteller_ID" class="col-md-4 control-label">Hersteller wählen</label>
                 <div class="col-md-8">
-                  <select class="form-control" id="manufacturer" ng-model="productData.Produkte_Hersteller_ID">
+                  <select class="form-control" id="Hersteller_ID" ng-model="productData.Produkte_Hersteller_ID">
                     <option value="{{ manufacturer.ID }}" ng-hide="loading" ng-repeat="manufacturer in manufacturers | orderBy : 'Name'">
                       {{ manufacturer.Name }}
                     </option>
@@ -35,7 +33,8 @@
 
             <div class="col-sm-6 col-md-6">
               <!-- <button type="submit" class="btn btn-default custom-btn" ng-model="newManufacturer">Neuen Hersteller erfassen</button> -->
-              <a class="btn btn-default custom-btn" ng-click="manufacturerToggle=!manufacturerToggle;productData.manufacturerId=''; productData.manufacturer=''">
+              <a class="btn btn-default custom-btn"
+              ng-click="manufacturerToggle=!manufacturerToggle; productData.Produkte_Hersteller_ID=''; productData.Hersteller=''">
                 Hersteller erfassen / auswählen
               </a>
             </div>
@@ -44,33 +43,35 @@
           <div class="row">
             <div class="col-sm-6 col-md-6">
               <div class="form-group">
-                <label for="produktName" class="col-md-4 control-label">Produktname</label>
+                <label for="Name" class="col-md-4 control-label">Produktname</label>
                 <div class="col-md-8">
-                  <input type="text" name="produktName" value="productData.Name" id="produktName" class="form-control" ng-model="productData.Name">
+                  <input type="text" name="Name" value="productData.Name"
+                  id="produktName" class="form-control" ng-model="productData.Name">
                 </div>
               </div>
             </div>
 
             <div class="col-sm-6 col-md-6">
               <div class="form-group">
-                <label for="artikelNummer" class="col-md-4 control-label">Artikelnummer</label>
+                <label for="Artikelnummer" class="col-md-4 control-label">Artikelnummer</label>
                 <div class="col-md-8">
-                  <input type="text" name="artikelNummer" value="productData.Artikelnummer" id="artikelNummer" class="form-control" ng-model="productData.Artikelnummer">
+                  <input type="text" name="Artikelnummer" value="productData.Artikelnummer"
+                  id="artikelNummer" class="form-control" ng-model="productData.Artikelnummer">
                 </div>
               </div>
             </div>
-
           </div>
 
           <div class="row">
             <div class="col-sm-offset-2 col-sm-10">
               <input type="button" ng-click="reset()" value="Reset" />
-              <button type="submit" class="btn btn-default custom-btn">Erfassen</button>
+              <button type="submit" class="btn btn-default custom-btn">Speichern</button>
             </div>
           </div>
           {{ productData | json }}
         </div>
       </form>
+
     </div>
   </div>
 </div>
