@@ -29,6 +29,7 @@ Route::group(array('prefix' => 'api'), function() {
   Route::resource('products', 'ProductController');
 
   // Hersteller-Routing
+  Route::get('manufacturers/exists/{manufacturer}', 'ManufacturerController@exists');
   Route::resource('manufacturers', 'ManufacturerController');
 
   // Kunden-Routing
