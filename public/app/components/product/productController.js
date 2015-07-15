@@ -20,11 +20,23 @@ app.factory('Product', function($http) {
       });
     },
 
+    // Produkt editieren: Werte via API aus Datenbank holen
     edit : function(editId) {
       return $http.get('/api/products/' + editId + '/edit');
     },
 
-    // destroy a product
+    // Produkt aktualisieren
+    update : function(productData) {
+      // return $http.put('/api/products/' + updateId); nope
+      return $http({
+        method: 'PUT',
+        url: '/api/products/' + productData.ID,
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param(productData)
+      });
+    },
+
+    // Produkt löschen
     destroy : function(id) {
       return $http.delete('/api/products/' + id);
     }
@@ -32,20 +44,70 @@ app.factory('Product', function($http) {
 });
 
 // Factory für Hersteller
-app.factory('Manufacturer', function($http) {
+app.factory('Manufacturer', function($q, $http) {
   return {
     // Hersteller aus Datenbank holen
-    get : function() {
+    get: function() {
       return $http.get('/api/manufacturers');
     },
     // Hersteller speichern
-    save : function(productData) {
+    save: function(productData) {
       return $http({
-        method: 'POST',
-        url: '/api/manufacturers',
-        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-        data: $.param(productData)
+        method:   'POST',
+        url:      '/api/manufacturers',
+        headers:  {'Content-Type': 'application/x-www-form-urlencoded'},
+        data:     $.param(productData)
       });
+    },
+    exists: function(productData) {
+      var deferred = $q.defer();
+      $http.get('/api/manufacturers/exists' + productData)
+      .success(function(response){
+        deferred.reject();
+      })
+      .error(function(response){
+        deferred.resolve();
+      });
+      return deferred.promise;
+      /*
+      return $http({
+      method:   'POST',
+      url:      '/api/manufacturers/exists',
+      headers:  {'Content-Type': 'application/x-www-form-urlencoded'},
+      data:     $.param(productData)
+    });
+    */
+  }
+}
+});
+
+// Directive erstellt neues HTML-Attribut. bsp. <input name="Name" manufacturer>
+// TODO !!! Dies ist nur ein Mockup leider.. :(
+// Die Schnittstelle der API würde bestehen!
+app.directive('manufacturerAvailable', function($q, $timeout, Manufacturer) {
+  return {
+    // Kannst als Attribut oder Element verwendet werden. + Class -> 'AEC'
+    restrict: 'AE',
+    require:  'ngModel',
+    link:     function($scope, elm, attrs, ctrl) {
+      var manufacturers = ['SBB', 'Compuware', 'Infoblox', 'ManageEngine'];
+      ctrl.$asyncValidators.unique = function(modelValue, viewValue) {
+        if (ctrl.$isEmpty(modelValue)) {
+          // consider empty model valid
+          return $q.when();
+        }
+        var def = $q.defer();
+        $timeout(function() {
+          // Mock a delayed response
+          if (manufacturers.indexOf(modelValue) === -1) {
+            // The username is available
+            def.resolve();
+          } else {
+            def.reject();
+          }
+        }, 200);
+        return def.promise;
+      }
     }
   }
 });
@@ -56,6 +118,7 @@ app.controller('productController', function($scope, $http, $location, $routePar
 
   var editId = $routeParams.ID;
   $scope.message = $routeParams.message;
+  $scope.master = {};
 
   // Produkte via api aus der Datenbank holen
   Product.get()
@@ -63,28 +126,19 @@ app.controller('productController', function($scope, $http, $location, $routePar
     $scope.products = response;
     $scope.loading = false;
   });
+
   // Hersteller via api aus der Datenbank holen
   Manufacturer.get()
-  .success(function(response){
+  .success(function(response) {
     $scope.manufacturers = response;
   });
+
   // Produkt-Formular Handling
-  $scope.master = {};
   $scope.reset = function() {
-    $scope.product = angular.copy($scope.master);
+    $scope.productData = angular.copy($scope.master);
   };
-  $scope.reset();
 
-  // Produkt editieren
-  if(editId) {
-    Product.edit(editId)
-    .success(function(response) {
-      $scope.productData = response;
-      $scope.loading = false;
-    });
-  }
-
-  // separate Funktion zum Speichern des Herstellers für async
+  // separate Funktion zum Speichern des Herstellers
   saveManufacturer = function(productData){
     //var deferred = $q.defer();
     if(productData.Hersteller != '') {
@@ -96,41 +150,65 @@ app.controller('productController', function($scope, $http, $location, $routePar
         .success(function(data) {
           console.log("successfully stored product");
           // dafür wird $routeParams benötigt
-          $location.path("/produkte/index/message/das ging ja fix"); // ok, TODO: also send message
-          // bsp: ?msg="Erfolgreich erfasst"&status=ok
+          $location.path("/produkte/index/message/das ging ja fix");
         });
       });
     }
   }
 
+  // Produkt editieren
+  if(editId) {
+    $scope.formMethod = 'PUT';
+    Product.edit(editId)
+    .success(function(response) {
+      $scope.productData = response;
+      $scope.loading = false;
+    });
+  }
+  else {
+    $scope.formMethod = 'POST';
+  }
+
   // Produkt speichern
   $scope.storeProduct = function() {
+
     $scope.loading = true;
 
-    // Wenn ein neuer Hersteller angegeben wurde, speichere diesen
-    if($scope.productData.Hersteller && $scope.productData.Hersteller != '' ) {
-      saveManufacturer($scope.productData);
-    // Andernfalls speichere nur das Produkt
-    } else {
-      Product.save($scope.productData)
+    // Wenn eine id (/edit) mitgegeben wird, update das Produkt
+    if(editId) {
+      Product.update($scope.productData)
       .success(function(data) {
-        console.log("successfully stored product");
+        console.log('successfully updated product');
         // message string kann easy so übergeben werden
-        $location.path("/produkte/index/message/das ging ja fix"); // ok, TODO: also send message
-        // bsp: ?msg="Erfolgreich erfasst"&status=ok
+        $location.path('/produkte/index/message/Produkt '
+        + $scope.productData.Name + ' editiert');
       });
+    }
+    // Wenn keine Id mitgegeben wurde, erstelle ein neues Produkt
+    else {
+      // Wenn ein neuer Hersteller angegeben wurde, speichere diesen
+      if($scope.productData.Hersteller && $scope.productData.Hersteller != '' ) {
+        saveManufacturer($scope.productData);
+        // Andernfalls speichere nur das Produkt
+      } else {
+        Product.save($scope.productData)
+        .success(function(data) {
+          console.log("successfully stored product");
+          // message string kann easy so übergeben werden
+          $location.path("/produkte/index/message/Produkt "
+          + $scope.productData.Name + " erstellt");
+        });
+      }
     }
   };
 
   $scope.deleteProduct = function(id) {
     $scope.loading = true;
-
-    // use the function we created in our service
+    // Produkt mit Factory-Funktion löschen
     Product.destroy(id)
     .success(function(data) {
-      console.log("successfully deleted product");
-      $location.path("/produkte/index/message/produkt gelöscht"); // ok, TODO: also send message
-      // bsp: ?msg="Erfolgreich erfasst"&status=ok
+      console.log('successfully deleted product');
+      $location.path('/produkte/index/message/Produkt gelöscht');
     });
   };
 

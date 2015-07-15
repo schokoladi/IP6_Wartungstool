@@ -6,72 +6,99 @@
       </div>
     </div>
     <div class="row">
-
-      <form ng-submit="storeProduct()">
+      <!-- Produktformular -->
+      <form name="productForm" ng-submit="storeProduct()" novalidate>
+        <input type="hidden" name="_method" value="{{ formMethod }}">
         <div class="col-sm-12 col-md-12">
           <div class="row">
-
             <div class="col-sm-6 col-md-6">
+              <!-- Neuer Hersteller-Feld -->
               <div class="form-group" ng-hide="!manufacturerToggle" ng-init="manufacturerToggle=true">
-                <label for="Hersteller" class="col-md-4 control-label">Neuer Hersteller</label>
+                <label for="Hersteller" class="col-md-4 control-label">
+                  Neuer Hersteller
+                  <span ng-show="productForm.$submitted || productForm.Hersteller.$touched">
+                    <span ng-show="productForm.Hersteller.$error.required"> *</span>
+                  </span>
+                  <span ng-if="productForm.Hersteller.$pending.unique">überprüfe...</span>
+                  <span ng-if="productForm.Hersteller.$error.unique">existiert bereits</span>
+                </label>
                 <div class="col-md-8">
                   <input type="text" name="Hersteller" id="Hersteller" class="form-control"
-                  ng-model="productData.Hersteller">
+                  ng-model="productData.Hersteller" ng-model-options="{ debounce: 100 }" manufacturer-available required>
                 </div>
               </div>
+              <!-- Hersteller auswählen-Feld -->
               <div class="form-group" ng-hide="manufacturerToggle" ng-init="manufacturerToggle=false">
-                <label for="Hersteller_ID" class="col-md-4 control-label">Hersteller wählen</label>
+                <label for="Hersteller_ID" class="col-md-4 control-label">
+                  Hersteller wählen
+                  <span ng-show="productForm.$submitted || productForm.Hersteller_ID.$touched">
+                    <span ng-show="productForm.Hersteller_ID.$error.required"> *</span>
+                  </span>
+                </label>
                 <div class="col-md-8">
-                  <select class="form-control" id="Hersteller_ID" ng-model="productData.Produkte_Hersteller_ID">
-                    <option value="{{ manufacturer.ID }}" ng-hide="loading" ng-repeat="manufacturer in manufacturers | orderBy : 'Name'">
-                      {{ manufacturer.Name }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6">
-              <!-- <button type="submit" class="btn btn-default custom-btn" ng-model="newManufacturer">Neuen Hersteller erfassen</button> -->
-              <a class="btn btn-default custom-btn"
-              ng-click="manufacturerToggle=!manufacturerToggle; productData.Produkte_Hersteller_ID=''; productData.Hersteller=''">
-                Hersteller erfassen / auswählen
-              </a>
+                  <select class="form-control" name="Hersteller_ID" id="Hersteller_ID"
+                  ng-model="productData.Produkte_Hersteller_ID" required>
+                  <option value="{{ manufacturer.ID }}" ng-hide="loading"
+                  ng-repeat="manufacturer in manufacturers | orderBy : 'Name'">
+                  {{ manufacturer.Name }}
+                </option>
+              </select>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-sm-6 col-md-6">
-              <div class="form-group">
-                <label for="Name" class="col-md-4 control-label">Produktname</label>
-                <div class="col-md-8">
-                  <input type="text" name="Name" value="productData.Name"
-                  id="produktName" class="form-control" ng-model="productData.Name">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6">
-              <div class="form-group">
-                <label for="Artikelnummer" class="col-md-4 control-label">Artikelnummer</label>
-                <div class="col-md-8">
-                  <input type="text" name="Artikelnummer" value="productData.Artikelnummer"
-                  id="artikelNummer" class="form-control" ng-model="productData.Artikelnummer">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-offset-2 col-sm-10">
-              <input type="button" ng-click="reset()" value="Reset" />
-              <button type="submit" class="btn btn-default custom-btn">Speichern</button>
-            </div>
-          </div>
-          {{ productData | json }}
         </div>
-      </form>
-
+        <!-- Hersteller Toggle-Button -->
+        <div class="col-sm-6 col-md-6">
+          <!-- <button type="submit" class="btn btn-default custom-btn" ng-model="newManufacturer">Neuen Hersteller erfassen</button> -->
+          <a class="btn btn-default custom-btn"
+          ng-click="manufacturerToggle=!manufacturerToggle; productData.Produkte_Hersteller_ID=''; productData.Hersteller=''">
+          Hersteller erfassen / auswählen
+        </a>
+      </div>
     </div>
+
+    <div class="row">
+      <!-- Produktname-Feld -->
+      <div class="col-sm-6 col-md-6">
+        <div class="form-group">
+          <label for="Name" class="col-md-4 control-label">
+            Produktname
+            <span ng-show="productForm.$submitted || productForm.Name.$touched">
+              <span ng-show="productForm.Name.$error.required"> *</span>
+            </span>
+          </label>
+          <div class="col-md-8">
+            <input type="text" name="Name" value="productData.Name"
+            id="produktName" class="form-control" ng-model="productData.Name" required>
+          </div>
+        </div>
+      </div>
+      <!-- Artikelnummer-Feld -->
+      <div class="col-sm-6 col-md-6">
+        <div class="form-group">
+          <label for="Artikelnummer" class="col-md-4 control-label">
+            Artikelnummer
+            <span ng-show="productForm.$submitted || productForm.Artikelnummer.$touched">
+              <span ng-show="productForm.Artikelnummer.$error.required"> *</span>
+            </span>
+          </label>
+          <div class="col-md-8">
+            <input type="text" name="Artikelnummer" value="productData.Artikelnummer"
+            id="Artikelnummer" class="form-control" ng-model="productData.Artikelnummer" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
+        <button type="submit" class="btn btn-default custom-btn">Speichern</button>
+      </div>
+    </div>
+    {{ productData | json }}
   </div>
+</form>
+
+</div>
+</div>
 </div>
