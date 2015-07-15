@@ -71,6 +71,16 @@ class ManufacturerController extends Controller
     //
   }
 
+  public function exists($name)
+  {
+    // gib true oder false als String zurück, boolean nicht möglich
+    if(Manufacturer::where('Name', '=', $name)->exists()) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
   /**
   * Show the form for editing the specified resource.
   *

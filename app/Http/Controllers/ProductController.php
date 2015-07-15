@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Input;
 use DateTime;
+//use Log;
 
 class ProductController extends Controller
 {
@@ -21,7 +22,6 @@ class ProductController extends Controller
   */
   public function index()
   {
-
     // Hol alle Produkte via Model
     $products = Product::all();
     $json = array();
@@ -40,7 +40,6 @@ class ProductController extends Controller
     }
     // gib das Array als json-String
     return response()->json($json);
-
   }
 
   /**
@@ -60,8 +59,8 @@ class ProductController extends Controller
   */
   public function store()
   {
-
     $product = new Product;
+
     $product->Artikelnummer = Input::get('Artikelnummer');
     $product->Name = Input::get('Name');
     $product->Produkte_Hersteller_ID = Input::get('Produkte_Hersteller_ID');
@@ -69,17 +68,7 @@ class ProductController extends Controller
     $product->updated_at = new DateTime;
     $product->save();
 
-    /* this works bit th other one is prettier
-    Product::create([
-    'Artikelnummer' => Input::get('articleNr'),
-    'Name' => Input::get('name'),
-    'Produkte_Hersteller_ID' => Input::get('manufacturer'),
-    'created_at' => new DateTime,
-    'updated_at' => new DateTime]);
-    */
-
     return response()->json(['success' => true]);
-
   }
 
   /**
@@ -101,20 +90,8 @@ class ProductController extends Controller
   */
   public function edit($id)
   {
-    //$product = Product::find($id);
-
-    // Das Array wird mit dem Hersteller neu zusammengestellt
-    /*
-    $json['ID'] = $product->ID;
-    $json['Name'] = $product->Name;
-    $json['Artikelnummer'] = $product->Artikelnummer;
-    // Hol den zum Produkt gehörigen Hersteller
-    $json['Hersteller'] = $product->manufacturer->Name;
-    */
-
     // gib das Array als json-String. findOrFail gibt sonst Exception zurück
     return response()->json(Product::findOrFail($id));
-
   }
 
   /**
@@ -123,9 +100,18 @@ class ProductController extends Controller
   * @param  int  $id
   * @return Response
   */
-  public function update($id)
+  public function update(Request $request, $id)
   {
-    //
+    $product = Product::find($id);
+    // Nur notwendige Werte ändern, 'updated_at' wird automatisch aktualisiert
+    //Log::info($request);
+    $product->Artikelnummer = $request->input('Artikelnummer');
+    $product->Name = $request->input('Name');
+    $product->Produkte_Hersteller_ID = $request->input('Produkte_Hersteller_ID');
+
+    $product->save();
+
+    return response()->json(['success' => true]);
   }
 
   /**
