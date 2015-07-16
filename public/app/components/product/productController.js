@@ -59,6 +59,7 @@ app.factory('Manufacturer', function($q, $http) {
         data:     $.param(productData)
       });
     },
+    // überprüfen, ob existiert
     exists: function(productData) {
       var deferred = $q.defer();
       $http.get('/api/manufacturers/exists' + productData)
@@ -116,6 +117,7 @@ app.directive('manufacturerAvailable', function($q, $timeout, Manufacturer) {
 // $scope, $http und $location werden 'injected', damit sie verwendet werden können
 app.controller('productController', function($scope, $http, $location, $routeParams, Product, Manufacturer) {
 
+  $scope.loading = true;
   var editId = $routeParams.ID;
   $scope.message = $routeParams.message;
   $scope.master = {};
@@ -131,29 +133,55 @@ app.controller('productController', function($scope, $http, $location, $routePar
   Manufacturer.get()
   .success(function(response) {
     $scope.manufacturers = response;
+    $scope.loading = false;
   });
 
   // Produkt-Formular Handling
   $scope.reset = function() {
     $scope.productData = angular.copy($scope.master);
+    $scope.loading = false;
   };
+
+  // Produkt erstellen
+  saveProduct = function(productData) {
+    Product.save(productData)
+    .success(function(data) {
+      $scope.loading = false;
+      console.log('successfully stored product');
+      // dafür wird $routeParams benötigt
+      $location.path('/produkte/index/message/Produkt '
+      + productData.Name + ' erstellt');
+    });
+  }
+
+  // Produkt aktualisieren
+  updateProduct = function(productData) {
+    Product.update(productData)
+    .success(function(data) {
+      $scope.loading = false;
+      console.log('successfully updated product');
+      // message string kann easy so übergeben werden
+      $location.path('/produkte/index/message/Produkt '
+      + productData.Name + ' editiert');
+    });
+  }
 
   // separate Funktion zum Speichern des Herstellers
   saveManufacturer = function(productData){
-    //var deferred = $q.defer();
-    if(productData.Hersteller != '') {
-      Manufacturer.save(productData)
-      .success(function(manufacturerData){
-        console.log("stored manufacturer");
-        $scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
-        Product.save($scope.productData)
-        .success(function(data) {
-          console.log("successfully stored product");
-          // dafür wird $routeParams benötigt
-          $location.path("/produkte/index/message/das ging ja fix");
-        });
-      });
-    }
+    // Hersteller speichern wenn nicht leer
+    Manufacturer.save(productData)
+    .success(function(manufacturerData){
+      console.log('stored manufacturer');
+      // ID des gespeicherten Herstellers Produkt übergeben
+      $scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
+      // Wenn Produkt editiert wird, updaten
+      if(editId) {
+        updateProduct($scope.productData);
+        // Bei neuem Produkt erstellen
+      } else {
+        saveProduct($scope.productData);
+      }
+    });
   }
 
   // Produkt editieren
@@ -171,42 +199,32 @@ app.controller('productController', function($scope, $http, $location, $routePar
 
   // Produkt speichern
   $scope.storeProduct = function() {
-
-    $scope.loading = true;
-
     // Wenn eine id (/edit) mitgegeben wird, update das Produkt
     if(editId) {
-      Product.update($scope.productData)
-      .success(function(data) {
-        console.log('successfully updated product');
-        // message string kann easy so übergeben werden
-        $location.path('/produkte/index/message/Produkt '
-        + $scope.productData.Name + ' editiert');
-      });
+      if($scope.productData.Hersteller && $scope.productData.Hersteller != '') {
+        saveManufacturer($scope.productData);
+      } else {
+        updateProduct($scope.productData);
+      }
     }
     // Wenn keine Id mitgegeben wurde, erstelle ein neues Produkt
     else {
       // Wenn ein neuer Hersteller angegeben wurde, speichere diesen
-      if($scope.productData.Hersteller && $scope.productData.Hersteller != '' ) {
+      if($scope.productData.Hersteller && $scope.productData.Hersteller != '') {
         saveManufacturer($scope.productData);
         // Andernfalls speichere nur das Produkt
       } else {
-        Product.save($scope.productData)
-        .success(function(data) {
-          console.log("successfully stored product");
-          // message string kann easy so übergeben werden
-          $location.path("/produkte/index/message/Produkt "
-          + $scope.productData.Name + " erstellt");
-        });
+        saveProduct($scope.productData);
       }
     }
   };
 
+  // Produkt löschen
   $scope.deleteProduct = function(id) {
-    $scope.loading = true;
     // Produkt mit Factory-Funktion löschen
     Product.destroy(id)
     .success(function(data) {
+      $scope.loading = false;
       console.log('successfully deleted product');
       $location.path('/produkte/index/message/Produkt gelöscht');
     });
