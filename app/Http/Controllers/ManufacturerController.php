@@ -22,9 +22,8 @@ class ManufacturerController extends Controller
   */
   public function index()
   {
-
+    // Alle Hersteller als json-String zurückgeben
     return response()->json(Manufacturer::all());
-
   }
 
   /**
@@ -44,7 +43,6 @@ class ManufacturerController extends Controller
   */
   public function store()
   {
-
     // firstOrNew sucht sich bestehenden Wert mit 'Name' oder Erstellt einen neuen
     // Log::info('Hersteller: '. Input::get('Hersteller'));
     $manufacturer = Manufacturer::firstOrNew(['Name' => Input::get('Hersteller')]);
@@ -57,7 +55,6 @@ class ManufacturerController extends Controller
       'success' => true,
       'Manufacturer' => Manufacturer::orderBy('ID', 'desc')->first()
     ]);
-
   }
 
   /**

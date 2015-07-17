@@ -34,7 +34,7 @@ class ProductController extends Controller
       $json[$i]['Name'] = $product->Name;
       $json[$i]['Artikelnummer'] = $product->Artikelnummer;
       // Hol den zum Produkt gehörigen Hersteller
-      $manufacturer = Product::find($product->ID);
+      //$manufacturer = Product::find($product->ID);
       $json[$i]['Hersteller'] = $product->manufacturer->Name;
       $i++;
     }
