@@ -16,6 +16,10 @@ class CreateArtikelTable extends Migration
         {
           Schema::create('Artikel', function (Blueprint $table) {
               $table->increments('ID');
+
+              // Produkt
+              $table->integer('Artikel_Produkte_ID')->unsigned();
+              $table->foreign('Artikel_Produkte_ID')->references('ID')->on('Produkte');
               $table->string('Seriennummer', 100)->unique();
 
               // Artikel
