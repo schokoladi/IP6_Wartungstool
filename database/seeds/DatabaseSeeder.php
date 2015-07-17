@@ -46,6 +46,14 @@ class DatabaseSeeder extends Seeder
         $this->call('KontaktpersonenTableSeeder');
         $this->command->info('Kontaktpersonen table seeded!');
 
+        // Tabelle Wartungsvertraege mit daten füllen
+        $this->call('WartungsvertraegeTableSeeder');
+        $this->command->info('Wartungsvertraege table seeded!');
+
+        // Tabelle Stundenpools mit daten füllen
+        $this->call('StundenpoolsTableSeeder');
+        $this->command->info('Stundenpools table seeded!');
+
         Model::reguard();
     }
 }
