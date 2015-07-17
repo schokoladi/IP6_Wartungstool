@@ -29,6 +29,9 @@ class CreateStundenpoolsTable extends Migration
               $table->string('Rechnungsnummer');
               $table->date('Rechnungsdatum');
 
+              $table->integer('Stundenpools_Wartungsvertraege_ID')->unsigned();
+              $table->foreign('Stundenpools_Wartungsvertraege_ID')->references('ID')->on('Wartungsvertraege');
+
               $table->timestamps();
           });
         }
