@@ -6,9 +6,9 @@
       </div>
     </div>
     <div class="row">
-      <!-- Produktformular -->
+      <!-- Produktformular submit wird nur ausgeführt wenn Formulardaten valid sind -->
       <form name="productForm" novalidate ng-submit="productForm.$valid && storeProduct()">
-        <!-- je nach edit / new wird das hidden-Feld geladen für PUT / POST -->
+        <!-- je nach edit / new der Wert gesetzt PUT / POST -->
         <input type="hidden" name="_method" value="{{ formMethod }}">
         <div class="col-sm-12 col-md-12">
           <div class="row">
@@ -52,7 +52,6 @@
         </div>
         <!-- Hersteller Toggle-Button -->
         <div class="col-sm-6 col-md-6">
-          <!-- <button type="submit" class="btn btn-default custom-btn" ng-model="newManufacturer">Neuen Hersteller erfassen</button> -->
           <a class="btn btn-default custom-btn"
           ng-click="manufacturerToggle=!manufacturerToggle; productData.Produkte_Hersteller_ID=''; productData.Hersteller=''">
           Hersteller erfassen / auswählen
@@ -91,15 +90,16 @@
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
+    <!-- Buttons zum zurücksetzen und speichern -->
     <div class="row">
       <div class="col-sm-offset-2 col-sm-10">
         <input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
         <button type="submit" class="btn btn-default custom-btn">Speichern</button>
       </div>
     </div>
-    {{ productData | json }}
+    <!-- {{ productData | json }} -->
   </div>
 </form>
 
