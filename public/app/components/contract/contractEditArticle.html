@@ -1,0 +1,346 @@
+<!-- Notifikationsbox -->
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-9">
+		<div class="alert alert-dismissable alert-success custom-alert" >
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>Wartungsvertrag erfolgreich erstellt</p>
+		</div>
+	</div>
+
+	<!-- list-group mit Wartungsvertragsinfos -->
+	<div class="hidden-xs hidden-sm col-md-3">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="list-group custom-list-group-fixed">
+					<a class="list-group-item inactive">
+						<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-list-alt custom-glyphicon-left" aria-hidden="true"></span>Artikel</h5>
+						<p class="list-group-item-text">
+							<ul class="list-unstyled">
+								<li><span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span><small>Infoblox TE-810-NS1GRID-AC<br />(0800201210100122)</small></li>
+								<br />
+								<li><span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span><small>Infoblox TE-820-NS1GRID-AC<br />(0800201210100123)</small></li>
+							</ul>
+						</p>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Liste mit den 3 Wartungsvertrags-Tabs (Wartungsvertrag / Artikel / Stundenpool) -->
+<div class="row">
+	<div ng-include='"app/shared/contractmenu/articleMenu.html"'></div>
+</div>
+
+<!--<div class="row">
+<div class="col-xs-12 col-ms-12 col-md-9">
+<div class="fixed-container">
+<div class="fixedsticky sticky-top" id="sticky-top">dfsf blabla
+</div>
+</div>
+</div>
+</div>-->
+
+<!-- sticky-top -> sticky -->
+<div class="row">
+	<div class="col-xs-12 col-ms-12 col-md-9">
+		<div class="panel panel-default custom-panel sticky-top">
+			<div class="panel-body">
+				<p class="text-center">
+					<span class="glyphicon glyphicon-user custom-glyphicon-left" aria-hidden="true"></span>BKW Energie AG&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-tag custom-glyphicon-left" aria-hidden="true"></span>A14TL919-150-500120&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-earphone custom-glyphicon-left" aria-hidden="true"></span>Hans Kontaktmann
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-9">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="custom-h4">Artikel</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputArtikel-Nr." class="col-md-4 control-label">Artikel-Nr.</label>
+						<div class="col-md-8">
+							<select class="form-control">
+								<option ng-hide="loading" ng-repeat="product in products">{{product.Artikelnummer}}</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group move-down">
+						<label for="inputName" class="col-md-4 control-label">Name</label>
+						<div class="col-md-8">
+							<input type="text" name="Name" id="inputName" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputHersteller" class="col-md-4 control-label">Hersteller</label>
+						<div class="col-md-8">
+							<input type="text" name="Hersteller" id="inputHersteller" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputSeriennummer" class="col-md-4 control-label">Seriennummer</label>
+						<div class="col-md-8">
+							<input type="text" name="Seriennummer" id="inputSeriennummer" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEinkaufspreis" class="col-md-4 control-label">Einkaufspreis</label>
+						<div class="col-md-4">
+							<input type="text" name="Einkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputWaehrungEA" class="sr-only">WaehrungEA</label>
+						<div class="col-md-4">
+							<select class="form-control">
+								<option>CHF</option>
+								<option>USD</option>
+								<option>EUR</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
+						<div class="col-md-4">
+							<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputWaehrungVA" class="sr-only">WaehrungVA</label>
+						<div class="col-md-4">
+							<select class="form-control">
+								<option>CHF</option>
+								<option>USD</option>
+								<option>EUR</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputAuftr-Nr." class="col-md-2 control-label">Auftr-Nr.</label>
+						<div class="col-md-4">
+							<input type="text" name="Auftr-Nr." id="inputAuftr-Nr." class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputDatum" class="col-md-2 control-label">Auftr-Datum</label>
+						<div class="col-md-4">
+							<input type="date" name="Datum" id="inputDatum" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputRechn-Nr." class="col-md-2 control-label">Rechn-Nr.</label>
+						<div class="col-md-4">
+							<input type="text" name="Rechn-Nr." id="inputRechn-Nr." class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputDatum" class="col-md-2 control-label">Rechn-Datum</label>
+						<div class="col-md-4">
+							<input type="date" name="Datum" id="inputDatum" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<h4 class="custom-h4">Maintenance</h4>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputWartungs-Art" class="col-md-4 control-label">Wartungs-Art</label>
+						<div class="col-md-8">
+							<select class="form-control">
+								<option>select</option>
+								<option>M_</option>
+								<option>M3_</option>
+								<option>M5_</option>
+								<option>EM_</option>
+								<option>EM3_</option>
+								<option>EM5_</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputStartdatum" class="col-md-4 control-label">Startdatum</label>
+						<div class="col-md-6">
+							<input type="date" name="Startdatum" id="inputStartdatum" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputVon" class="col-md-2 control-label">Von</label>
+						<div class="col-md-3">
+							<input type="date" name="Von" id="inputVon" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputBis" class="col-md-2 col-md-offset-1 control-label">Bis</label>
+						<div class="col-md-3">
+							<input type="date" name="Bis" id="inputBis" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputEinkaufspreis" class="col-md-4 control-label">Einkaufspreis</label>
+						<div class="col-md-4">
+							<input type="text" name="Einkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputWaehrungEM" class="sr-only">WaehrungEM</label>
+						<div class="col-md-4">
+							<select class="form-control">
+								<option>CHF</option>
+								<option>USD</option>
+								<option>EUR</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
+						<div class="col-md-4">
+							<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputWaehrungEV" class="sr-only">WaehrungEV</label>
+						<div class="col-md-4">
+							<select class="form-control">
+								<option>CHF</option>
+								<option>USD</option>
+								<option>EUR</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<h4 class="custom-h4">Operation Support</h4>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputOP-Art" class="col-md-4 control-label">OP-Art</label>
+						<div class="col-md-8">
+							<select class="form-control">
+								<option>select</option>
+								<option>OS_</option>
+								<option>OS3_</option>
+								<option>OS5_</option>
+								<option>EOS_</option>
+								<option>EOS3_</option>
+								<option>EOS5_</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputStartdatum" class="col-md-4 control-label">Startdatum</label>
+						<div class="col-md-6">
+							<input type="date" name="Startdatum" id="inputStartdatum" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputVon" class="col-md-2 control-label">Von</label>
+						<div class="col-md-3">
+							<input type="date" name="Von" id="inputVon" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputBis" class="col-md-2 col-md-offset-1 control-label">Bis</label>
+						<div class="col-md-3">
+							<input type="date" name="Bis" id="inputBis" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-6">
+			</div>
+			<div class="col-sm-6 col-md-6">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
+						<div class="col-md-4">
+							<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+						</div>
+						<label for="inputWaehrungOSV" class="sr-only">WaehrungOSV</label>
+						<div class="col-md-4">
+							<select class="form-control">
+								<option>CHF</option>
+								<option>USD</option>
+								<option>EUR</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<h4 class="custom-h4"></h4>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<button type="button" class="btn btn-default custom-btn col-xs-12 col-sm-12 col-md-2 col-md-offset-7">
+		<span class="glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>hinzufügen
+	</button>
+	<!--<a href="stundenpool"><button type="button" class="btn btn-default col-xs-12 col-sm-12 col-md-1">
+	<span class="glyphicon glyphicon-circle-arrow-right custom-glyphicon-left" aria-hidden="true"></span>weiter
+</button></a>-->
+</div>
