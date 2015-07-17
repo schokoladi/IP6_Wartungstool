@@ -2,7 +2,8 @@
 
 app.config(function($routeProvider){
   $routeProvider
-  // Start pages
+
+// --- START PAGES ---
   .when("/", {
     templateUrl: "app/components/start/startView.html",
     controller: "startController"
@@ -36,24 +37,41 @@ app.config(function($routeProvider){
     controller:   "productController"
   })
 
-  // wartungsvertraege
+// --- WARTUNGSVERTRAEGE-ROUTING ---
   .when("/wartungsvertraege", {
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
   })
-  // contract new
-  .when("/wartungsvertraege/neu", {
-    templateUrl: "app/components/contract/contractNewInfo.html",
+  // Detailsansicht
+  .when("/wartungsvertraege/detail/:showId", {
+    templateUrl: "app/components/contract/contractDetail.html",
     controller: "contractController"
   })
-  // contract new article
-  .when("/wartungsvertraege/neu/artikel", {
-    templateUrl: "app/components/contract/contractNewArticle.html",
+  // Info
+  .when("/wartungsvertraege/info/neu", {
+    templateUrl: "app/components/contract/contractEditInfo.html",
     controller: "contractController"
   })
-  // contract new article
-  .when("/wartungsvertraege/neu/stundenpool", {
-    templateUrl: "app/components/contract/contractNewPool.html",
+  .when("/wartungsvertraege/info/:editId/edit", {
+    templateUrl: "app/components/contract/contractEditInfo.html",
+    controller: "contractController"
+  })
+  // Artikel
+  .when("/wartungsvertraege/artikel/neu/:contractId", {
+    templateUrl: "app/components/contract/contractEditArticle.html",
+    controller: "contractController"
+  })
+  .when("/wartungsvertraege/artikel/:editId/edit", {
+    templateUrl: "app/components/contract/contractEditArticle.html",
+    controller: "contractController"
+  })
+  // Stundenpool
+  .when("/wartungsvertraege/pool/neu", {
+    templateUrl: "app/components/contract/contractEditPool.html",
+    controller: "contractController"
+  })
+  .when("/wartungsvertraege/pool/:editId/edit", {
+    templateUrl: "app/components/contract/contractEditPool.html",
     controller: "contractController"
   });
 });
