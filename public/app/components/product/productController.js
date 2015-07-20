@@ -167,7 +167,7 @@ app.controller('productController', function($scope, $http, $location, $routePar
   }
 
   // separate Funktion zum Speichern des Herstellers
-  saveManufacturer = function(productData){
+  saveManufacturer = function(productData) {
     // Hersteller speichern wenn nicht leer
     Manufacturer.save(productData)
     .success(function(manufacturerData){
