@@ -1,12 +1,11 @@
 /*!
 * Custom Bootstrap CSS
-* nochmals hehe
 */
 
 /* overwrite standard width */
 @media (min-width: 1000px) {
 	.container {
-		width: 980px;
+		width: 970px;
 	}
 }
 
