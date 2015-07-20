@@ -46,16 +46,17 @@ body {
 	background-color: #d5cf54;
 }
 
+
 /* Override Container */
 
 /* custom text styles */
 .custom-h4 {
-	color: #3e94b9;
-	border-bottom: 1px solid #ccc;
+	color: #466876;
+	font-style: bold;
 	padding-left: 15px;
 	padding-bottom: 8px;
 	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 /* override  */
@@ -74,6 +75,15 @@ body {
 .panel-body {
 	/*height: 48px;*/
 	border-radius: 4px
+}
+.panel-vertrag{
+	background-color: #edbec5;
+	border-color: #edbec5;
+	color: white;
+}
+.panel-filter {
+	background-color: #cad4d8;
+	border-color: #cad4d8;
 }
 .panel-vertrag{
 	background-color: #edbec5;
@@ -141,6 +151,13 @@ top: 30px;
 .custom-table > tfoot > tr > td {
 	vertical-align: bottom;
 }
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #e4e9eb;
+}
+.table-hover > tbody > tr:hover {
+  background-color: #123e50;
+  color: white;
+}
 
 /* overide glyphicon styles */
 .custom-glyphicon-left {
@@ -156,13 +173,19 @@ top: 30px;
 .green{
 	color: green;
 }
+
+.custom-glyphicon{
+	color: #123e50;
+}
+
+.green{
+	color: green;
+}
+
 .red{
 	color: red;
 }
 
-
-
-}
 .custom-well{
 background-color: #;
 border: 0px solid  #;
@@ -180,9 +203,20 @@ background-color: #123e50;
 border: #123e50;
 color: white;
 }
+.custom-btn:hover {
+background-color: #466876;
+border: #466876;
+color: white;
+}
 .custom-btn-wv{
 background-color: #CC3C53;
 border: #CC3C53;
+color: white;
+margin: 5px;
+}
+.custom-btn-wv:hover{
+background-color: #d76779;
+border: #d76779;
 color: white;
 margin: 5px;
 }
@@ -192,12 +226,25 @@ border: #d5cf54;
 color: white;
 margin: 5px;
 }
-.custom-btn-stundenpool{
-background-color: #1e7499;
-border: #1e7499;
+.custom-btn-article:hover{
+background-color: #ded97a;
+border: #ded97a;
 color: white;
 margin: 5px;
 }
+.custom-btn-stundenpool{
+background-color: #3e94b9;
+border: #3e94b9;
+color: white;
+margin: 5px;
+}
+.custom-btn-stundenpool:hover{
+background-color: #68abc8;
+border: #68abc8;
+color: white;
+margin: 5px;
+}
+
 .custom-btn-wv-inactive{
 background-color: #f1c8ce;
 border: #f1c8ce;
@@ -285,6 +332,28 @@ border-color: #f0efc6;
 background-color: #bedbe7;
 border-color: #bedbe7;
 }
+.center{
+	display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    justify-content: center;
+    align-items: center;
+}
+.row{
+  margin-bottom: 10px;
+}
+
+.weiss{
+color: white;
+}
+.gelb{
+background-color: #f0efc6;
+border-color: #f0efc6;
+}
+.blau{
+background-color: #bedbe7;
+border-color: #bedbe7;
+}
 .center
 {
 	display:-webkit-box;
@@ -293,10 +362,3 @@ border-color: #bedbe7;
     justify-content: center;
     align-items: center;
 }
-
-}
-
-
-
-
-
