@@ -50,7 +50,7 @@ class ContactController extends Controller
   */
   public function show($id)
   {
-    return response()->json(Contact::where('Kontaktpersonen_Kunden_ID', $id));
+    return response()->json(Contact::where('Kontaktpersonen_Kunden_ID', $id)->get());
   }
 
   /**

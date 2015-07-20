@@ -9,6 +9,8 @@ use App\Contract;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
+use DateTime;
 
 class ContractController extends Controller
 {
@@ -60,7 +62,22 @@ class ContractController extends Controller
   */
   public function store()
   {
-    //
+    $contract = new Contract;
+    $contract->Vertragsnummer = Input::get('Vertragsnummer');
+    $contract->Beschreibung = Input::get('Beschreibung');
+    $contract->Inaktiv = Input::get('Inaktiv');
+    $contract->Zustaendigkeit = Input::get('Zustaendigkeit');
+    $contract->Wartungsvertraege_Kunden_ID = Input::get('Wartungsvertraege_Kunden_ID');
+    $contract->Wartungsvertraege_Kontaktpersonen_ID = Input::get('Wartungsvertraege_Kontaktpersonen_ID');
+    $contract->created_at = new DateTime;
+    $contract->updated_at = new DateTime;
+    $contract->save();
+
+    return response()->json([
+      'success' => true,
+      'Contract' => Contract::orderBy('ID', 'desc')->first()
+    ]);
+
   }
 
   /**
