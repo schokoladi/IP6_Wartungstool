@@ -67,11 +67,38 @@ app.factory('Contact', function($http) {
   }
 });
 
-app.controller('contractController', function($scope, $http, $location, $routeParams, Contract, Customer, Contact) {
+app.factory('Customer', function($http) {
+  return {
+    //
+    get: function() {
+      return $http.get('/api/customers');
+    }
+  }
+});
+
+app.factory('Product', function($http) {
+  return {
+    get: function() {
+      return $http.get('/api/products');
+    }
+  }
+});
+
+app.factory('Currency', function($http) {
+  return {
+    get: function() {
+      return $http.get('/api/currencies');
+    }
+  }
+});
+
+app.controller('contractController', function($scope, $http, $location, $routeParams, Contract, Customer, Contact, Product, Currency) {
 
   $scope.loading = true;
   var showId = $routeParams.showId;
   var editId = $routeParams.editId;
+  var contractId = $routeParams.contractId;
+  console.log('contractid: ' + contractId)
   $scope.message = $routeParams.message;
   $scope.master = {};
 
@@ -83,10 +110,28 @@ app.controller('contractController', function($scope, $http, $location, $routePa
   });
 
   Customer.get()
-  .success(function(response){
+  .success(function(response) {
     $scope.customers = response;
     $scope.loading = false;
   });
+
+  Currency.get()
+  .success(function(response) {
+    $scope.currencies = response;
+    $scope.loading = false;
+  });
+
+  if(contractId) {
+    Contract.show(contractId)
+    .success(function(response) {
+      $scope.contractData = response;
+      Product.get()
+      .success(function(response) {
+        $scope.products = response;
+        $scope.loading = false;
+      });
+    });
+  }
 
   $scope.update = function() {
     var customerId = $scope.contractData.Wartungsvertraege_Kunden_ID;
@@ -114,10 +159,10 @@ app.controller('contractController', function($scope, $http, $location, $routePa
   saveContract = function(contractData) {
     Contract.save(contractData)
     .success(function(contractInfo) {
-        $scope.loading = false;
-        console.log('successfully saved contract');
-        $location.path('/wartungsvertraege/artikel/neu/' + contractInfo.Contract.ID +
-        '/message/Wartungsvertrag ' + contractInfo.Contract.Vertragsnummer + ' erstellt');
+      $scope.loading = false;
+      console.log('successfully saved contract');
+      $location.path('/wartungsvertraege/artikel/neu/' + contractInfo.Contract.ID +
+      '/message/Wartungsvertrag ' + contractInfo.Contract.Vertragsnummer + ' erstellt');
     });
   }
 
