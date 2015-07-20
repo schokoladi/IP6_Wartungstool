@@ -1,9 +1,9 @@
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-4">
+	<div class="col-xs-6 col-sm-6 col-md-3">
 		<h4>Produkte</h4>
 	</div>
-	<div class="col-xs-4 col-sm-4 col-md-1 col-md-offset-4">
-		<a href="/#/produkte/neu"><button type="button" class="btn btn-default custom-btn"><span class=" glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>neu</button></a>
+	<div class="col-xs-6 col-sm-6 col-md-6">
+		<a href="/#/produkte/neu"><button type="button" class="btn btn-default custom-btn pull-right"><span class=" glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>neu</button></a>
 	</div>
 </div>
 
@@ -14,9 +14,9 @@
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
-						<th>Artikelnummer<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
-						<th>Name<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
-						<th>Hersteller<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right" aria-hidden="true"></span></a></th>
+						<th>Artikelnummer<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span></a></th>
+						<th>Name<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span></a></th>
+						<th>Hersteller<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span></a></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-3">
-		<div class="panel panel-default custom-panel">
+		<div class="panel panel-default custom-panel-fixed panel-filter">
 			<div class="panel-body">
 				<form class="form-horizontal">
 					<div class="form-group form-group-sm">
@@ -42,6 +42,7 @@
 							<label class="sr-only" for="filter">Filter</label>
 							<input type="text" ng-model="prfilter" class="form-control input-sm" id="filter" placeholder="Filter">
 						</div>
+						<button type="submit" class="btn btn-default custom-btn btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 					</div>
 				</form>
 			</div>
