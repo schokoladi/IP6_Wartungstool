@@ -48,7 +48,15 @@ app.config(function($routeProvider){
     controller: "contractController"
   })
   // Info
+  .when("/wartungsvertraege/info/neu", {
+    templateUrl: "app/components/contract/contractInfoEdit.html",
+    controller: "contractController"
+  })
   .when("/wartungsvertraege/info/neu/message/:message", {
+    templateUrl: "app/components/contract/contractInfoEdit.html",
+    controller: "contractController"
+  })
+  .when("/wartungsvertraege/info/:editId/edit", {
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
@@ -57,7 +65,15 @@ app.config(function($routeProvider){
     controller: "contractController"
   })
   // Artikel
+  .when("/wartungsvertraege/artikel/neu/:contractId", {
+    templateUrl: "app/components/contract/contractArticleEdit.html",
+    controller: "contractController"
+  })
   .when("/wartungsvertraege/artikel/neu/:contractId/message/:message", {
+    templateUrl: "app/components/contract/contractArticleEdit.html",
+    controller: "contractController"
+  })
+  .when("/wartungsvertraege/artikel/:editId/edit", {
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
@@ -66,7 +82,15 @@ app.config(function($routeProvider){
     controller: "contractController"
   })
   // Stundenpool
+  .when("/wartungsvertraege/pool/neu/:contractId", {
+    templateUrl: "app/components/contract/contractPoolEdit.html",
+    controller: "contractController"
+  })
   .when("/wartungsvertraege/pool/neu/:contractId/message/:message", {
+    templateUrl: "app/components/contract/contractPoolEdit.html",
+    controller: "contractController"
+  })
+  .when("/wartungsvertraege/pool/:editId/edit", {
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   })
