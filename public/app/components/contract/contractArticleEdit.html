@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-9">
 		<div class="alert alert-dismissable alert-success custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>Wartungsvertrag erfolgreich erstellt</p>
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ message }}</p>
 		</div>
 	</div>
 
@@ -47,7 +47,15 @@
 		<div class="panel panel-default custom-panel sticky-top">
 			<div class="panel-body">
 				<p class="text-center">
-					<span class="glyphicon glyphicon-user custom-glyphicon-left" aria-hidden="true"></span>BKW Energie AG&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-tag custom-glyphicon-left" aria-hidden="true"></span>A14TL919-150-500120&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-earphone custom-glyphicon-left" aria-hidden="true"></span>Hans Kontaktmann
+					<span class="glyphicon glyphicon-user custom-glyphicon-left"
+					aria-hidden="true"></span>
+					{{ contractData.Kunde }}&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-tag custom-glyphicon-left"
+					aria-hidden="true"></span>
+					{{ contractData.Vertragsnummer }}&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="glyphicon glyphicon-earphone custom-glyphicon-left"
+					aria-hidden="true"></span>
+					{{ contractData.Kontaktperson_Vorname }} {{ contractData.Kontaktperson_Name }}
 				</p>
 			</div>
 		</div>
@@ -57,284 +65,348 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-9">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-sm-12 col-md-12">
 				<h4 class="custom-h4">Artikel</h4>
 			</div>
 		</div>
+
 		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputArtikel-Nr." class="col-md-4 control-label">Artikel-Nr.</label>
-						<div class="col-md-8">
-							<select class="form-control">
-								<option ng-hide="loading" ng-repeat="product in products">{{product.Artikelnummer}}</option>
+			<form name="articleForm" novalidate ng-submit="articleForm.$valid && storeArticle()">
+				<!-- je nach edit / new der Wert gesetzt PUT / POST -->
+				<input type="hidden" name="_method" value="{{ formMethod }}">
+				<div class="col-sm-12 col-md-12">
+					<div class="row">
+
+						<!-- Produkt -->
+						<div class="col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="Produkt_ID" >
+									Produktname
+								</label>
+								<div class="col-md-8">
+									<select class="form-control" name="Produkt_ID" id="Produkt_ID"
+									ng-model="articleData.Artikel_Produkte_ID">
+									<option value="{{ product.ID }}" ng-hide="loading"
+									ng-repeat="product in products">{{ product.Name }}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- /Produkt -->
+
+					<!-- Artikelnummer -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group move-down">
+							<label class="col-md-4 control-label" for="Artikelnummer">
+								Artikelnummer
+							</label>
+							<div class="col-md-8">
+								<input type="text" name="Artikelnummer" value="articleData.Artikelnummer"
+								id="Artikelnummer" class="form-control" ng-model="articleData.Artikelnummer"
+								required="required">
+							</div>
+						</div>
+					</div>
+					<!-- /Artikelnummer -->
+
+				</div>
+				<div class="row">
+
+					<!-- Hersteller -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group">
+							<label for="Hersteller" class="col-md-4 control-label">
+								Hersteller
+							</label>
+							<div class="col-md-8">
+								<input type="text" name="Hersteller_ID" id="Hersteller_ID"
+								class="form-control" required="required">
+							</div>
+						</div>
+					</div>
+					<!-- /Hersteller -->
+
+					<!-- Seriennummer -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group">
+							<label for="Seriennummer" class="col-md-4 control-label">
+								Seriennummer
+								<span ng-show="articleForm.$submitted || articleForm.Seriennummer.$touched">
+									<span ng-show="articleForm.Seriennummer.$error.required"> *</span>
+								</span>
+							</label>
+							<div class="col-md-8">
+								<input type="text" name="Seriennummer" id="Seriennummer" class="form-control" required="required">
+							</div>
+						</div>
+					</div>
+					<!-- /Seriennummer -->
+
+				</div>
+				<div class="row">
+
+					<!-- Einkaufspreis und -Waehrung -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group">
+							<label for="EKP_Artikel" class="col-md-4 control-label">
+								Einkaufspreis
+								<span ng-show="articleForm.$submitted || articleForm.EKP_Artikel.$touched">
+									<span ng-show="articleForm.EKP_Artikel.$error.required"> *</span>
+								</span>
+							</label>
+							<div class="col-md-4">
+								<input class="form-control" type="text" name="EKP_Artikel" id="EKP_Artikel"
+								ng-model="articleData.EKP_Artikel" required="required">
+							</div>
+							<!-- Waehrung -->
+							<label for="EKP_Artikel_Waehrung" class="sr-only">Waehrung</label>
+							<div class="col-md-4">
+								<select class="form-control" name="EKP_Artikel_Waehrung" id="EKP_Artikel_Waehrung"
+								ng-model="articleData.EKP_Artikel_Waehrungen_ID">
+								<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+									{{ currency.Waehrung }}
+								</option>
 							</select>
 						</div>
 					</div>
-				</form>
-			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group move-down">
-						<label for="inputName" class="col-md-4 control-label">Name</label>
-						<div class="col-md-8">
-							<input type="text" name="Name" id="inputName" class="form-control" value="" required="required" pattern="" title="">
+				</div>
+				<!-- /EInkaufspreis und -Waehrung -->
+
+				<!-- Verkaufspreis und -Waehrung -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group">
+						<label for="VKP_Artikel" class="col-md-4 control-label">
+							Verkaufspreis
+							<span ng-show="articleForm.$submitted || articleForm.VKP_Artikel.$touched">
+								<span ng-show="articleForm.VKP_Artikel.$error.required"> *</span>
+							</span>
+						</label>
+						<div class="col-md-4">
+							<input class="form-control" type="text" name="VKP_Artikel" value="articleData.VKP_Artikel"
+							id="VKP_Artikel" ng-model="articleData.VKP_Artikel" required="required">
 						</div>
+						<!-- Waehrung -->
+						<label for="VKP_Artikel_Waehrung" class="sr-only">Waehrung</label>
+						<div class="col-md-4">
+							<select class="form-control" name="VKP_Artikel_Waehrung" id="VKP_Artikel_Waehrung"
+							ng-model="articleData.VKP_Artikel_Waehrungen_ID">
+							<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+								{{ currency.Waehrung }}
+							</option>
+						</select>
 					</div>
-				</form>
+				</div>
 			</div>
+			<!-- /Verkaufspreis und -Waehrung -->
+
 		</div>
 		<div class="row">
+
+			<!-- Auftragsnummer -->
 			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputHersteller" class="col-md-4 control-label">Hersteller</label>
-						<div class="col-md-8">
-							<input type="text" name="Hersteller" id="inputHersteller" class="form-control" value="" required="required" pattern="" title="">
-						</div>
+				<div class="form-group">
+					<label for="Auftragsnummer" class="col-md-4 control-label">Auftragsnummer</label>
+					<div class="col-md-4">
+						<input type="text" name="Auftragsnummer" value="articleData.Auftragsnummer"
+						id="Auftragsnummer" class="form-control" ng-model="articleData.Auftragsnummer">
 					</div>
-				</form>
+				</div>
+				<!-- Datum -->
+				<div class="form-group">
+					<label for="Auftragsdatum" class="col-md-2 control-label">Auftragsdatum</label>
+					<div class="col-md-4">
+						<input type="date" name="Auftragsdatum" value="articleData.Auftragsdatum"
+						id="Auftragsdatum" class="form-control" ng-model="articleData.Auftragsdatum">
+					</div>
+				</div>
 			</div>
+			<!-- /Auftragsnummer -->
+
+			<!-- Rechnungsnummer und -Datum -->
 			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputSeriennummer" class="col-md-4 control-label">Seriennummer</label>
-						<div class="col-md-8">
-							<input type="text" name="Seriennummer" id="inputSeriennummer" class="form-control" value="" required="required" pattern="" title="">
-						</div>
+				<div class="form-group">
+					<label for="Rechnungsnummer" class="col-md-2 control-label">Rechn-Nr.</label>
+					<div class="col-md-4">
+						<input type="text" name="Rechnungsnummer" value="articleData.Rechnungsnummer"
+						id="Rechnungsnummer" class="form-control" ng-model="articleData.Rechnungsnummer">
 					</div>
-				</form>
+				</div>
+				<!-- Datum -->
+				<div class="form-group">
+					<label for="Rechnungsdatum" class="col-md-2 control-label">Rechn-Datum</label>
+					<div class="col-md-4">
+						<input type="date" name="Rechnungsdatum" value="articleData.Rechnungsdatum"
+						id="Rechnungsdatum" class="form-control" ng-model="articleData.Rechnungsdatum">
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputEinkaufspreis" class="col-md-4 control-label">Einkaufspreis</label>
-						<div class="col-md-4">
-							<input type="text" name="Einkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputWaehrungEA" class="sr-only">WaehrungEA</label>
-						<div class="col-md-4">
-							<select class="form-control">
-								<option>CHF</option>
-								<option>USD</option>
-								<option>EUR</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
-						<div class="col-md-4">
-							<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputWaehrungVA" class="sr-only">WaehrungVA</label>
-						<div class="col-md-4">
-							<select class="form-control">
-								<option>CHF</option>
-								<option>USD</option>
-								<option>EUR</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 col-md-12">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputAuftr-Nr." class="col-md-2 control-label">Auftr-Nr.</label>
-						<div class="col-md-4">
-							<input type="text" name="Auftr-Nr." id="inputAuftr-Nr." class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputDatum" class="col-md-2 control-label">Auftr-Datum</label>
-						<div class="col-md-4">
-							<input type="date" name="Datum" id="inputDatum" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputRechn-Nr." class="col-md-2 control-label">Rechn-Nr.</label>
-						<div class="col-md-4">
-							<input type="text" name="Rechn-Nr." id="inputRechn-Nr." class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputDatum" class="col-md-2 control-label">Rechn-Datum</label>
-						<div class="col-md-4">
-							<input type="date" name="Datum" id="inputDatum" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
+			<!-- /Rechnungsnummer und -Datum -->
 		</div>
 		<div class="row">
 			<h4 class="custom-h4">Maintenance</h4>
 		</div>
+
 		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputWartungs-Art" class="col-md-4 control-label">Wartungs-Art</label>
-						<div class="col-md-8">
-							<select class="form-control">
-								<option>select</option>
-								<option>M_</option>
-								<option>M3_</option>
-								<option>M5_</option>
-								<option>EM_</option>
-								<option>EM3_</option>
-								<option>EM5_</option>
-							</select>
-						</div>
+
+			<!-- Wartungsart -->
+		<div class="col-sm-6 col-md-6">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputWartungs-Art" class="col-md-4 control-label">Wartungs-Art</label>
+					<div class="col-md-8">
+						<select class="form-control">
+							<option>select</option>
+							<option>M_</option>
+							<option>M3_</option>
+							<option>M5_</option>
+							<option>EM_</option>
+							<option>EM3_</option>
+							<option>EM5_</option>
+						</select>
 					</div>
-				</form>
-			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputStartdatum" class="col-md-4 control-label">Startdatum</label>
-						<div class="col-md-6">
-							<input type="date" name="Startdatum" id="inputStartdatum" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
-		<div class="row">
-			<div class="col-sm-12 col-md-12">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputVon" class="col-md-2 control-label">Von</label>
-						<div class="col-md-3">
-							<input type="date" name="Von" id="inputVon" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputBis" class="col-md-2 col-md-offset-1 control-label">Bis</label>
-						<div class="col-md-3">
-							<input type="date" name="Bis" id="inputBis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
+		<div class="col-sm-6 col-md-6">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputStartdatum" class="col-md-4 control-label">Startdatum</label>
+					<div class="col-md-6">
+						<input type="date" name="Startdatum" id="inputStartdatum" class="form-control" value="" required="required" pattern="" title="">
 					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputEinkaufspreis" class="col-md-4 control-label">Einkaufspreis</label>
-						<div class="col-md-4">
-							<input type="text" name="Einkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputWaehrungEM" class="sr-only">WaehrungEM</label>
-						<div class="col-md-4">
-							<select class="form-control">
-								<option>CHF</option>
-								<option>USD</option>
-								<option>EUR</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
-						<div class="col-md-4">
-							<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputWaehrungEV" class="sr-only">WaehrungEV</label>
-						<div class="col-md-4">
-							<select class="form-control">
-								<option>CHF</option>
-								<option>USD</option>
-								<option>EUR</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<h4 class="custom-h4">Operation Support</h4>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputOP-Art" class="col-md-4 control-label">OP-Art</label>
-						<div class="col-md-8">
-							<select class="form-control">
-								<option>select</option>
-								<option>OS_</option>
-								<option>OS3_</option>
-								<option>OS5_</option>
-								<option>EOS_</option>
-								<option>EOS3_</option>
-								<option>EOS5_</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputStartdatum" class="col-md-4 control-label">Startdatum</label>
-						<div class="col-md-6">
-							<input type="date" name="Startdatum" id="inputStartdatum" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 col-md-12">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputVon" class="col-md-2 control-label">Von</label>
-						<div class="col-md-3">
-							<input type="date" name="Von" id="inputVon" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputBis" class="col-md-2 col-md-offset-1 control-label">Bis</label>
-						<div class="col-md-3">
-							<input type="date" name="Bis" id="inputBis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-6">
-			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
-						<div class="col-md-4">
-							<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputWaehrungOSV" class="sr-only">WaehrungOSV</label>
-						<div class="col-md-4">
-							<select class="form-control">
-								<option>CHF</option>
-								<option>USD</option>
-								<option>EUR</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<h4 class="custom-h4"></h4>
+				</div>
+			</form>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputVon" class="col-md-2 control-label">Von</label>
+					<div class="col-md-3">
+						<input type="date" name="Von" id="inputVon" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+					<label for="inputBis" class="col-md-2 col-md-offset-1 control-label">Bis</label>
+					<div class="col-md-3">
+						<input type="date" name="Bis" id="inputBis" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 col-md-6">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputEinkaufspreis" class="col-md-4 control-label">Einkaufspreis</label>
+					<div class="col-md-4">
+						<input type="text" name="Einkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+					<label for="inputWaehrungEM" class="sr-only">WaehrungEM</label>
+					<div class="col-md-4">
+						<select class="form-control">
+							<option>CHF</option>
+							<option>USD</option>
+							<option>EUR</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-6 col-md-6">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
+					<div class="col-md-4">
+						<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+					<label for="inputWaehrungEV" class="sr-only">WaehrungEV</label>
+					<div class="col-md-4">
+						<select class="form-control">
+							<option>CHF</option>
+							<option>USD</option>
+							<option>EUR</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<h4 class="custom-h4">Operation Support</h4>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 col-md-6">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputOP-Art" class="col-md-4 control-label">OP-Art</label>
+					<div class="col-md-8">
+						<select class="form-control">
+							<option>select</option>
+							<option>OS_</option>
+							<option>OS3_</option>
+							<option>OS5_</option>
+							<option>EOS_</option>
+							<option>EOS3_</option>
+							<option>EOS5_</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-6 col-md-6">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputStartdatum" class="col-md-4 control-label">Startdatum</label>
+					<div class="col-md-6">
+						<input type="date" name="Startdatum" id="inputStartdatum" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputVon" class="col-md-2 control-label">Von</label>
+					<div class="col-md-3">
+						<input type="date" name="Von" id="inputVon" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+					<label for="inputBis" class="col-md-2 col-md-offset-1 control-label">Bis</label>
+					<div class="col-md-3">
+						<input type="date" name="Bis" id="inputBis" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 col-md-6">
+		</div>
+		<div class="col-sm-6 col-md-6">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
+					<div class="col-md-4">
+						<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+					<label for="inputWaehrungOSV" class="sr-only">WaehrungOSV</label>
+					<div class="col-md-4">
+						<select class="form-control">
+							<option>CHF</option>
+							<option>USD</option>
+							<option>EUR</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<h4 class="custom-h4"></h4>
+	</div>
+</div>
 </div>
 <div class="row">
 	<button type="button" class="btn btn-default custom-btn col-xs-12 col-sm-12 col-md-2 col-md-offset-7">
@@ -344,3 +416,5 @@
 	<span class="glyphicon glyphicon-circle-arrow-right custom-glyphicon-left" aria-hidden="true"></span>weiter
 </button></a>-->
 </div>
+
+{{ articleData | json }}
