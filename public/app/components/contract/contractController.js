@@ -25,26 +25,26 @@ app.factory('Contract', function($http) {
     /*
     // Produkt editieren: Werte via API aus Datenbank holen
     edit : function(editId) {
-      return $http.get('/api/contracts/' + editId + '/edit');
-    },
+    return $http.get('/api/contracts/' + editId + '/edit');
+  },
 
-    // Produkt aktualisieren
-    update : function(productData) {
-      // return $http.put('/api/products/' + updateId); nope
-      return $http({
-        method: 'PUT',
-        url: '/api/products/' + productData.ID,
-        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-        data: $.param(productData)
-      });
-    },
-    */
+  // Produkt aktualisieren
+  update : function(productData) {
+  // return $http.put('/api/products/' + updateId); nope
+  return $http({
+  method: 'PUT',
+  url: '/api/products/' + productData.ID,
+  headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+  data: $.param(productData)
+});
+},
+*/
 
-    // Produkt löschen
-    destroy : function(id) {
-      return $http.delete('/api/contracts/' + id);
-    }
-  }
+// Produkt löschen
+destroy : function(id) {
+  return $http.delete('/api/contracts/' + id);
+}
+}
 });
 
 app.factory('Customer', function($http) {
@@ -72,7 +72,6 @@ app.controller('contractController', function($scope, $http, $location, $routePa
   $scope.loading = true;
   var showId = $routeParams.showId;
   var editId = $routeParams.editId;
-  var customerId = $scope.Wartungsvertraege_Kunden_ID
   $scope.message = $routeParams.message;
   $scope.master = {};
 
@@ -90,7 +89,7 @@ app.controller('contractController', function($scope, $http, $location, $routePa
   });
 
   $scope.update = function() {
-    var customerId = $scope.infoData.Wartungsvertraege_Kunden_ID;
+    var customerId = $scope.contractData.Wartungsvertraege_Kunden_ID;
     Contact.show(customerId)
     .success(function(response){
       $scope.contacts = response;
@@ -112,55 +111,22 @@ app.controller('contractController', function($scope, $http, $location, $routePa
     });
   }
 
-  /*
-  // Produkt erstellen
-  saveProduct = function(productData) {
-    Product.save(productData)
-    .success(function(data) {
-      $scope.loading = false;
-      console.log('successfully stored product');
-      // dafür wird $routeParams benötigt
-      $location.path('/produkte/index/message/Produkt '
-      + productData.Name + ' erstellt');
-    });
-  }
-
-  // Produkt aktualisieren
-  updateProduct = function(productData) {
-    Product.update(productData)
-    .success(function(data) {
-      $scope.loading = false;
-      console.log('successfully updated product');
-      // message string kann easy so übergeben werden
-      $location.path('/produkte/index/message/Produkt '
-      + productData.Name + ' editiert');
-    });
-  }
-
-  // separate Funktion zum Speichern des Herstellers
-  saveManufacturer = function(productData){
-    // Hersteller speichern wenn nicht leer
-    Manufacturer.save(productData)
-    .success(function(manufacturerData){
-      console.log('stored manufacturer');
-      // ID des gespeicherten Herstellers Produkt übergeben
-      $scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
-      // Wenn Produkt editiert wird, updaten
-      if(editId) {
-        updateProduct($scope.productData);
-        // Bei neuem Produkt erstellen
-      } else {
-        saveProduct($scope.productData);
-      }
+  saveContract = function(contractData) {
+    Contract.save(contractData)
+    .success(function(contractInfo) {
+        $scope.loading = false;
+        console.log('successfully saved contract');
+        $location.path('/wartungsvertraege/artikel/neu/' + contractInfo.Contract.ID +
+        '/message/Wartungsvertrag ' + contractInfo.Contract.Vertragsnummer + ' erstellt');
     });
   }
 
   // Produkt editieren
   if(editId) {
     $scope.formMethod = 'PUT';
-    Product.edit(editId)
+    Contract.edit(editId)
     .success(function(response) {
-      $scope.productData = response;
+      $scope.contractData = response;
       $scope.loading = false;
     });
   }
@@ -168,38 +134,108 @@ app.controller('contractController', function($scope, $http, $location, $routePa
     $scope.formMethod = 'POST';
   }
 
-  // Produkt speichern
-  $scope.storeProduct = function() {
-    // Wenn eine id (/edit) mitgegeben wird, update das Produkt
+  $scope.storeContract = function() {
+    console.log('store' + $scope.contractData);
+    if(!$scope.contractData.Inaktiv) {
+      $scope.contractData.Inaktiv = false;
+    }
+    // wenn eine id mitgegeben wird, update die bestehenden WV-Informationen
     if(editId) {
-      if($scope.productData.Hersteller && $scope.productData.Hersteller != '') {
-        saveManufacturer($scope.productData);
-      } else {
-        updateProduct($scope.productData);
-      }
+      updateContract($scope.contractData);
     }
-    // Wenn keine Id mitgegeben wurde, erstelle ein neues Produkt
     else {
-      // Wenn ein neuer Hersteller angegeben wurde, speichere diesen
-      if($scope.productData.Hersteller && $scope.productData.Hersteller != '') {
-        saveManufacturer($scope.productData);
-        // Andernfalls speichere nur das Produkt
-      } else {
-        saveProduct($scope.productData);
-      }
+      saveContract($scope.contractData);
     }
-  };
+  }
 
-  // Produkt löschen
-  $scope.deleteProduct = function(id) {
-    // Produkt mit Factory-Funktion löschen
-    Product.destroy(id)
-    .success(function(data) {
-      $scope.loading = false;
-      console.log('successfully deleted product');
-      $location.path('/produkte/index/message/Produkt gelöscht');
-    });
-  };
-  */
+  /*
+  // Produkt erstellen
+  saveProduct = function(productData) {
+  Product.save(productData)
+  .success(function(data) {
+  $scope.loading = false;
+  console.log('successfully stored product');
+  // dafür wird $routeParams benötigt
+  $location.path('/produkte/index/message/Produkt '
+  + productData.Name + ' erstellt');
+});
+}
+
+// Produkt aktualisieren
+updateProduct = function(productData) {
+Product.update(productData)
+.success(function(data) {
+$scope.loading = false;
+console.log('successfully updated product');
+// message string kann easy so übergeben werden
+$location.path('/produkte/index/message/Produkt '
++ productData.Name + ' editiert');
+});
+}
+
+// separate Funktion zum Speichern des Herstellers
+saveManufacturer = function(productData){
+// Hersteller speichern wenn nicht leer
+Manufacturer.save(productData)
+.success(function(manufacturerData){
+console.log('stored manufacturer');
+// ID des gespeicherten Herstellers Produkt übergeben
+$scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
+// Wenn Produkt editiert wird, updaten
+if(editId) {
+updateProduct($scope.productData);
+// Bei neuem Produkt erstellen
+} else {
+saveProduct($scope.productData);
+}
+});
+}
+
+// Produkt editieren
+if(editId) {
+$scope.formMethod = 'PUT';
+Product.edit(editId)
+.success(function(response) {
+$scope.productData = response;
+$scope.loading = false;
+});
+}
+else {
+$scope.formMethod = 'POST';
+}
+
+// Produkt speichern
+$scope.storeProduct = function() {
+// Wenn eine id (/edit) mitgegeben wird, update das Produkt
+if(editId) {
+if($scope.productData.Hersteller && $scope.productData.Hersteller != '') {
+saveManufacturer($scope.productData);
+} else {
+updateProduct($scope.productData);
+}
+}
+// Wenn keine Id mitgegeben wurde, erstelle ein neues Produkt
+else {
+// Wenn ein neuer Hersteller angegeben wurde, speichere diesen
+if($scope.productData.Hersteller && $scope.productData.Hersteller != '') {
+saveManufacturer($scope.productData);
+// Andernfalls speichere nur das Produkt
+} else {
+saveProduct($scope.productData);
+}
+}
+};
+
+// Produkt löschen
+$scope.deleteProduct = function(id) {
+// Produkt mit Factory-Funktion löschen
+Product.destroy(id)
+.success(function(data) {
+$scope.loading = false;
+console.log('successfully deleted product');
+$location.path('/produkte/index/message/Produkt gelöscht');
+});
+};
+*/
 
 });
