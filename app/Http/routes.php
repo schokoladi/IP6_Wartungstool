@@ -38,6 +38,9 @@ Route::group(array('prefix' => 'api'), function() {
   // Kontaktpersonen-Routing
   Route::resource('contacts', 'ContactController');
 
+  // Waehrungen-Routing
+  Route::resource('currencies', 'CurrencyController');
+
 });
 
 //Route::controller('Produkte', 'ProdukteController');
