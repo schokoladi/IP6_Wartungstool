@@ -1,0 +1,145 @@
+<div class="row">
+  <div ng-include='"app/shared/contractmenu/contractMenu.html"'></div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <h4 class="custom-h4">Wartungsvertrag</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <form name="contractForm" novalidate ng-submit="contractForm.$valid && storeContract()">
+        <!-- je nach edit / new der Wert gesetzt PUT / POST -->
+        <input type="hidden" name="_method" value="{{ formMethod }}">
+        <div class="col-sm-12 col-md-12">
+          <div class="row">
+
+            <!-- Kundenauswahl -->
+            <div class="col-sm-6 col-md-6">
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="Kunden_ID">
+                  Kunde
+                  <span ng-show="contractForm.$submitted || contractForm.Kunden_ID.$touched">
+                    <span ng-show="productForm.Kunden_ID.$error.required"> *</span>
+                  </span>
+                </label>
+                <div class="col-md-8">
+                  <select class="form-control" name="Kunden_ID" id="Kunden_ID"
+                  ng-model="contractData.Wartungsvertraege_Kunden_ID" ng-change="update()">
+                  <option value="{{ customer.ID }}" ng-hide="loading"
+                  ng-repeat="customer in customers">{{ customer.Name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- /Kundenauswahl -->
+
+          <!-- Kontakt-Feld -->
+          <div class="col-sm-6 col-md-6">
+            <div class="form-group">
+              <label for="Kontaktpersonen_ID" class="col-md-4 control-label">
+                Kontakt
+                <span ng-show="contractForm.$submitted || contractForm.Kontaktpersonen_ID.$touched">
+                  <span ng-show="contractForm.Kontakt.$error.required"> *</span>
+                </span>
+              </label>
+              <div class="col-md-8">
+                <select class="form-control" name="Kontaktpersonen_ID" id="Kontaktpersonen_ID"
+                ng-model="contractData.Wartungsvertraege_Kontaktpersonen_ID">
+                <option value="{{ contact.ID }}" ng-hide="loading" ng-repeat="contact in contacts">
+                  {{ contact.Vorname }} {{ contact.Name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- /Kontakt-Feld -->
+
+      </div>
+      <div class="row">
+
+        <!-- Vertragsnummer-Feld -->
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+            <label for="Vertragsnummer" class="col-md-4 control-label">
+              Vertrags-Nr.
+              <span ng-show="contractForm.$submitted || contractForm.Vertragsnummer.$touched">
+                <span ng-show="contractForm.Vertragsnummer.$error.required"> *</span>
+              </span>
+            </label>
+            <div class="col-md-8">
+              <input type="text" name="Vertragsnummer" value="contractData.Vertragsnummer"
+              id="Vertragsnummer" class="form-control" ng-model="contractData.Vertragsnummer"
+              required="required">
+            </div>
+          </div>
+        </div>
+        <!-- /Vertragsnummer-Feld -->
+
+        <!-- Zuständigkeit-Feld -->
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="Zustaendigkeit">
+              Zuständigkeit
+              <span ng-show="contractForm.$submitted || contractForm.Zustaendigkeit.$touched">
+                <span ng-show="contractForm.Zustaendigkeit.$error.required"> *</span>
+              </span>
+            </label>
+            <div class="col-md-8">
+              <input type="text" name="Zustaendigkeit" value="contractData.Zustaendigkeit"
+              id="Zustaendigkeit" class="form-control" ng-model="contractData.Zustaendigkeit"
+              required="required">
+            </div>
+          </div>
+        </div>
+        <!-- /Zuständigkeits-Feld -->
+
+      </div>
+      <div class="row">
+
+        <!-- Beschreibung-Feld -->
+        <div class="col-sm-8 col-md-8">
+          <div class="form-group">
+            <label for="Beschreibung" class="col-md-3 control-label">
+              Beschreibung
+            </label>
+            <div class="col-md-9">
+              <textarea name="Beschreibung" value="contractData.Beschreibung" class="form-control"
+              rows="3" id="Beschreibung" ng-model="contractData.Beschreibung"></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- /Beschreibung-Feld -->
+
+        <!-- Inaktiv-Checkbox -->
+        <div class="col-sm-4 col-md-4">
+          <div class="form-group">
+            <label class="col-md-8 col-md-offset-4 control-label" class="checkbox">
+              <input type="checkbox" ng-model="contractData.Inaktiv">
+              inaktiv
+            </label>
+          </div>
+        </div>
+        <!-- /Inaktiv-Checkbox -->
+
+      </div>
+      <div class="row">
+        <h4 class="custom-h4"></h4>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-6">
+          <button type="submit" class="btn btn-default custom-btn">
+            <span class="glyphicon glyphicon-circle-arrow-right custom-glyphicon-left"
+            aria-hidden="true"></span>Speichern und weiter
+          </button>
+        </div>
+      </div>
+      {{ contractData | json }}
+    </div>
+  </form>
+</div>
+</div>
+</div>
