@@ -11,7 +11,7 @@
     </div>
 
     <div class="row">
-      <form name="contractForm" novalidate ng-submit="contractForm.$valid && storeContract()">
+      <form name="contractForm" ng-submit="contractForm.$valid && storeContract()" novalidate>
         <!-- je nach edit / new der Wert gesetzt PUT / POST -->
         <input type="hidden" name="_method" value="{{ formMethod }}">
         <div class="col-sm-12 col-md-12">
@@ -28,7 +28,7 @@
                 </label>
                 <div class="col-md-8">
                   <select class="form-control" name="Kunden_ID" id="Kunden_ID"
-                  ng-model="contractData.Wartungsvertraege_Kunden_ID" ng-change="update()">
+                  ng-model="contractData.Wartungsvertraege_Kunden_ID" ng-change="infoUpdate()">
                   <option value="{{ customer.ID }}" ng-hide="loading"
                   ng-repeat="customer in customers">{{ customer.Name }}</option>
                 </select>
