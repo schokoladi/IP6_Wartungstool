@@ -79,7 +79,7 @@ class ProductController extends Controller
   */
   public function show($id)
   {
-    // siehe edit!
+    return response()->json(Product::where('Produkte_Hersteller_ID', $id)->get());
   }
 
   /**
