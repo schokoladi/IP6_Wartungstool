@@ -12,8 +12,9 @@
         <input type="hidden" name="_method" value="{{ formMethod }}">
         <div class="col-sm-12 col-md-12">
           <div class="row">
+
+            <!-- Neuer Hersteller-Feld -->
             <div class="col-sm-6 col-md-6">
-              <!-- Neuer Hersteller-Feld -->
               <div class="form-group" ng-hide="!manufacturerToggle" ng-init="manufacturerToggle=true">
                 <label for="Hersteller" class="col-md-4 control-label">
                   Neuer Hersteller
@@ -30,6 +31,7 @@
                   ng-required="!productData.Produkte_Hersteller_ID" manufacturer-available>
                 </div>
               </div>
+
               <!-- Hersteller auswählen-Feld -->
               <div class="form-group" ng-hide="manufacturerToggle" ng-init="manufacturerToggle=false">
                 <label for="Hersteller_ID" class="col-md-4 control-label">
@@ -50,6 +52,7 @@
             </div>
           </div>
         </div>
+
         <!-- Hersteller Toggle-Button -->
         <div class="col-sm-6 col-md-6">
           <a class="btn btn-default custom-btn"
@@ -57,9 +60,10 @@
           Hersteller erfassen / auswählen
         </a>
       </div>
-    </div>
 
+    </div>
     <div class="row">
+
       <!-- Produktname-Feld -->
       <div class="col-sm-6 col-md-6">
         <div class="form-group">
@@ -70,9 +74,8 @@
             </span>
           </label>
           <div class="col-md-8">
-            <input type="text" name="Name" value="productData.Name"
-            id="produktName" class="form-control" ng-model="productData.Name"
-            required="required">
+            <input type="text" name="Name" id="Name" class="form-control"
+            ng-model="productData.Name" required="required">
           </div>
         </div>
       </div>
@@ -86,8 +89,8 @@
             </span>
           </label>
           <div class="col-md-8">
-            <input type="text" name="Artikelnummer" value="productData.Artikelnummer"
-            id="Artikelnummer" class="form-control" ng-model="productData.Artikelnummer" required>
+            <input type="text" name="Artikelnummer" id="Artikelnummer" class="form-control"
+            ng-model="productData.Artikelnummer" required="required">
           </div>
         </div>
       </div>

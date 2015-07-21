@@ -20,6 +20,10 @@ app.factory('Product', function($http) {
       });
     },
 
+    show: function(manufacturerId) {
+      return $http.get('/api/products/' + manufacturerId);
+    },
+
     // Produkt editieren: Werte via API aus Datenbank holen
     edit : function(editId) {
       return $http.get('/api/products/' + editId + '/edit');
