@@ -41,6 +41,9 @@ Route::group(array('prefix' => 'api'), function() {
   // Waehrungen-Routing
   Route::resource('currencies', 'CurrencyController');
 
+  // Waehrungen-Routing
+  Route::resource('maintenances', 'MaintenanceController');
+
 });
 
 //Route::controller('Produkte', 'ProdukteController');
