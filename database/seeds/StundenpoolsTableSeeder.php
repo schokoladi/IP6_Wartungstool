@@ -23,6 +23,7 @@ class StundenpoolsTableSeeder extends Seeder
             'Rechnungsnummer' => 'RE-SP234234234',
             'Rechnungsdatum' => '2013-05-04',
             'Stundenpools_Wartungsvertraege_ID' => '1',
+            'Stundenpools_OS_Stundenpools_ID' => '1',
             'created_at' => new DateTime,
             'updated_at' => new DateTime
           ],
@@ -36,6 +37,7 @@ class StundenpoolsTableSeeder extends Seeder
             'Rechnungsnummer' => 'RE-SP23423887',
             'Rechnungsdatum' => '2014-02-06',
             'Stundenpools_Wartungsvertraege_ID' => '1',
+            'Stundenpools_OS_Stundenpools_ID' => '1',
             'created_at' => new DateTime,
             'updated_at' => new DateTime
           ]

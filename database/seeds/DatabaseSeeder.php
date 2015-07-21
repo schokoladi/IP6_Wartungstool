@@ -23,11 +23,15 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Waehrungen table seeded!');
 
         // Tabelle Maintenances mit Werten füllen
-        $this->call('MaintenancesTableSeeder');
-        $this->command->info('Maintenances table seeded!');
+        $this->call('MaintenanceTableSeeder');
+        $this->command->info('Maintenance table seeded!');
 
         // Tabelle OperationSupports mit Werten füllen
-        $this->call('OperationSupportsTableSeeder');
+        $this->call('OperationsupportTableSeeder');
+        $this->command->info('Operation Supports table seeded!');
+
+        // Tabelle OperationSupports mit Werten füllen
+        $this->call('OperationsupportStundenpoolsTableSeeder');
         $this->command->info('Operation Supports table seeded!');
 
         // Tabelle Hersteller mit Werten füllen

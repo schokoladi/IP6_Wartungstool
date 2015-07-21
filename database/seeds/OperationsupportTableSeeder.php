@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class MaintenanceTableSeeder extends Seeder
+class OperationsupportTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,35 +11,35 @@ class MaintenanceTableSeeder extends Seeder
      */
     public function run()
     {
-      DB::table('Maintenance')->delete();
-      DB::table('Maintenance')->insert([
+      DB::table('Operationsupport')->delete();
+      DB::table('Operationsupport')->insert([
           [
-              'Bezeichnung' => 'M',
+              'Bezeichnung' => 'OS',
               'created_at' => new DateTime,
               'updated_at' => new DateTime
           ],
           [
-              'Bezeichnung' => 'M3',
+              'Bezeichnung' => 'OS3',
               'created_at' => new DateTime,
               'updated_at' => new DateTime
           ],
           [
-              'Bezeichnung' => 'M5',
+              'Bezeichnung' => 'OS5',
               'created_at' => new DateTime,
               'updated_at' => new DateTime
           ],
           [
-              'Bezeichnung' => 'EM',
+              'Bezeichnung' => 'EOS',
               'created_at' => new DateTime,
               'updated_at' => new DateTime
           ],
           [
-              'Bezeichnung' => 'EM3',
+              'Bezeichnung' => 'EOS3',
               'created_at' => new DateTime,
               'updated_at' => new DateTime
           ],
           [
-              'Bezeichnung' => 'EM5',
+              'Bezeichnung' => 'EOS5',
               'created_at' => new DateTime,
               'updated_at' => new DateTime
           ]
