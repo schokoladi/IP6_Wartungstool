@@ -36,8 +36,8 @@ class CreateArtikelTable extends Migration
               $table->date('Rechnungsdatum');
 
               // Maintenance
-              $table->integer('Artikel_Maintenances_ID')->unsigned();
-              $table->foreign('Artikel_Maintenances_ID')->references('ID')->on('Maintenances');
+              $table->integer('Artikel_Maintenance_ID')->unsigned();
+              $table->foreign('Artikel_Maintenance_ID')->references('ID')->on('Maintenance');
               $table->date('Maintenance_Start');
               $table->date('Maintenance_von');
               $table->date('Maintenance_bis');
@@ -50,10 +50,11 @@ class CreateArtikelTable extends Migration
               $table->foreign('VKP_Maintenance_Waehrungen_ID')->references('ID')->on('Waehrungen');
 
               // Operationsupport
-              $table->integer('Artikel_OperationSupports_ID')->unsigned();
-              $table->foreign('Artikel_OperationSupports_ID')->references('ID')->on('OperationSupports');
-              $table->date('OperationSupport_von');
-              $table->date('OperationSupport_bis');
+              $table->integer('Artikel_Operationsupport_ID')->unsigned();
+              $table->foreign('Artikel_Operationsupport_ID')->references('ID')->on('Operationsupport');
+              $table->date('Operationsupport_Start');
+              $table->date('Operationsupport_von');
+              $table->date('Operationsupport_bis');
               $table->double('VKP_Operationsupport', 20, 2);
               $table->integer('VKP_Operationsupport_Waehrungen_ID')->unsigned();
               $table->foreign('VKP_Operationsupport_Waehrungen_ID')->references('ID')->on('Waehrungen');

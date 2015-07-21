@@ -32,6 +32,9 @@ class CreateStundenpoolsTable extends Migration
               $table->integer('Stundenpools_Wartungsvertraege_ID')->unsigned();
               $table->foreign('Stundenpools_Wartungsvertraege_ID')->references('ID')->on('Wartungsvertraege');
 
+              $table->integer('Stundenpools_OS_Stundenpools_ID')->unsigned();
+              $table->foreign('Stundenpools_OS_Stundenpools_ID')->references('ID')->on('Operationsupport_Stundenpools');
+
               $table->timestamps();
           });
         }
