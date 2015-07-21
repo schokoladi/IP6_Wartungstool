@@ -25,9 +25,9 @@ class Article extends Model
 
   public function maintenance()
   {
-    return $this->hasOne('App\Maintenance', 'ID', 'Artikel_Maintenances_ID');
+    return $this->hasOne('App\Maintenance', 'ID', 'Artikel_Maintenance_ID');
   }
-  
+
   /*
   public function operationsupport()
   {

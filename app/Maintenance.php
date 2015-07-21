@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maintenance extends Model
 {
-  protected $table = 'Maintenances';
+  protected $table = 'Maintenance';
   protected $primaryKey = 'ID';
 
   //protected $fillable = ['Artikelnummer', 'Name', 'Produkte_Hersteller_ID'];
