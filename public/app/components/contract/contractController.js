@@ -1,5 +1,24 @@
 console.log('contract controller loaded');
 
+app.factory('Article', function($http) {
+  return {
+
+    // Artikel speichern
+    save: function(articleData) {
+      return $http({
+        method: 'POST',
+        url: '/api/articles',
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param(articleData)
+      });
+    },
+
+    show: function(contractId) {
+      return $http.get('/api/articles/' + contractId);
+    }
+  }
+});
+
 app.factory('Contract', function($http) {
   return {
     //
@@ -82,14 +101,22 @@ app.factory('Maintenance', function($http) {
   }
 });
 
+app.factory('Operationsupport', function($http) {
+  return {
+    get: function() {
+      return $http.get('/api/operationsupports');
+    }
+  }
+})
+
 app.controller('contractController', function($scope, $http, $location, $routeParams,
-  Contract, Customer, Contact, Manufacturer, Product, Currency, Maintenance) {
+  Article, Contract, Customer, Contact, Manufacturer, Product, Currency, Maintenance,
+  Operationsupport) {
 
     $scope.loading = true;
     var showId = $routeParams.showId;
     var editId = $routeParams.editId;
     var contractId = $routeParams.contractId;
-    console.log('contractid: ' + contractId)
     $scope.message = $routeParams.message;
     $scope.master = {};
 
@@ -121,6 +148,18 @@ app.controller('contractController', function($scope, $http, $location, $routePa
     Maintenance.get()
     .success(function(response) {
       $scope.maintenances = response;
+      $scope.loading = false;
+    });
+
+    Article.show(contractId)
+    .success(function(response) {
+      $scope.articles = response;
+      $scope.loading = false;
+    });
+
+    Operationsupport.get()
+    .success(function(response) {
+      $scope.operationsupports = response;
       $scope.loading = false;
     });
 
@@ -179,6 +218,16 @@ app.controller('contractController', function($scope, $http, $location, $routePa
       });
     }
 
+    saveArticle = function(articleData) {
+      Article.save(articleData)
+      .success(function(data) {
+        $scope.loading = false;
+        console.log('successfully saved contract');
+        $location.path('/wartungsvertraege/artikel/neu/' + contractId +
+        '/message/Artikel erfasst');
+      });
+    }
+
     // Produkt editieren
     if(editId) {
       $scope.formMethod = 'PUT';
@@ -203,6 +252,17 @@ app.controller('contractController', function($scope, $http, $location, $routePa
       }
       else {
         saveContract($scope.contractData);
+      }
+    }
+
+    $scope.storeArticle = function() {
+      console.log('store: ' + $scope.articleData);
+      $scope.articleData.Artikel_Wartungsvertraege_ID = contractId;
+      if(editId) {
+        updateArticle($scope.articleData);
+      }
+      else {
+        saveArticle($scope.articleData);
       }
     }
 
