@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Currency extends Model
+class Operationsupport extends Model
 {
-  protected $table = 'Waehrungen';
+  protected $table = 'Operationsupport';
   protected $primaryKey = 'ID';
 
   public $timestamps = true;
