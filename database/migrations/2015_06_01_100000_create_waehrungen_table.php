@@ -16,8 +16,9 @@ class CreateWaehrungenTable extends Migration
         {
           Schema::create('Waehrungen', function (Blueprint $table) {
               $table->increments('ID');
-              
+
               $table->string('Waehrung', 3); // CHF, USD, EUR..
+              $table->double('Kurs', 8, 4); // 4 Nachkommastellen, 8 Total
 
               $table->timestamps();
           });
