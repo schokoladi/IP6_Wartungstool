@@ -58,6 +58,10 @@ class DatabaseSeeder extends Seeder
         $this->call('StundenpoolsTableSeeder');
         $this->command->info('Stundenpools table seeded!');
 
+        // Tabelle Stundenpools mit daten füllen
+        $this->call('ArtikelTableSeeder');
+        $this->command->info('Artikel table seeded!');
+
         Model::reguard();
     }
 }
