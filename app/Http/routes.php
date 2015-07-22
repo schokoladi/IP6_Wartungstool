@@ -28,6 +28,9 @@ Route::group(array('prefix' => 'api'), function() {
   // Produkte-Routing
   Route::resource('products', 'ProductController');
 
+  // Produkte-Routing
+  Route::resource('articles', 'ArticleController');
+
   // Hersteller-Routing
   Route::get('manufacturers/exists/{manufacturer}', 'ManufacturerController@exists');
   Route::resource('manufacturers', 'ManufacturerController');
@@ -43,6 +46,9 @@ Route::group(array('prefix' => 'api'), function() {
 
   // Waehrungen-Routing
   Route::resource('maintenances', 'MaintenanceController');
+
+  // Waehrungen-Routing
+  Route::resource('operationsupports', 'OperationsupportController');
 
 });
 
