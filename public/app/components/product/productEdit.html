@@ -15,7 +15,7 @@
 
             <!-- Neuer Hersteller-Feld -->
             <div class="col-sm-6 col-md-6">
-              <div class="form-group" ng-hide="!manufacturerToggle" ng-init="manufacturerToggle=true">
+              <div class="form-group form-horizontal" ng-hide="!manufacturerToggle" ng-init="manufacturerToggle=true">
                 <label for="Hersteller" class="col-md-4 control-label">
                   Neuer Hersteller
                   <span ng-show="productForm.$submitted || productForm.Hersteller.$touched">
@@ -33,7 +33,7 @@
               </div>
 
               <!-- Hersteller auswählen-Feld -->
-              <div class="form-group" ng-hide="manufacturerToggle" ng-init="manufacturerToggle=false">
+              <div class="form-group form-horizontal" ng-hide="manufacturerToggle" ng-init="manufacturerToggle=false">
                 <label for="Hersteller_ID" class="col-md-4 control-label">
                   Hersteller wählen
                   <span ng-show="productForm.$submitted || productForm.Hersteller_ID.$touched">
@@ -66,7 +66,7 @@
 
       <!-- Produktname-Feld -->
       <div class="col-sm-6 col-md-6">
-        <div class="form-group">
+        <div class="form-group form-horizontal">
           <label for="Name" class="col-md-4 control-label">
             Produktname
             <span ng-show="productForm.$submitted || productForm.Name.$touched">
@@ -81,7 +81,7 @@
       </div>
       <!-- Artikelnummer-Feld -->
       <div class="col-sm-6 col-md-6">
-        <div class="form-group">
+        <div class="form-group form-horizontal">
           <label for="Artikelnummer" class="col-md-4 control-label">
             Artikelnummer
             <span ng-show="productForm.$submitted || productForm.Artikelnummer.$touched">
