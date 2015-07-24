@@ -42,7 +42,7 @@ app.config(function($routeProvider){
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
   })
-  // Detailsansicht
+  // Detailsansicht eines Wartungsvertrags
   .when("/wartungsvertraege/detail/:showId", {
     templateUrl: "app/components/contract/contractDetail.html",
     controller: "contractController"
@@ -56,11 +56,11 @@ app.config(function($routeProvider){
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/info/:editId/edit", {
+  .when("/wartungsvertraege/info/:contractEditId/edit", {
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/info/:editId/edit/message/:message", {
+  .when("/wartungsvertraege/info/:contractEditId/edit/message/:message", {
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
@@ -73,11 +73,11 @@ app.config(function($routeProvider){
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/artikel/:editId/edit", {
+  .when("/wartungsvertraege/artikel/:articleEditId/edit/:contractId", {
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/artikel/:editId/edit/message/:message", {
+  .when("/wartungsvertraege/artikel/:articleEditId/edit/:contractId/message/:message", {
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
@@ -90,13 +90,20 @@ app.config(function($routeProvider){
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/pool/:editId/edit", {
+  .when("/wartungsvertraege/pool/:poolEditId/edit/:contractId", {
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/pool/:editId/edit/message/:message", {
+  .when("/wartungsvertraege/pool/:poolEditId/edit/:contractId/message/:message", {
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   });
+
+  // Upload
+  .when("/upload", {
+    templateUrl: "app/components/upload/upload.html",
+    controller: "uploadController"
+  })
+
 
 });

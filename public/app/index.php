@@ -45,7 +45,9 @@
   <!-- app specific JavaScript files -->
   <script src="app/app.module.js"></script> <!-- initiate the application -->
   <script src="app/app.routing.js"></script> <!-- load angular routings -->
-
+  <script src="assets/js/factories.js"></script>
+  <script src="assets/js/directives.js"></script>
+  
   <script src="app/components/contract/contractController.js"></script>
   <script src="app/components/product/productController.js"></script>
   <script src="app/components/start/startController.js"></script>
