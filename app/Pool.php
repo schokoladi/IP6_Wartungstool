@@ -13,4 +13,9 @@ class Pool extends Model
   //protected $fillable = ['Name'];
 
   public $timestamps = true;
+
+  public function ospool()
+  {
+    return $this->hasOne('App\OperationsupportStundenpool', 'ID', 'Stundenpools_OS_Stundenpools_ID');
+  }
 }
