@@ -52,7 +52,7 @@ class OperationsupportController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Operationsupport::where('ID', $id)->get());
     }
 
     /**

@@ -140,7 +140,8 @@ class ContractController extends Controller
     */
     public function edit($id)
     {
-      //
+      // gib das Array als json-String. findOrFail gibt sonst Exception zurück
+      return response()->json(Contract::findOrFail($id));
     }
 
     /**
@@ -149,9 +150,19 @@ class ContractController extends Controller
     * @param  int  $id
     * @return Response
     */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-      //
+      $contract = Contract::find($id);
+      $contract->Vertragsnummer = $request->input('Vertragsnummer');
+      $contract->Beschreibung = $request->input('Beschreibung');
+      $contract->Inaktiv = $request->input('Inaktiv');
+      $contract->Zustaendigkeit = $request->input('Zustaendigkeit');
+      $contract->Wartungsvertraege_Kunden_ID = $request->input('Wartungsvertraege_Kunden_ID');
+      $contract->Wartungsvertraege_Kontaktpersonen_ID = $request->input('Wartungsvertraege_Kontaktpersonen_ID');
+
+      $contract->save();
+
+      return response()->json(['success' => true]);
     }
 
     /**
