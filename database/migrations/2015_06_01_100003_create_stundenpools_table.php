@@ -22,8 +22,8 @@ class CreateStundenpoolsTable extends Migration
               $table->date('Stundenpool_bis');
 
               $table->double('Stundensatz', 10, 2);
-              $table->integer('Stundenpools_Waehrungen_ID')->unsigned();
-              $table->foreign('Stundenpools_Waehrungen_ID')->references('ID')->on('Waehrungen');
+              $table->integer('Stundensatz_Waehrungen_ID')->unsigned();
+              $table->foreign('Stundensatz_Waehrungen_ID')->references('ID')->on('Waehrungen');
               $table->integer('Anzahl_Stunden'); // TODO: integer oder double?
 
               $table->string('Rechnungsnummer');
