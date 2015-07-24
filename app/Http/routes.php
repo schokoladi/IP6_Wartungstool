@@ -31,6 +31,9 @@ Route::group(array('prefix' => 'api'), function() {
   // Produkte-Routing
   Route::resource('articles', 'ArticleController');
 
+  // Waehrungen-Routing
+  Route::resource('stundenpools', 'PoolController');
+
   // Hersteller-Routing
   Route::get('manufacturers/exists/{manufacturer}', 'ManufacturerController@exists');
   Route::resource('manufacturers', 'ManufacturerController');
@@ -49,6 +52,9 @@ Route::group(array('prefix' => 'api'), function() {
 
   // Waehrungen-Routing
   Route::resource('operationsupports', 'OperationsupportController');
+
+  // Waehrungen-Routing
+  Route::resource('osstundenpools', 'OperationsupportStundenpoolController');
 
 });
 
