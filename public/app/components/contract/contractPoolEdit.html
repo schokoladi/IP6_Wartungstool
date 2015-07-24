@@ -8,24 +8,40 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="list-group custom-list-group-fixed">
-					<a class="list-group-item inactive">
-						<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-list-alt custom-glyphicon-left" aria-hidden="true"></span>Artikel</h5>
+					<div class="list-group-item inactive">
+						<h5 class="list-group-item-heading">
+							<span class="glyphicon glyphicon-list-alt custom-glyphicon-left" aria-hidden="true"></span>Artikel
+						</h5>
 						<p class="list-group-item-text">
 							<ul class="list-unstyled">
-								<li><span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span><small>Infoblox TE-810-NS1GRID-AC<br />(0800201210100122)</small></li>
-								<br />
-								<li><span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span><small>Infoblox TE-820-NS1GRID-AC<br />(0800201210100123)</small></li>
+								<li ng-repeat="article in articles">
+									<a href="#" ng-click="deleteArticle(article.ID)">
+										<span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span>
+									</a>
+									<a href="/#/wartungsvertraege/artikel/{{ article.ID }}/edit/{{ contractId }}">
+										<small>{{ article.Hersteller }} {{ article.Produkt }}<br />({{ article.Seriennummer }})</small>
+									</a>
+								</li>
 							</ul>
 						</p>
-					</a>
-					<a class="list-group-item inactive">
-						<h5 class="list-group-item-heading"><span class="glyphicon glyphicon-time custom-glyphicon-left" aria-hidden="true"></span>Stundenpool</h5>
+					</div>
+					<div class="list-group-item inactive">
+						<h5 class="list-group-item-heading">
+							<span class="glyphicon glyphicon-time custom-glyphicon-left" aria-hidden="true"></span>Stundenpool
+						</h5>
 						<p class="list-group-item-text">
 							<ul class="list-unstyled">
-								<li><span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span><small>OS-SP_Support (100 Std)</small></li>
+								<li ng-repeat="pool in pools">
+									<a href="#" ng-click="deletePool(pool.ID)">
+										<span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span>
+									</a>
+									<a href="/#/wartungsvertraege/pool/{{ pool.ID }}/edit/{{ contractId }}">
+										<small>{{ pool.OS_Pool }} ({{ pool.Anzahl_Stunden }} Stunden)</small>
+									</a>
+								</li>
 							</ul>
 						</p>
-					</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -35,143 +51,182 @@
 <!-- sticky-top -> sticky -->
 <div class="row">
 	<div class="col-xs-12 col-ms-12 col-md-9">
-		<div class="panel panel-default custom-panel sticky-top">
+		<div class="panel panel-default custom-panel sticky-top panel-vertrag">
 			<div class="panel-body">
-				<p class="text-center">
-					<span class="glyphicon glyphicon-user custom-glyphicon-left" aria-hidden="true"></span>BKW Energie AG&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-tag custom-glyphicon-left" aria-hidden="true"></span>A14TL919-150-500120&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-earphone custom-glyphicon-left" aria-hidden="true"></span>Hans Kontaktmann
-				</p>
+				<p class="text-center weiss">
+					<b>
+						<span class="glyphicon glyphicon-user custom-glyphicon-left"
+						aria-hidden="true"></span>
+						{{ contractData.Kunde }}&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-tag custom-glyphicon-left"
+						aria-hidden="true"></span>
+						{{ contractData.Vertragsnummer }}&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-earphone custom-glyphicon-left"
+						aria-hidden="true"></span>
+						{{ contractData.Kontaktperson_Vorname }} {{ contractData.Kontaktperson_Name }}
+					</b></p>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<!--<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-9">
-<div class="alert alert-dismissable alert-success custom-alert" >
-Artikel wurde erfolgreich hinzugefügt!
+	<!--<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-9">
+	<div class="alert alert-dismissable alert-success custom-alert" >
+	Artikel wurde erfolgreich hinzugefügt!
 </div>
 </div>
 </div>-->
 
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-9">
-		<div class="row">
-			<h4 class="custom-h4">Stundenpool</h4>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputArt" class="col-md-4 control-label">Art</label>
-						<div class="col-md-8">
-							<select class="form-control">
-								<option>OS-SP_</option>
-							</select>
-						</div>
-					</div>
-				</form>
+	<form name="poolForm" ng-submit="poolForm.$valid && storePool()" novalidate>
+		<div class="col-xs-12 col-sm-12 col-md-9">
+			<div class="row">
+				<h4 class="custom-h4">Stundenpool</h4>
 			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputStartdatum" class="col-md-4 control-label">Startdatum</label>
-						<div class="col-md-6">
-							<input type="date" name="Startdatum" id="inputStartdatum" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 col-md-12">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputVon" class="col-md-2 control-label">Von</label>
-						<div class="col-md-3">
-							<input type="date" name="Von" id="inputVon" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputBis" class="col-md-2 col-md-offset-1 control-label">Bis</label>
-						<div class="col-md-3">
-							<input type="date" name="Bis" id="inputBis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputStundenansatz" class="col-md-4 control-label">Stundenansatz</label>
-						<div class="col-md-4">
-							<input type="text" name="Stundenansatz" id="inputStundenansatz" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputWaehrungSTA" class="sr-only">WaehrungSTA</label>
-						<div class="col-md-4">
-							<select class="form-control">
-								<option>CHF</option>
-								<option>USD</option>
-								<option>EUR</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputAnzahl h" class="col-md-4 control-label">Anzahl Std</label>
-						<div class="col-md-6">
-							<input type="text" name="Anzahl h" id="inputAnzahl h" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-6">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputVerkaufspreis" class="col-md-4 control-label">Verkaufspreis</label>
-						<div class="col-md-4">
-							<input type="text" name="Verkaufspreis" id="inputEinkaufspreis" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputWaehrungOSV" class="sr-only">WaehrungOSV</label>
-						<div class="col-md-4">
-							<select class="form-control">
-								<option>CHF</option>
-								<option>USD</option>
-								<option>EUR</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 col-md-12">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputRechn-Nr." class="col-md-2 control-label">Rechn-Nr.</label>
-						<div class="col-md-4">
-							<input type="text" name="Rechn-Nr." id="inputRechn-Nr." class="form-control" value="" required="required" pattern="" title="">
-						</div>
-						<label for="inputDatum" class="col-md-2 control-label">Rechn-Datum</label>
-						<div class="col-md-3">
-							<input type="date" name="Datum" id="inputDatum" class="form-control" value="" required="required" pattern="" title="">
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<h4 class="custom-h4"></h4>
-		</div>
-	</div>
+			<div class="row">
 
+				<!-- Stundenpool-Art (Operationsupport_Stundenpool) -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="OS_Pool" class="col-md-4 control-label">Art</label>
+						<div class="col-md-8">
+							<select class="form-control" name="OS_Pool" id="OS_Pool" ng-model="poolData.Stundenpools_OS_Stundenpools_ID">
+								<option value="{{ ospool.ID }}" ng-hide="loading" ng-repeat="ospool in ospools">
+									{{ ospool.Bezeichnung }}
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!-- /Stundenpool-Art -->
+
+				<!-- Startdatum -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="Stundenpool_Start" class="col-md-4 control-label">Startdatum</label>
+						<div class="col-md-8">
+							<input type="text" name="Stundenpool_Start" class="form-control" placeholder="TT.MM.JJJJ"	id="Stundenpool_Start" ng-model="poolData.Stundenpool_Start">
+						</div>
+					</div>
+				</div>
+				<!-- Startdatum -->
+
+			</div>
+			<div class="row">
+
+				<!-- Stundenpool von -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="Stundenpool_von" class="col-md-4 control-label">Von</label>
+						<div class="col-md-8">
+							<input type="text" name="Stundenpool_von" class="form-control" placeholder="tt.mm.jjjj" id="Stundenpool_von"
+							ng-model="poolData.Stundenpool_von">
+						</div>
+					</div>
+				</div>
+				<!-- /Stundenpool von -->
+
+				<!-- Stundenpool bis -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="Stundenpool_bis" class="col-md-4 control-label">Bis</label>
+						<div class="col-md-8">
+							<input type="text" name="Stundenpool_bis" class="form-control" placeholder="tt.mm.jjjj" id="Stundenpool_bis"
+							ng-model="poolData.Stundenpool_bis">
+						</div>
+					</div>
+				</div>
+				<!-- /Stundenpool bis -->
+
+			</div>
+			<div class="row">
+
+				<!-- Stundensatz -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="Stundensatz" class="col-md-4 control-label">
+							Stundensatz
+							<span ng-show="poolForm.$submitted || poolForm.Stundensatz.$touched">
+								<span ng-show="poolForm.Stundensatz.$error.required"> *</span>
+							</span>
+						</label>
+						<div class="col-md-4">
+							<input class="form-control form-horizontal" type="text" name="Stundensatz" id="Stundensatz"
+							ng-model="poolData.Stundensatz" required="required">
+						</div>
+						<!-- Waehrung -->
+						<label for="Stundensatz_Waehrung" class="sr-only">Waehrung</label>
+						<div class="col-md-4">
+							<select class="form-control" name="Stundensatz_Waehrung" id="Stundensatz_Waehrung"
+							ng-model="poolData.Stundensatz_Waehrungen_ID">
+							<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+								{{ currency.Waehrung }}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!-- /Stundensatz -->
+
+				<!-- Anzahl Stunden -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="Anzahl_Stunden" class="col-md-4 control-label">Anz. Std</label>
+						<div class="col-md-8">
+							<input type="text" name="Anzahl_Stunden" class="form-control" id="Anzahl_Stunden" ng-model="poolData.Anzahl_Stunden">
+						</div>
+					</div>
+				</div>
+				<!-- /Anzahl Stunden -->
+
+			</div>
+			<div class="row">
+
+				<!-- Rechnungsnummer -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="Rechnungsnummer" class="col-md-4 control-label">Rechn-Nr.</label>
+						<div class="col-md-8">
+							<input type="text" name="Rechnungsnummer" placeholder="Rechnungsnummer"
+							id="Rechnungsnummer" class="form-control" ng-model="poolData.Rechnungsnummer">
+						</div>
+					</div>
+				</div>
+				<!-- /Rechnungsnummer -->
+
+				<!-- Rechnungsdatum -->
+				<div class="col-sm-6 col-md-6">
+					<div class="form-group form-horizontal">
+						<label for="Rechnungsdatum" class="col-md-4 control-label">Datum</label>
+						<div class="col-md-8">
+							<input type="text" name="Rechnungsdatum" class="form-control" placeholder="tt.mm.jjjj"
+							id="Rechnungsdatum"	ng-model="poolData.Rechnungsdatum">
+						</div>
+					</div>
+				</div>
+				<!-- /Rechnungsdatum -->
+
+			</div>
+
+			<div class="row">
+				<h4 class="custom-h4"></h4>
+			</div>
+
+			<div class="row">
+
+				<!-- Buttons -->
+				<input type="hidden" name="Wartungsvertrag_ID" ng-model="poolData.Stundenpools_Wartungsvertraege_ID">
+
+				<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
+
+				<button type="submit" class="btn btn-default custom-btn col-xs-12 col-sm-12 col-md-offset-7 col-md-2">
+					<span class="glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>hinzufügen
+				</button>
+				<!-- /Buttons -->
+
+			</div>
+		</div>
+	</form>
 </div>
-<div class="row">
-	<a href="wv-uebersicht"><button type="button" class="btn btn-default custom-btn col-xs-12 col-sm-12 col-md-offset-7 col-md-2">
-		<span class="glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>hinzufügen
-	</button></a>
-</div>
+
+{{ poolData | json }}
