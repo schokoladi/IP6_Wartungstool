@@ -14,6 +14,15 @@ use DateTime;
 
 class ContractController extends Controller
 {
+  public function __construct() {
+    // für alle
+    //$this->middleware('jwt.auth');
+    // Mit Ausnahmen
+    $this->middleware('jwt.auth');
+
+    // Wird dann so in den routes angezeigt!!!
+  }
+
   /**
   * Display a listing of the resource.
   *
@@ -107,11 +116,12 @@ class ContractController extends Controller
       // Artikel nür füllen, wenn Werte vorhanden
       if(!empty($articles)) {
         foreach($articles as $article) {
+          $json['Artikel'][$i]['ID'] = $article->ID;
           $json['Artikel'][$i]['Seriennummer'] = $article->Seriennummer;
           $json['Artikel'][$i]['Artikelnummer'] = $article->product->Artikelnummer;
           $json['Artikel'][$i]['Name'] = $article->product->Name;
           $json['Artikel'][$i]['Hersteller'] = $article->product->manufacturer->Name;
-          $json['Artikel'][$i]['Maintenance'] = $article->maintenance->Maintenance;
+          $json['Artikel'][$i]['Maintenance'] = $article->maintenance->Bezeichnung;
           $json['Artikel'][$i]['Start'] = $article->Maintenance_Start;
           $i++;
         }
@@ -121,6 +131,7 @@ class ContractController extends Controller
       // Pools nür füllen wenn Werte vorhanden
       if(!empty($pools)) {
         foreach($pools as $pool) {
+          $json['Stundenpools'][$j]['ID'] = $pool->ID;
           $json['Stundenpools'][$j]['Stundenpool_Start'] = $pool->Stundenpool_Start;
           $json['Stundenpools'][$j]['Anzahl_Stunden'] = $pool->Anzahl_Stunden;
           $json['Stundenpools'][$j]['Stundensatz'] = $pool->Stundensatz;
