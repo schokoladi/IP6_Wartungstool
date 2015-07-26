@@ -17,7 +17,7 @@ class CreateHerstellerTable extends Migration
           Schema::create('Hersteller', function (Blueprint $table) {
               $table->increments('ID');
 
-              $table->string('Name', 100);
+              $table->string('Name', 100)->unique();
 
               $table->timestamps();
           });
