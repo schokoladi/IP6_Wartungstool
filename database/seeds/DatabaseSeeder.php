@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
         //$this->command->info('Wartungsvertraege table seeded!');
 
         // Tabelle Waehrungen mit Werten füllen
+        $this->call('UserTableSeeder');
+        $this->command->info('user table seeded!');
+
+        // Tabelle Waehrungen mit Werten füllen
         $this->call('WaehrungenTableSeeder');
         $this->command->info('Waehrungen table seeded!');
 
