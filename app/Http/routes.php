@@ -22,6 +22,11 @@ Route::get('/', function () {
 // API-Prefix -> /api/Produkte/...
 Route::group(array('prefix' => 'api'), function() {
 
+  // Authenticate controller
+  //Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+  Route::post('authenticate', 'AuthenticateController@authenticate');
+  Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
+
   // Hier wird von Deutsch auf Englisch weitergeleitet
   Route::resource('contracts', 'ContractController');
 
@@ -58,6 +63,12 @@ Route::group(array('prefix' => 'api'), function() {
 
 });
 
+/*
+Route::controllers([
+  'auth' => 'Auth\AuthController',
+  'password' => 'Auth\PasswordController'
+  ]);
+*/
 //Route::controller('Produkte', 'ProdukteController');
 
 /*Route::get('/home', function () {
