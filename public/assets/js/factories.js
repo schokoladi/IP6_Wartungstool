@@ -242,3 +242,19 @@ app.factory('OS_Stundenpool', function($http) {
     }
   }
 });
+
+/*
+// Message-Factory
+app.factory('Message', function($routeParams) {
+  return {
+    get: function() {
+      
+      var split = $routeParams.message.split('~');
+      var msg.type = split[0];
+      msg.message = split[1];
+
+      return 'bla';
+    }
+  }
+});
+*/
