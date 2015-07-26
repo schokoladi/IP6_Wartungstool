@@ -8,9 +8,20 @@
 </div>
 
 <div class="row">
+
+	<!-- messages -->
 	<div class="col-xs-12 col-ms-12 col-md-9">
+		<div ng-show="messageType == 0" class="alert alert-dismissable alert-warning custom-alert" >
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+		</div>
+		<div ng-show="messageType == 1" class="alert alert-dismissable alert-info custom-alert" >
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+		</div>
+		<div ng-show="messageType == 2" class="alert alert-dismissable alert-success custom-alert" >
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+		</div>
+
 		<div class="table-responsive">
-			{{ message }}
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
