@@ -1,9 +1,19 @@
 console.log('contract controller loaded');
 
 app.controller('contractController',
-function($scope, $http, $location, $routeParams, Article, Contract, Customer, Contact, Manufacturer, Product, Currency, Maintenance, Operationsupport, Stundenpool, OS_Stundenpool) {
+function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, Customer, Contact, Manufacturer, Product, Currency, Maintenance, Operationsupport, Stundenpool, OS_Stundenpool) {
 
+  console.log($rootScope.authenticated);
   $scope.loading = true;
+
+  // Message-Handling
+  if($routeParams.message) {
+    var split = $routeParams.message.split('~');
+    // Types: 0 = error, 1 = info, 2 = success
+    $scope.messageType = split[0];
+    $scope.messageText = split[1];
+    console.log($scope.messageType + ' ' + $scope.messageText);
+  }
 
   // ------ DEFINING VARIABLES ------
   var showId          = $routeParams.showId;
@@ -198,7 +208,7 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       $scope.loading = false;
       console.log('successfully saved contract');
       $location.path('/wartungsvertraege/artikel/neu/' + contractInfo.Contract.ID +
-      '/message/Wartungsvertrag ' + contractInfo.Contract.Vertragsnummer + ' erstellt');
+      '/message/2~Wartungsvertrag ' + contractInfo.Contract.Vertragsnummer + ' erstellt');
     });
   }
   // Produkt aktualisieren
@@ -209,7 +219,7 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       console.log('successfully updated contract');
       // message string kann easy so übergeben werden
       $location.path('/wartungsvertraege/info/' + contractEditId +
-      '/edit/message/Wartungsvertragsinfo bearbeitet');
+      '/edit/message/1~Wartungsvertragsinfo bearbeitet');
     });
   }
 
@@ -219,7 +229,7 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       $scope.loading = false;
       console.log('successfully saved article');
       $location.path('/wartungsvertraege/artikel/neu/' + contractId +
-      '/message/Artikel erfasst');
+      '/message/2~Artikel erfasst');
     });
   }
   updateArticle = function(articleData) {
@@ -228,7 +238,7 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       $scope.loading = false;
       console.log('successfully updated article');
       $location.path('/wartungsvertraege/artikel/' + articleEditId +
-      '/edit/' + contractId + '/message/Artikel bearbeitet');
+      '/edit/' + contractId + '/message/1~Artikel bearbeitet');
     });
   }
 
@@ -238,7 +248,7 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       $scope.loading = false;
       console.log('successfully saved pool');
       $location.path('/wartungsvertraege/pool/neu/' + contractId +
-      '/message/Stundenpool erfasst');
+      '/message/2~Stundenpool erfasst');
     });
   }
   updatePool = function(poolData) {
@@ -247,7 +257,7 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       $scope.loading = false;
       console.log('successfully updated pool');
       $location.path('/wartungsvertraege/pool/' + poolEditId +
-      '/edit/' + contractId + '/message/Stundenpool bearbeitet');
+      '/edit/' + contractId + '/message/1~Stundenpool bearbeitet');
     });
   }
 
@@ -333,7 +343,7 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       $scope.loading = false;
       console.log('successfully deleted pool');
       $location.path('/wartungsvertraege/pool/neu/' + contractId +
-      '/message/Stundenpool gelöscht!');
+      '/message/0~Stundenpool gelöscht!');
     });
   }
 
@@ -385,14 +395,17 @@ function($scope, $http, $location, $routeParams, Article, Contract, Customer, Co
       showContracts(showId);
     }
     else {
+      getContracts();
       getCustomers();
       getProducts();
       getManufacturers();
       getCurrencies();
       getMaintenances();
       getOperationsupports();
-      showArticles(contractId);
-      showStundenpools(contractId);
+      if(contractId) {
+        showArticles(contractId);
+        showStundenpools(contractId);
+      }
     }
   }
 

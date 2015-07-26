@@ -1,13 +1,8 @@
 <!-- Notifikationsbox -->
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-9">
-		<div class="alert alert-dismissable alert-success custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ message }}</p>
-		</div>
-	</div>
 
 	<!-- list-group mit Wartungsvertragsinfos -->
-	<div class="hidden-xs hidden-sm col-md-3">
+	<div class="hidden-xs hidden-sm col-md-offset-9 col-md-3">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="list-group custom-list-group-fixed">
@@ -51,9 +46,24 @@
 	</div>
 </div>
 
-<!-- Liste mit den 3 Wartungsvertrags-Tabs (Wartungsvertrag / Artikel / Stundenpool) -->
 <div class="row">
-	<div ng-include='"app/shared/contractmenu/articleMenu.html"'></div>
+	<div ng-include='"app/shared/contractmenu/contractMenu.html"'></div>
+</div>
+
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-9">
+		<div ng-show="messageType == 0" class="alert alert-dismissable alert-warning custom-alert" >
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+		</div>
+		<div ng-show="messageType == 1" class="alert alert-dismissable alert-info custom-alert" >
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+		</div>
+		<div ng-show="messageType == 2" class="alert alert-dismissable alert-success custom-alert" >
+			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+		</div>
+	</div>
+</div>
 </div>
 
 <!--<div class="row">
