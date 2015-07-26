@@ -1,19 +1,29 @@
 // angular page routing
 
-app.config(function($routeProvider){
+app.config(function($routeProvider, $authProvider){
+
+  $authProvider.loginUrl = '/api/authenticate';
+
   $routeProvider
 
-// --- START PAGES ---
-  .when("/", {
-    templateUrl: "app/components/start/startView.html",
-    controller: "startController"
-  })
+  // --- START PAGES ---
   .when("/start", {
     templateUrl: "app/components/start/startView.html",
     controller: "startController"
   })
 
-// --- PRODUKTE-ROUTING ---
+  // --- LOGIN ---
+  .when("/login", {
+    templateUrl: "app/components/login/loginView.html",
+    controller: "authController"
+  })
+  // Die user-Seite wird erstellt, um über den Controller das Logout zu ermöglichen
+  .when("/user", {
+    templateUrl: "app/components/login/userView.html",
+    controller: "authController"
+  })
+
+  // --- PRODUKTE-ROUTING ---
   .when("/produkte/index", {
     templateUrl:  "app/components/product/productView.html",
     controller:   "productController"
@@ -37,8 +47,8 @@ app.config(function($routeProvider){
     controller:   "productController"
   })
 
-// --- WARTUNGSVERTRAEGE-ROUTING ---
-  .when("/wartungsvertraege", {
+  // --- WARTUNGSVERTRAEGE-ROUTING ---
+  .when("/wartungsvertraege/index", {
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
   })
@@ -97,13 +107,29 @@ app.config(function($routeProvider){
   .when("/wartungsvertraege/pool/:poolEditId/edit/:contractId/message/:message", {
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
-  });
+  })
 
   // Upload
   .when("/upload", {
-    templateUrl: "app/components/upload/upload.html",
+    templateUrl: "app/components/upload/uploadView.html",
     controller: "uploadController"
-  })
+  });
 
+  // Redirect to the auth state if any other states
+  // are requested other than users
+  //$urlRouterProvider.otherwise('/auth');
+/*
+  $stateProvider
+  .state('auth', {
+    url: '/auth',
+    templateUrl: '../views/authView.html',
+    controller: 'AuthController as auth'
+  })
+  .state('users', {
+    url: '/users',
+    templateUrl: '../views/userView.html',
+    controller: 'UserController as user'
+  });
+  */
 
 });

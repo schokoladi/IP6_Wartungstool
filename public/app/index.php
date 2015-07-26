@@ -42,15 +42,22 @@
   <script src="assets/libs/angular.min.js"></script> <!-- load angular -->
   <script src="assets/libs/angular-route.min.js"></script> <!-- load angular routing module -->
 
+  <!-- Satellizer v0.11.2 -->
+  <script src="assets/libs/satellizer.min.js"></script>
+  <!-- Papa Parse v4.1.0 -->
+  <script src="assets/libs/papaparse.min.js"></script>
+
   <!-- app specific JavaScript files -->
   <script src="app/app.module.js"></script> <!-- initiate the application -->
   <script src="app/app.routing.js"></script> <!-- load angular routings -->
   <script src="assets/js/factories.js"></script>
   <script src="assets/js/directives.js"></script>
-  
+  <script src="assets/js/authController.js"></script>
+
   <script src="app/components/contract/contractController.js"></script>
   <script src="app/components/product/productController.js"></script>
   <script src="app/components/start/startController.js"></script>
+  <script src="app/components/upload/uploadController.js"></script>
 
 </body>
 </html>

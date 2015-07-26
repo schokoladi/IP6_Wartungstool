@@ -1,2 +1,2 @@
 // define angular application
-var app = angular.module('wartungstoolApp', ['ngRoute']);
+var app = angular.module('wartungstoolApp', ['ngRoute', 'satellizer']);
