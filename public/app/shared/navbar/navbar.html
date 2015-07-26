@@ -11,31 +11,14 @@
       <a class="navbar-brand custom-navbar-brand" href="/#/start">
         <img alt="Amanox Wartungstool" width="30" height="30" src="assets/img/Amanox_Logo.png">
       </a>
-      <p class="navbar-text"><a href="/#/start" class="navbar-link">Wartungstool</a></p>
     </div>
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/#/wartungsvertraege">Wartungsverträge</a></li>
-        <!--
-        <li class="dropdown">
-          <a href="wartungsvertraege" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Wartungsverträge <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="wv-uebersicht"><span class="glyphicon glyphicon-list custom-glyphicon-left" aria-hidden="true"></span>Übersicht</a></li>
-            <li><a href="kundeninfo"><span class="glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>Neu</a></li>
-          </ul>
-        </li>-->
-        <li><a href="/#/produkte/index">Produkte</a></li>
+        <li><a href="/#/start" class="navbar-link">Wartungstool</a></li>
+        <li ng-if="authenticated"><a href="/#/wartungsvertraege/index">Wartungsverträge</a></li>
+        <li ng-if="authenticated"><a href="/#/produkte/index">Produkte</a></li>
 
-        <!--
-        <li class="dropdown">
-          <a href="produkte" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Produkte <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="produkte"><span class="glyphicon glyphicon-list custom-glyphicon-left" aria-hidden="true"></span>Übersicht</a></li>
-            <li><a href="produkt-neu"><span class="glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>Neu</a></li>
-          </ul>
-        </li>
-      </ul>-->
         <li class="dropdown">
           <a onclick='selectedDropdown("reports")' href="reports" class="dropdown-toggle reports" data-toggle="dropdown" role="button" aria-expanded="false">Reports <span class="caret"></span></a>
           <ul class="dropdown-menu reports" role="menu">
@@ -45,27 +28,9 @@
         </li>
       </ul>
 
-      <!-- works until here :) Login-Part starts -->
-
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle custom-dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user custom-glyphicon-left red" aria-hidden="true"></span><span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li>
-              <form class="custom-form-login">
-                <div class="form-group">
-                  <label class="sr-only" for="username">Username</label>
-                  <input type="text" class="form-control" id="username" placeholder="Benutzername">
-                </div>
-                <div class="form-group">
-                  <label class="sr-only" for="password">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Passwort">
-                </div>
-                <button type="submit" class="btn btn-default">Login</button>
-              </form>
-            </li>
-          </ul>
-        </li>
+        <li ng-if="authenticated"><a href="/#/user">{{ currentUser.name }}</a></li>
+        <li ng-if="!authenticated"><a href="/#/login">Login</a></li>
       </ul>
     </div>
 
