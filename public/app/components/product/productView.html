@@ -1,9 +1,13 @@
 <div class="row">
 	<div class="col-xs-6 col-sm-6 col-md-3">
-		<h4>Produkte</h4>
+		<h3>Produkte</h3>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-6">
-		<a href="/#/produkte/neu"><button type="button" class="btn btn-default custom-btn pull-right"><span class=" glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>neu</button></a>
+		<a href="/#/produkte/neu">
+			<button type="button" class="btn btn-default custom-btn pull-right">
+				<span class=" glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>Produkt erfassen
+			</button>
+		</a>
 	</div>
 </div>
 
@@ -11,67 +15,86 @@
 
 	<!-- messages -->
 	<div class="col-xs-12 col-ms-12 col-md-9">
-		<div ng-show="messageType == 0" class="alert alert-dismissable alert-warning custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
-		</div>
-		<div ng-show="messageType == 1" class="alert alert-dismissable alert-info custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
-		</div>
-		<div ng-show="messageType == 2" class="alert alert-dismissable alert-success custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
-		</div>
+		<div ng-include='"app/shared/messagebox/messageBox.html"'></div>
 
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
-						<th>Artikelnummer<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span></a></th>
-						<th>Name<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span></a></th>
-						<th>Hersteller<a href="#"><span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span></a></th>
-						<th></th>
+						<th>Artikelnummer
+							<a href="" ng-click="order('Artikelnummer')">
+								<span class="sortorder" ng-show="predicate === 'Artikelnummer'" ng-class="{reverse:reverse}"></span>
+								<span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span>
+							</a>
+						</th>
+						<th>Name
+							<a href="" ng-click="order('Name')">
+								<span class="sortorder" ng-show="predicate === 'Name'" ng-class="{reverse:reverse}"></span>
+								<span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span>
+							</a>
+						</th>
+						<th>Hersteller
+							<a href="" ng-click="order('Hersteller')">
+								<span class="sortorder" ng-show="predicate === 'Hersteller'" ng-class="{reverse:reverse}"></span>
+								<span class="glyphicon glyphicon-sort custom-glyphicon-right custom-glyphicon" aria-hidden="true"></span>
+							</a>
+						</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-hide="loading" ng-repeat="product in products | filter:prfilter | orderBy : 'Name'">
+					<tr ng-hide="loading" ng-repeat="product in products | filter:productFilter | orderBy:predicate:reverse">
 						<td>{{ product.Artikelnummer }}</td>
 						<td>{{ product.Name }}</td>
 						<td>{{ product.Hersteller }}</td>
-						<td><a href="/#/produkte/{{ product.ID }}/edit" class="text-muted">Edit</a>
-							<a href="#" ng-click="deleteProduct(product.ID)" class="text-muted">Delete</a></td>
+						<td>
+							<a href="/#/produkte/{{ product.ID }}/edit">
+								<span class="glyphicon glyphicon-pencil hidden-print" aria-hidden="true"></span>
+							</a>&nbsp;&nbsp;
+							<a href="#" ng-click="deleteProduct(product.ID)">
+								<span class="glyphicon glyphicon-remove hidden-print" aria-hidden="true"></span>
+							</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+
+	<!-- Panel für den Filter -->
 	<div class="col-xs-12 col-sm-12 col-md-3">
 		<div class="panel panel-default custom-panel-fixed panel-filter">
 			<div class="panel-body">
-				<form class="form-horizontal">
-					<div class="form-group form-group-sm">
-						<div class="col-xs-10 col-sm-9">
-							<!-- .sr-only hides the label field which is needed for screen readers... -->
-							<label class="sr-only" for="filter">Filter</label>
-							<input type="text" ng-model="prfilter" class="form-control input-sm" id="filter" placeholder="Filter">
-						</div>
-						<button type="submit" class="btn btn-default custom-btn btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				<div class="form-group form-group-sm form-horizontal">
+					<div class="col-xs-10 col-sm-9">
+						<!-- .sr-only hides the label field which is needed for screen readers... -->
+						<label class="sr-only" for="filter">Filter</label>
+						<input type="text" ng-model="productFilter" class="form-control input-sm" id="Filter" placeholder="Filter">
 					</div>
-				</form>
+					<button type="submit" ng-click="productFilter = undefined" class="btn btn-default custom-btn btn-sm">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<!-- /Panel für den Filter -->
+
+<!-- Pagination vorerst nicht umgesetzt
 <div class="row">
-	<div class="col-xs-12 col-ms-12 col-md-9">
-		<nav>
-			<ul class="pagination">
-				<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-			</ul>
-		</nav>
-	</div>
+<div class="col-xs-12 col-ms-12 col-md-9">
+<nav>
+<ul class="pagination">
+<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+<li class="active"><a href="#">1</a></li>
+<li><a href="#">2</a></li>
+<li><a href="#">3</a></li>
+<li><a href="#">4</a></li>
+<li><a href="#">5</a></li>
+<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+</ul>
+</nav>
 </div>
+</div>
+-->

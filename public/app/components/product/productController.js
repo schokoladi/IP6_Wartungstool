@@ -1,9 +1,12 @@
-console.log("Product Controller loaded.");
+console.log('Product Controller loaded');
 
 // Controller
 // $scope, $http und $location werden 'injected', damit sie verwendet werden können
 app.controller('productController',
-function($scope, $http, $location, $routeParams, $rootScope, Product, Manufacturer) {
+function($scope, $http, $location, $routeParams, $rootScope, Product, Manufacturer, Article) {
+
+  console.log($rootScope.authenticated);
+  $scope.loading = true;
 
   // Message-Handling
   if($routeParams.message) {
@@ -14,24 +17,38 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     console.log($scope.messageType + ' ' + $scope.messageText);
   }
 
-  $scope.loading = true;
   var editId = $routeParams.ID;
   $scope.message = $routeParams.message;
   $scope.master = {};
 
   // Produkte via api aus der Datenbank holen
-  Product.get()
-  .success(function(response) {
-    $scope.products = response;
-    $scope.loading = false;
-  });
+  getProducts = function() {
+    Product.get()
+    .success(function(response) {
+      $scope.products = response;
+      $scope.loading = false;
+    });
+  }
 
   // Hersteller via api aus der Datenbank holen
-  Manufacturer.get()
-  .success(function(response) {
-    $scope.manufacturers = response;
-    $scope.loading = false;
-  });
+  getManufacturers = function() {
+    Manufacturer.get()
+    .success(function(response) {
+      $scope.manufacturers = response;
+      $scope.loading = false;
+    });
+  }
+  // Hersteller via api aus der Datenbank holen
+  showArticles = function(productId) {
+    Article.product(productId)
+    .success(function(response) {
+      console.log('existiert');
+      $scope.loading = false;
+    })
+    .error(function(response){
+      console.log('nope');
+    });
+  }
 
   // Produkt-Formular Handling
   $scope.reset = function() {
@@ -68,7 +85,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     // Hersteller speichern wenn nicht leer
     Manufacturer.save(productData)
     .success(function(manufacturerData){
-      console.log('stored manufacturer');
+      console.log('successfully stored manufacturer');
       // ID des gespeicherten Herstellers Produkt übergeben
       $scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
       // Wenn Produkt editiert wird, updaten
@@ -79,19 +96,6 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
         saveProduct($scope.productData);
       }
     });
-  }
-
-  // Produkt editieren
-  if(editId) {
-    $scope.formMethod = 'PUT';
-    Product.edit(editId)
-    .success(function(response) {
-      $scope.productData = response;
-      $scope.loading = false;
-    });
-  }
-  else {
-    $scope.formMethod = 'POST';
   }
 
   // Produkt speichern
@@ -119,12 +123,37 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
   // Produkt löschen
   $scope.deleteProduct = function(id) {
     // Produkt mit Factory-Funktion löschen
+    showArticles(id);
+    
+/*
     Product.destroy(id)
     .success(function(data) {
       $scope.loading = false;
       console.log('successfully deleted product');
       $location.path('/produkte/index/message/0~Produkt gelöscht');
-    });
+    });*/
   };
+
+  $scope.order = function(predicate) {
+    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+    $scope.predicate = predicate;
+  };
+
+  // Produkt editieren
+  getProducts();
+  getManufacturers();
+  if(editId) {
+    $scope.formMethod = 'PUT';
+    Product.edit(editId)
+    .success(function(response) {
+      $scope.productData = response;
+      $scope.loading = false;
+    });
+  }
+  else {
+    $scope.formMethod = 'POST';
+    $scope.predicate = 'Artikelnummer';
+    $scope.reverse = true;
+  }
 
 });

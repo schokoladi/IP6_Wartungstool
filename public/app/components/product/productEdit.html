@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="row">
       <div class="col-sm-12 col-md-12">
-        <h4 class="h4">Produkt erfassen</h4>
+        <h3>Produkt erfassen</h3>
       </div>
     </div>
     <div class="row">
@@ -18,11 +18,6 @@
               <div class="form-group form-horizontal" ng-hide="!manufacturerToggle" ng-init="manufacturerToggle=true">
                 <label for="Hersteller" class="col-md-4 control-label">
                   Neuer Hersteller
-                  <span ng-show="productForm.$submitted || productForm.Hersteller.$touched">
-                    <span ng-show="productForm.Hersteller.$error.required"> *</span>
-                  </span>
-                  <span ng-if="productForm.Hersteller.$pending.unique">überprüfe...</span>
-                  <span ng-if="productForm.Hersteller.$error.unique">existiert bereits</span>
                 </label>
                 <div class="col-md-8">
                   <!-- Wenn ein Hersteller eingegeben wird, ist das Feld 'Hersteller_ID' nicht mehr required -->
@@ -35,14 +30,12 @@
               <div class="form-group form-horizontal" ng-hide="manufacturerToggle" ng-init="manufacturerToggle=false">
                 <label for="Hersteller_ID" class="col-md-4 control-label">
                   Hersteller wählen
-                  <span ng-show="productForm.$submitted || productForm.Hersteller_ID.$touched">
-                    <span ng-show="productForm.Hersteller_ID.$error.required"> *</span>
-                  </span>
                 </label>
                 <div class="col-md-8">
                   <!-- Wenn ein Hersteller ausgewählt wird, ist das Feld 'Hersteller' nicht mehr required -->
                   <select class="form-control" name="Hersteller_ID" id="Hersteller_ID"
-                  ng-model="productData.Produkte_Hersteller_ID" ng-required="!productData.Hersteller">
+                  ng-model="productData.Produkte_Hersteller_ID" ng-required="!productData.Hersteller"
+                  required="required">
                   <option value="{{ manufacturer.ID }}" ng-hide="loading"
                   ng-repeat="manufacturer in manufacturers | orderBy : 'Name'">
                   {{ manufacturer.Name }}
@@ -68,9 +61,6 @@
         <div class="form-group form-horizontal">
           <label for="Name" class="col-md-4 control-label">
             Produktname
-            <span ng-show="productForm.$submitted || productForm.Name.$touched">
-              <span ng-show="productForm.Name.$error.required"> *</span>
-            </span>
           </label>
           <div class="col-md-8">
             <input type="text" name="Name" id="Name" class="form-control"
@@ -83,9 +73,6 @@
         <div class="form-group form-horizontal">
           <label for="Artikelnummer" class="col-md-4 control-label">
             Artikelnummer
-            <span ng-show="productForm.$submitted || productForm.Artikelnummer.$touched">
-              <span ng-show="productForm.Artikelnummer.$error.required"> *</span>
-            </span>
           </label>
           <div class="col-md-8">
             <input type="text" name="Artikelnummer" id="Artikelnummer" class="form-control"
@@ -95,11 +82,18 @@
       </div>
 
     </div>
+
+    <div class="row">
+      <div class="custom-h4"></div>
+    </div>
+
     <!-- Buttons zum zurücksetzen und speichern -->
     <div class="row">
       <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default custom-btn">
+          <span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern
+        </button>&nbsp;
         <input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
-        <button type="submit" class="btn btn-default custom-btn">Speichern</button>
       </div>
     </div>
     <!-- {{ productData | json }} -->
