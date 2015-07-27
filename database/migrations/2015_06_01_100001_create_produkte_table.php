@@ -17,7 +17,7 @@ class CreateProdukteTable extends Migration
           Schema::create('Produkte', function (Blueprint $table) {
               $table->increments('ID');
 
-              $table->string('Artikelnummer', 100);
+              $table->string('Artikelnummer', 100)->unique();
               $table->string('Name', 150);
 
               $table->integer('Produkte_Hersteller_ID')->unsigned();
