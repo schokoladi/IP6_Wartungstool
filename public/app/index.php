@@ -19,6 +19,7 @@
   <link href="assets/css/bootstrap.css" rel="stylesheet">
   <!-- Custom style -->
   <link href="assets/css/custom.css" rel="stylesheet">
+  <link href="assets/css/print.css" rel="stylesheet">
 
 </head>
 
