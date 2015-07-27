@@ -23,6 +23,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
   var poolEditId      = $routeParams.poolEditId;
   $scope.showId       = showId;
   $scope.contractId   = contractId;
+  $scope.contractEditId = contractEditId;
   $scope.message      = $routeParams.message;
   master = {};
 
@@ -113,6 +114,13 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       $scope.loading = false;
     });
   }
+  showReferences = function(manufacturerId, productName) {
+    Product.reference(manufacturerId, productName)
+    .success(function(response) {
+      $scope.references = response;
+      $scope.loading = false;
+    });
+  }
   showArticles = function(id) {
     Article.show(id)
     .success(function(response) {
@@ -168,10 +176,18 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
   *  @param
   *  @return
   */
-  $scope.refreshProduct = function() {
+  $scope.refreshProducts = function() {
     var manufacturerId = $scope.articleData.Hersteller_ID;
-    //console.log('manid ' + manufacturerId);
+    //getProducts();
     showProducts(manufacturerId);
+    for(var prop in $scope.products) {
+      if($scope.products[prop].ID == $scope.articleData.Artikel_Produkte_ID) {
+        var productName = $scope.products[prop].Name;
+        break;
+      }
+    }
+    //console.log('manid ' + manufacturerId);
+    showReferences(manufacturerId, productName);
   }
 
   /**
@@ -186,6 +202,11 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
     //console.log('manid ' + manufacturerId);
     showOperationsupports(maintenanceId);
   }
+
+  $scope.order = function(predicate) {
+    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+    $scope.predicate = predicate;
+  };
 
   /**
   *  blabla
@@ -313,7 +334,6 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
   }
 
   $scope.storeArticle = function() {
-    console.log('store: ' + $scope.articleData);
     $scope.articleData.Artikel_Wartungsvertraege_ID = contractId;
     // checkPrices($scope.contractData.EKP_Artikel, $scope.contractData.EKP_Artikel_Waehrungen_ID, $scope.contractData.VKP_Artikel, $scope.contractData.VKP_Artikel_Waehrungen_ID);
     if(articleEditId) {
@@ -402,6 +422,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       getCurrencies();
       getMaintenances();
       getOperationsupports();
+      getOSStundenpools();
       if(contractId) {
         showArticles(contractId);
         showStundenpools(contractId);

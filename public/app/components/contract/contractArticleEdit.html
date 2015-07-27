@@ -1,98 +1,51 @@
 <!-- Notifikationsbox -->
 <div class="row">
+	<div class="center col-xs-12 col-ms-12 col-md-9">
+		<div ng-include='"app/shared/contractmenu/articleMenu.html"'></div>
+	</div>
 
 	<!-- list-group mit Wartungsvertragsinfos -->
-	<div class="hidden-xs hidden-sm col-md-offset-9 col-md-3">
+	<div class="hidden-xs hidden-sm col-md-3">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="list-group custom-list-group-fixed">
-					<div class="list-group-item inactive">
-						<h5 class="list-group-item-heading">
-							<span class="glyphicon glyphicon-list-alt custom-glyphicon-left" aria-hidden="true"></span>Artikel
-						</h5>
-						<p class="list-group-item-text">
-							<ul class="list-unstyled">
-								<li ng-repeat="article in articles">
-									<a href="#" ng-click="deleteArticle(article.ID)">
-										<span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span>
-									</a>
-									<a href="/#/wartungsvertraege/artikel/{{ article.ID }}/edit/{{ contractId }}">
-										<small>{{ article.Hersteller }} {{ article.Produkt }}<br />({{ article.Seriennummer }})</small>
-									</a>
-								</li>
-							</ul>
-						</p>
-					</div>
-					<div class="list-group-item inactive">
-						<h5 class="list-group-item-heading">
-							<span class="glyphicon glyphicon-time custom-glyphicon-left" aria-hidden="true"></span>Stundenpool
-						</h5>
-						<p class="list-group-item-text">
-							<ul class="list-unstyled">
-								<li ng-repeat="pool in pools">
-									<a href="#" ng-click="deletePool(pool.ID)">
-										<span class="glyphicon glyphicon-remove-circle red custom-glyphicon-left" aria-hidden="true"></span>
-									</a>
-									<a href="/#/wartungsvertraege/pool/{{ pool.ID }}/edit/{{ contractId }}">
-										<small>{{ pool.OS_Pool }} ({{ pool.Anzahl_Stunden }} Stunden)</small>
-									</a>
-								</li>
-							</ul>
-						</p>
-					</div>
-				</div>
+				<div ng-include='"app/shared/contractbox/contractBox.html"'></div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="row">
-	<div ng-include='"app/shared/contractmenu/contractMenu.html"'></div>
-</div>
-
-
+<!-- Messages -->
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-9">
-		<div ng-show="messageType == 0" class="alert alert-dismissable alert-warning custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
-		</div>
-		<div ng-show="messageType == 1" class="alert alert-dismissable alert-info custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
-		</div>
-		<div ng-show="messageType == 2" class="alert alert-dismissable alert-success custom-alert" >
-			<p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
-		</div>
+		<div ng-include='"app/shared/messagebox/messageBox.html"'></div>
 	</div>
 </div>
-</div>
+<!-- /Messages -->
 
-<!--<div class="row">
-<div class="col-xs-12 col-ms-12 col-md-9">
-<div class="fixed-container">
-<div class="fixedsticky sticky-top" id="sticky-top">dfsf blabla
-</div>
-</div>
-</div>
-</div>-->
-
-<!-- sticky-top -> sticky -->
+<!-- Vertragsinfos -->
 <div class="row">
 	<div class="col-xs-12 col-ms-12 col-md-9">
+
 		<div class="panel panel-default custom-panel sticky-top panel-vertrag">
-			<div class="panel-body">
-				<p class="text-center weiss">
-					<span class="glyphicon glyphicon-user custom-glyphicon-left"
-					aria-hidden="true"></span>
-					{{ contractData.Kunde }}&nbsp;&nbsp;&nbsp;&nbsp;
-					<span class="glyphicon glyphicon-tag custom-glyphicon-left"
-					aria-hidden="true"></span>
-					{{ contractData.Vertragsnummer }}&nbsp;&nbsp;&nbsp;&nbsp;
-					<span class="glyphicon glyphicon-earphone custom-glyphicon-left"
-					aria-hidden="true"></span>
-					{{ contractData.Kontaktperson_Vorname }} {{ contractData.Kontaktperson_Name }}
-				</p>
-			</div>
+			<a href="/#/wartungsvertraege/detail/{{ contractId }}">
+				<div class="panel-body">
+					<p class="text-center weiss">
+						<strong>
+							<span class="glyphicon glyphicon-user custom-glyphicon-left"
+							aria-hidden="true"></span>
+							{{ contractData.Kunde }}&nbsp;&nbsp;&nbsp;&nbsp;
+							<span class="glyphicon glyphicon-tag custom-glyphicon-left"
+							aria-hidden="true"></span>
+							{{ contractData.Vertragsnummer }}&nbsp;&nbsp;&nbsp;&nbsp;
+							<span class="glyphicon glyphicon-earphone custom-glyphicon-left"
+							aria-hidden="true"></span>
+							{{ contractData.Kontaktperson_Vorname }} {{ contractData.Kontaktperson_Name }}
+						</strong>
+					</p>
+				</div>
+			</a>
 		</div>
+
 	</div>
 </div>
 
@@ -111,49 +64,14 @@
 				<div class="col-sm-12 col-md-12">
 					<div class="row">
 
-						<!-- Produkt -->
-						<div class="col-sm-6 col-md-6">
-							<div class="form-group form-horizontal">
-								<label class="col-md-4 control-label" for="Produkt">
-									Produktname
-								</label>
-								<div class="col-md-8">
-									<select class="form-control" name="Produkt" id="Produkt" ng-model="articleData.Artikel_Produkte_ID">
-										<option value="{{ product.ID }}" ng-hide="loading" ng-repeat="product in products">
-											{{ product.Name }}
-										</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<!-- /Produkt -->
-
-						<!-- Artikelnummer -->
-						<div class="col-sm-6 col-md-6">
-							<div class="form-group form-horizontal">
-								<label class="col-md-4 control-label" for="Artikelnummer">
-									Artikelnummer
-								</label>
-								<div class="col-md-8">
-									<input type="text" name="Artikelnummer" id="Artikelnummer" class="form-control"
-									ng-model="articleData.Artikelnummer" required="required">
-								</div>
-							</div>
-						</div>
-						<!-- /Artikelnummer -->
-
-					</div>
-					<div class="row">
-
 						<!-- Hersteller -->
 						<div class="col-sm-6 col-md-6">
 							<div class="form-group form-horizontal">
-								<label for="Hersteller" class="col-md-4 control-label">
-									Hersteller
-								</label>
+								<label for="Hersteller" class="col-md-4 control-label">Hersteller</label>
 								<div class="col-md-8">
 									<select class="form-control" name="Hersteller" id="Hersteller"
-									ng-model="articleData.Hersteller_ID" ng-change="refreshProduct()">
+									ng-model="articleData.Hersteller_ID" ng-change="refreshProducts()"
+									required="required">
 									<option value="{{ manufacturer.ID }}" ng-hide="loading" ng-repeat="manufacturer in manufacturers">
 										{{ manufacturer.Name }}
 									</option>
@@ -163,365 +81,374 @@
 					</div>
 					<!-- /Hersteller -->
 
-					<!-- Seriennummer -->
+					<!-- Produkt -->
 					<div class="col-sm-6 col-md-6">
 						<div class="form-group form-horizontal">
-							<label for="Seriennummer" class="col-md-4 control-label">
-								Seriennummer
-								<span ng-show="articleForm.$submitted || articleForm.Seriennummer.$touched">
-									<span ng-show="articleForm.Seriennummer.$error.required"> *</span>
-								</span>
-							</label>
+							<label class="col-md-4 control-label" for="Produkt">Produkt</label>
 							<div class="col-md-8">
-								<input type="text" name="Seriennummer" class="form-control" placeholder="Seriennummer"
-								id="Seriennummer" ng-model="articleData.Seriennummer">
-							</div>
-						</div>
-					</div>
-					<!-- /Seriennummer -->
-
-				</div>
-				<div class="row">
-
-					<!-- Artikel Einkaufspreis und -Waehrung -->
-					<div class="col-sm-6 col-md-6">
-						<div class="form-group form-horizontal">
-							<label for="EKP_Artikel" class="col-md-4 control-label">
-								Einkaufspreis
-								<span ng-show="articleForm.$submitted || articleForm.EKP_Artikel.$touched">
-									<span ng-show="articleForm.EKP_Artikel.$error.required"> *</span>
-								</span>
-							</label>
-							<div class="col-md-4">
-								<input class="form-control" type="text" name="EKP_Artikel" id="EKP_Artikel"
-								ng-model="articleData.EKP_Artikel" required="required">
-							</div>
-							<!-- Waehrung -->
-							<label for="EKP_Artikel_Waehrung" class="sr-only">Waehrung</label>
-							<div class="col-md-4">
-								<select class="form-control" name="EKP_Artikel_Waehrung" id="EKP_Artikel_Waehrung"
-								ng-model="articleData.EKP_Artikel_Waehrungen_ID">
-								<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
-									{{ currency.Waehrung }}
+								<select class="form-control" name="Produkt" id="Produkt" ng-model="articleData.Artikel_Produkte_ID"
+								ng-change="refreshProducts()" required="required">
+								<option value="{{ product.ID }}" ng-hide="loading" ng-repeat="product in products">
+									{{ product.Name }}
 								</option>
 							</select>
 						</div>
 					</div>
 				</div>
-				<!-- /Artikel Einkaufspreis und -Waehrung -->
+				<!-- /Produkt -->
 
-				<!-- Artikel Verkaufspreis und -Waehrung -->
+			</div>
+			<div class="row">
+
+				<!-- Artikelnummer -->
 				<div class="col-sm-6 col-md-6">
 					<div class="form-group form-horizontal">
-						<label for="VKP_Artikel" class="col-md-4 control-label">
-							Verkaufspreis
-							<span ng-show="articleForm.$submitted || articleForm.VKP_Artikel.$touched">
-								<span ng-show="articleForm.VKP_Artikel.$error.required"> *</span>
-							</span>
-						</label>
-						<div class="col-md-4">
-							<input type="text" name="VKP_Artikel" class="form-control" id="VKP_Artikel"
-							ng-model="articleData.VKP_Artikel" required="required">
-						</div>
-						<!-- Waehrung -->
-						<label for="VKP_Artikel_Waehrung" class="sr-only">Waehrung</label>
-						<div class="col-md-4">
-							<select class="form-control" name="VKP_Artikel_Waehrung" id="VKP_Artikel_Waehrung"
-							ng-model="articleData.VKP_Artikel_Waehrungen_ID">
-							<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
-								{{ currency.Waehrung }}
+						<label class="col-md-4 control-label" for="Artikelnummer">Artikel-Nr.</label>
+						<div class="col-md-8">
+							<select class="form-control" name="Artikelnummer" id="Artikelnummer"
+							ng-model="articleData.Artikelnummer" required="required">
+							<option value="{{ reference.ID }}" ng-hide="loading" ng-repeat="reference in references">
+								{{ reference.Artikelnummer }}
 							</option>
 						</select>
 					</div>
 				</div>
 			</div>
-			<!-- /Artikel Verkaufspreis und -Waehrung -->
+			<!-- /Artikelnummer -->
+
+			<!-- Seriennummer -->
+			<div class="col-sm-6 col-md-6">
+				<div class="form-group form-horizontal">
+					<label for="Seriennummer" class="col-md-4 control-label">Serien-Nr.</label>
+					<div class="col-md-8">
+						<input type="text" name="Seriennummer" class="form-control" placeholder="Seriennummer"
+						id="Seriennummer" ng-model="articleData.Seriennummer" required="required">
+					</div>
+				</div>
+			</div>
+			<!-- /Seriennummer -->
 
 		</div>
 		<div class="row">
 
-			<!-- Auftragsnummer -->
+			<!-- Artikel Einkaufspreis und -Waehrung -->
 			<div class="col-sm-6 col-md-6">
 				<div class="form-group form-horizontal">
-					<label for="Auftragsnummer" class="col-md-4 control-label">Auftrags-Nr.</label>
-					<div class="col-md-8">
-						<input type="text" name="Auftragsnummer" class="form-control" placeholder="Auftragsnummer"
-						id="Auftragsnummer" ng-model="articleData.Auftragsnummer">
+					<label for="EKP_Artikel" class="col-md-4 control-label">Eink.-Preis</label>
+					<div class="col-md-4">
+						<input class="form-control" type="text" name="EKP_Artikel" id="EKP_Artikel"
+						ng-model="articleData.EKP_Artikel" required="required">
 					</div>
-				</div>
-			</div>
-			<!-- /Auftragsnummer -->
-
-			<!-- Auftragsdatumdatum -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Auftragsdatum" class="col-md-4 control-label">Datum</label>
-					<div class="col-md-8">
-						<input type="text" name="Auftragsdatum" class="form-control" placeholder="tt.mm.jjjj"
-						id="Auftragsdatum" ng-model="articleData.Auftragsdatum">
-					</div>
-				</div>
-			</div>
-			<!-- /Auftragsnummer -->
-
-		</div>
-		<div class="row">
-
-			<!-- Rechnungsnummer -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Rechnungsnummer" class="col-md-4 control-label">Rechn-Nr.</label>
-					<div class="col-md-8">
-						<input type="text" name="Rechnungsnummer" placeholder="Rechnungsnummer"
-						id="Rechnungsnummer" class="form-control" ng-model="articleData.Rechnungsnummer">
-					</div>
-				</div>
-			</div>
-			<!-- /Rechnungsnummer -->
-
-			<!-- Rechnungsdatum -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Rechnungsdatum" class="col-md-4 control-label">Datum</label>
-					<div class="col-md-8">
-						<input type="text" name="Rechnungsdatum" class="form-control" placeholder="tt.mm.jjjj"
-						id="Rechnungsdatum"	ng-model="articleData.Rechnungsdatum">
-					</div>
-				</div>
-			</div>
-			<!-- /Rechnungsdatum -->
-
-		</div>
-		<div class="row">
-
-			<h4 class="custom-h4">Maintenance</h4>
-
-		</div>
-		<div class="row">
-
-			<!-- Wartungsart -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Wartungsart" class="col-md-4 control-label">Wartungsart</label>
-					<div class="col-md-8">
-						<select class="form-control" name="Wartungsart" id="Wartungsart"
-						ng-model="articleData.Artikel_Maintenance_ID" ng-change="refreshOperationsupport()">
-						<option value="{{ maintenance.ID }}" ng-hide="loading" ng-repeat="maintenance in maintenances">
-							{{ maintenance.Bezeichnung }}
-						</option>
-					</select>
-				</div>
+					<!-- Waehrung -->
+					<label for="EKP_Artikel_Waehrung" class="sr-only">Waehrung</label>
+					<div class="col-md-4">
+						<select class="form-control" name="EKP_Artikel_Waehrung" id="EKP_Artikel_Waehrung"
+						ng-model="articleData.EKP_Artikel_Waehrungen_ID" required="required">
+						<!-- <option value="{ 'EKP_Artikel_Waehrungen_ID':{{ currency.ID }},'EKP_Artikel_Kurs':{{ currency.Kurs }} }"
+						ng-hide="loading" ng-repeat="currency in currencies">
+						{{ currency.Waehrung }}
+					</option> -->
+					<option value="{{ currency.ID }}"	ng-hide="loading" ng-repeat="currency in currencies">
+						{{ currency.Waehrung }}
+					</option>
+				</select>
 			</div>
 		</div>
-		<!-- /Wartungsart -->
-
-		<!-- Startdatum Maintenance -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="Maintenance_Start" class="col-md-4 control-label">Startdatum</label>
-				<div class="col-md-8">
-					<input type="text" name="Maintenance_Start" class="form-control" placeholder="tt.mm.jjjj"
-					id="Maintenance_Start" ng-model="articleData.Maintenance_Start">
-				</div>
-			</div>
-		</div>
-		<!-- /Startdatum Maintenance -->
-
 	</div>
-	<div class="row">
+	<!-- /Artikel Einkaufspreis und -Waehrung -->
 
-		<!-- Maintenance von -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="Maintenance_von" class="col-md-4 control-label">Von</label>
-				<div class="col-md-8">
-					<input type="text" name="Maintenance_von" class="form-control" id="Maintenance_von"
-					ng-model="articleData.Maintenance_von">
-				</div>
+	<!-- Artikel Verkaufspreis und -Waehrung -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="VKP_Artikel" class="col-md-4 control-label">Verk.-Preis</label>
+			<div class="col-md-4">
+				<input type="text" name="VKP_Artikel" class="form-control" id="VKP_Artikel"
+				ng-model="articleData.VKP_Artikel" required="required">
 			</div>
+			<!-- Waehrung -->
+			<label for="VKP_Artikel_Waehrung" class="sr-only">Waehrung</label>
+			<div class="col-md-4">
+				<select class="form-control" name="VKP_Artikel_Waehrung" id="VKP_Artikel_Waehrung"
+				ng-model="articleData.VKP_Artikel_Waehrungen_ID" required="required">
+				<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+					{{ currency.Waehrung }}
+				</option>
+			</select>
 		</div>
-		<!-- /Maintenance von -->
-
-		<!-- Maintenance bis -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="Maintenance_bis" class="col-md-4 control-label">Bis</label>
-				<div class="col-md-8">
-					<input type="text" name="Maintenance_bis" class="form-control" id="Maintenance_bis"
-					ng-model="articleData.Maintenance_bis">
-				</div>
-			</div>
-		</div>
-		<!-- /Maintenance bis -->
-
 	</div>
-	<div class="row">
+</div>
+<!-- /Artikel Verkaufspreis und -Waehrung -->
 
-		<!-- Maintenance Einkaufspreis und -Waehrung -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="EKP_Maintenance" class="col-md-4 control-label">
-					Einkaufspreis
-					<span ng-show="articleForm.$submitted || articleForm.EKP_Maintenance.$touched">
-						<span ng-show="articleForm.EKP_Maintenance.$error.required"> *</span>
-					</span>
-				</label>
-				<div class="col-md-4">
-					<input class="form-control" type="text" name="EKP_Maintenance" id="EKP_Maintenance"
-					ng-model="articleData.EKP_Maintenance" required="required">
-				</div>
-				<!-- Waehrung -->
-				<label for="EKP_Maintenance_Waehrung" class="sr-only">Waehrung</label>
-				<div class="col-md-4">
-					<select class="form-control" name="EKP_Maintenance_Waehrung" id="EKP_Maintenance_Waehrung"
-					ng-model="articleData.EKP_Maintenance_Waehrungen_ID">
-					<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
-						{{ currency.Waehrung }}</option>
-					</select>
-				</div>
+</div>
+<div class="row">
+
+	<!-- Auftragsnummer -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Auftragsnummer" class="col-md-4 control-label">Auftrags-Nr.</label>
+			<div class="col-md-8">
+				<input type="text" name="Auftragsnummer" class="form-control" placeholder="Auftragsnummer"
+				id="Auftragsnummer" ng-model="articleData.Auftragsnummer">
 			</div>
 		</div>
-		<!-- /Maintenance Einkaufspreis und -Waehrung -->
-
-		<!-- Maintenance Verkaufspreis und -Waehrung -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="VKP_Maintenance" class="col-md-4 control-label">
-					Verkaufspreis
-					<span ng-show="articleForm.$submitted || articleForm.VKP_Maintenance.$touched">
-						<span ng-show="articleForm.VKP_Maintenance.$error.required"> *</span>
-					</span>
-				</label>
-				<div class="col-md-4">
-					<input type="text" name="VKP_Maintenance" class="form-control" id="VKP_Maintenance"
-					ng-model="articleData.VKP_Maintenance" required="required">
-				</div>
-				<!-- Waehrung -->
-				<label for="VKP_Maintenance_Waehrung" class="sr-only">Waehrung</label>
-				<div class="col-md-4">
-					<select class="form-control" name="VKP_Maintenance_Waehrung" id="VKP_Maintenance_Waehrung"
-					ng-model="articleData.VKP_Maintenance_Waehrungen_ID">
-					<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
-						{{ currency.Waehrung }}</option>
-					</select>
-				</div>
-			</div>
-		</div>
-		<!-- /Maintenance Verkaufspreis und -Waehrung -->
-
 	</div>
-	<div class="row">
+	<!-- /Auftragsnummer -->
 
-		<h4 class="custom-h4">Operation Support</h4>
-
-	</div>
-	<div class="row">
-
-		<!-- OS-Art -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="OS_Art" class="col-md-4 control-label">OS-Art</label>
-				<div class="col-md-8">
-					<select class="form-control" name="OS_Art" id="OS_Art"
-					ng-model="articleData.Artikel_Operationsupport_ID">
-					<option value="{{ operationsupport.ID }}" ng-hide="loading" ng-repeat="operationsupport in operationsupports">
-						{{ operationsupport.Bezeichnung }}</option>
-					</select>
-				</div>
+	<!-- Auftragsdatumdatum -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Auftragsdatum" class="col-md-4 control-label">Datum</label>
+			<div class="col-md-8">
+				<input type="text" name="Auftragsdatum" class="form-control" placeholder="TT.MM.JJJJ"
+				id="Auftragsdatum" ng-model="articleData.Auftragsdatum">
+				<!-- {{ articleData.Auftragsdatum | date : 'dd.MM.yyyy'}} -->
 			</div>
 		</div>
-		<!-- /OS-Art -->
+	</div>
+	<!-- /Auftragsnummer -->
 
-		<!-- Startdatum OS -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="Operationsupport_Start" class="col-md-4 control-label">Startdatum</label>
-				<div class="col-md-8">
-					<input type="text" name="Operationsupport_Start" class="form-control" placeholder="tt.mm.jjjj"
-					id="Operationsupport_Start" ng-model="articleData.Operationsupport_Start">
-				</div>
+</div>
+<div class="row">
+
+	<!-- Rechnungsnummer -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Rechnungsnummer" class="col-md-4 control-label">Rechn.-Nr.</label>
+			<div class="col-md-8">
+				<input type="text" name="Rechnungsnummer" placeholder="Rechnungsnummer"
+				id="Rechnungsnummer" class="form-control" ng-model="articleData.Rechnungsnummer">
 			</div>
 		</div>
-		<!-- /Startdatum Maintenance -->
-
 	</div>
-	<div class="row">
+	<!-- /Rechnungsnummer -->
 
-		<!-- Operation Support von -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="Operationsupport_von" class="col-md-4 control-label">Von</label>
-				<div class="col-md-8">
-					<input type="text" name="Operationsupport_von" class="form-control" id="Operationsupport_von"
-					ng-model="articleData.Operationsupport_von">
-				</div>
+	<!-- Rechnungsdatum -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Rechnungsdatum" class="col-md-4 control-label">Datum</label>
+			<div class="col-md-8">
+				<input type="text" name="Rechnungsdatum" class="form-control" placeholder="TT.MM.JJJJ"
+				id="Rechnungsdatum"	ng-model="articleData.Rechnungsdatum">
 			</div>
 		</div>
-		<!-- /Operation Support von -->
+	</div>
+	<!-- /Rechnungsdatum -->
 
-		<!-- Operation Support bis -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="Operationsupport_bis" class="col-md-4 control-label">Bis</label>
-				<div class="col-md-8">
-					<input type="text" name="Operationsupport_bis" class="form-control"	id="Operationsupport_bis"
-					ng-model="articleData.Operationsupport_bis">
-				</div>
+</div>
+<div class="row">
+
+	<h4 class="custom-h4">Maintenance</h4>
+
+</div>
+<div class="row">
+
+	<!-- Wartungsart -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Wartungsart" class="col-md-4 control-label">Wartungsart</label>
+			<div class="col-md-8">
+				<select class="form-control" name="Wartungsart" id="Wartungsart"
+				ng-model="articleData.Artikel_Maintenance_ID" ng-change="refreshOperationsupport()"
+				required="required">
+				<option value="{{ maintenance.ID }}" ng-hide="loading" ng-repeat="maintenance in maintenances">
+					{{ maintenance.Bezeichnung }}
+				</option>
+			</select>
+		</div>
+	</div>
+</div>
+<!-- /Wartungsart -->
+
+<!-- Startdatum Maintenance -->
+<div class="col-sm-6 col-md-6">
+	<div class="form-group form-horizontal">
+		<label for="Maintenance_Start" class="col-md-4 control-label">Start</label>
+		<div class="col-md-8">
+			<input type="text" name="Maintenance_Start" class="form-control" placeholder="TT.MM.JJJJ"
+			id="Maintenance_Start" ng-model="articleData.Maintenance_Start" required="required">
+		</div>
+	</div>
+</div>
+<!-- /Startdatum Maintenance -->
+
+</div>
+<div class="row">
+
+	<!-- Maintenance von -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Maintenance_von" class="col-md-4 control-label">Von</label>
+			<div class="col-md-8">
+				<input type="text" name="Maintenance_von" class="form-control" id="Maintenance_von"
+				placeholder="TT.MM.JJJJ" ng-model="articleData.Maintenance_von" required="required">
 			</div>
 		</div>
-		<!-- /Operation Support bis -->
-
 	</div>
-	<div class="row">
+	<!-- /Maintenance von -->
 
-		<div class="col-sm-6 col-md-6">
-		</div>
-
-		<!-- OS-Verkaufspreis -->
-		<div class="col-sm-6 col-md-6">
-			<div class="form-group form-horizontal">
-				<label for="VKP_Operationsupport" class="col-md-4 control-label">
-					Verkaufspreis
-					<span ng-show="articleForm.$submitted || articleForm.VKP_Operationsupport.$touched">
-						<span ng-show="articleForm.VKP_Operationsupport.$error.required"> *</span>
-					</span>
-				</label>
-				<div class="col-md-4">
-					<input type="text" name="VKP_Operationsupport" class="form-control"	id="VKP_Operationsupport"
-					ng-model="articleData.VKP_Operationsupport" required="required">
-				</div>
-				<!-- Waehrung -->
-				<label for="VKP_Operationsupport_Waehrung" class="sr-only">Waehrung</label>
-				<div class="col-md-4">
-					<select class="form-control" name="VKP_Operationsupport_Waehrung" id="VKP_Operationsupport_Waehrung"
-					ng-model="articleData.VKP_Operationsupport_Waehrungen_ID">
-					<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
-						{{ currency.Waehrung }}</option>
-					</select>
-				</div>
+	<!-- Maintenance bis -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Maintenance_bis" class="col-md-4 control-label">Bis</label>
+			<div class="col-md-8">
+				<input type="text" name="Maintenance_bis" class="form-control" id="Maintenance_bis"
+				placeholder="TT.MM.JJJJ" ng-model="articleData.Maintenance_bis" required="required">
 			</div>
 		</div>
-		<!-- /OS-Verkaufpreis -->
-
 	</div>
-	<div class="row">
+	<!-- /Maintenance bis -->
 
-		<input type="hidden" name="Wartungsvertrag_ID" ng-model="articleData.Artikel_Wartungsvertraege_ID">
+</div>
+<div class="row">
 
-		<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
-
-		<button type="submit" class="btn btn-default custom-btn col-xs-12 col-sm-12 col-md-2 col-md-offset-7">
-			<span class="glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>hinzufügen
-		</button>
-
-		<a href="/#/wartungsvertraege/pool/neu/{{ contractId }}">
-			<button type="button" class="btn btn-default custom-btn pull-right">
-				<span class=" glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>weiter
-			</button>
-		</a>
-
+	<!-- Maintenance Einkaufspreis und -Waehrung -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="EKP_Maintenance" class="col-md-4 control-label">Eink.-Preis</label>
+			<div class="col-md-4">
+				<input class="form-control" type="text" name="EKP_Maintenance" id="EKP_Maintenance"
+				ng-model="articleData.EKP_Maintenance" required="required">
+			</div>
+			<!-- Waehrung -->
+			<label for="EKP_Maintenance_Waehrung" class="sr-only">Waehrung</label>
+			<div class="col-md-4">
+				<select class="form-control" name="EKP_Maintenance_Waehrung" id="EKP_Maintenance_Waehrung"
+				ng-model="articleData.EKP_Maintenance_Waehrungen_ID" required="required">
+				<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+					{{ currency.Waehrung }}</option>
+				</select>
+			</div>
+		</div>
 	</div>
+	<!-- /Maintenance Einkaufspreis und -Waehrung -->
+
+	<!-- Maintenance Verkaufspreis und -Waehrung -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="VKP_Maintenance" class="col-md-4 control-label">Verk.-Preis</label>
+			<div class="col-md-4">
+				<input type="text" name="VKP_Maintenance" class="form-control" id="VKP_Maintenance"
+				ng-model="articleData.VKP_Maintenance" required="required">
+			</div>
+			<!-- Waehrung -->
+			<label for="VKP_Maintenance_Waehrung" class="sr-only">Waehrung</label>
+			<div class="col-md-4">
+				<select class="form-control" name="VKP_Maintenance_Waehrung" id="VKP_Maintenance_Waehrung"
+				ng-model="articleData.VKP_Maintenance_Waehrungen_ID" required="required">
+				<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+					{{ currency.Waehrung }}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<!-- /Maintenance Verkaufspreis und -Waehrung -->
+
+</div>
+
+<div class="row">
+	<h4 class="custom-h4">Operation Support</h4>
+</div>
+
+<div class="row">
+
+	<!-- OS-Art -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="OS_Art" class="col-md-4 control-label">OS-Art</label>
+			<div class="col-md-8">
+				<select class="form-control" name="OS_Art" id="OS_Art" ng-model="articleData.Artikel_Operationsupport_ID"
+				required="required">
+				<option value="{{ operationsupport.ID }}" ng-hide="loading" ng-repeat="operationsupport in operationsupports">
+					{{ operationsupport.Bezeichnung }}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<!-- /OS-Art -->
+
+	<!-- Startdatum OS -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Operationsupport_Start" class="col-md-4 control-label">Start</label>
+			<div class="col-md-8">
+				<input type="text" name="Operationsupport_Start" class="form-control" placeholder="TT.MM.JJJJ"
+				id="Operationsupport_Start" ng-model="articleData.Operationsupport_Start" required="required">
+			</div>
+		</div>
+	</div>
+	<!-- /Startdatum Maintenance -->
+
+</div>
+<div class="row">
+
+	<!-- Operation Support von -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Operationsupport_von" class="col-md-4 control-label">Von</label>
+			<div class="col-md-8">
+				<input type="text" name="Operationsupport_von" class="form-control" id="Operationsupport_von"
+				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_von" required="required">
+			</div>
+		</div>
+	</div>
+	<!-- /Operation Support von -->
+
+	<!-- Operation Support bis -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="Operationsupport_bis" class="col-md-4 control-label">Bis</label>
+			<div class="col-md-8">
+				<input type="text" name="Operationsupport_bis" class="form-control"	id="Operationsupport_bis"
+				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_bis" required="required">
+			</div>
+		</div>
+	</div>
+	<!-- /Operation Support bis -->
+
+</div>
+<div class="row">
+
+	<div class="col-sm-6 col-md-6">
+	</div>
+
+	<!-- OS-Verkaufspreis -->
+	<div class="col-sm-6 col-md-6">
+		<div class="form-group form-horizontal">
+			<label for="VKP_Operationsupport" class="col-md-4 control-label">Verk.-Preis</label>
+			<div class="col-md-4">
+				<input type="text" name="VKP_Operationsupport" class="form-control"	id="VKP_Operationsupport"
+				ng-model="articleData.VKP_Operationsupport" required="required">
+			</div>
+			<!-- Waehrung -->
+			<label for="VKP_Operationsupport_Waehrung" class="sr-only">Waehrung</label>
+			<div class="col-md-4">
+				<select class="form-control" name="VKP_Operationsupport_Waehrung" id="VKP_Operationsupport_Waehrung"
+				ng-model="articleData.VKP_Operationsupport_Waehrungen_ID" required="required">
+				<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+					{{ currency.Waehrung }}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<!-- /OS-Verkaufpreis -->
+
+</div>
+
+<div class="row">
+	<h4 class="custom-h4"></h4>
+</div>
+
+<div class="row">
+
+	<input type="hidden" name="Wartungsvertrag_ID" ng-model="articleData.Artikel_Wartungsvertraege_ID">
+
+	<button type="submit" class="btn btn-default custom-btn col-xs-12 col-sm-12 col-md-2 col-md-offset-8">
+		<span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern
+	</button>&nbsp;
+	<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
+
+</div>
 </form>
 </div>
 
-{{ articleData | json }}
+<!-- {{ articleData | json }} -->

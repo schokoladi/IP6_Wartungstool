@@ -1,6 +1,6 @@
 <div class="row hidden-print">
 	<div class="col-xs-12 col-sm-12 col-md-12">
-		<a href=""><button type="button" class="btn btn-default custom-btn pull-right">
+		<a href="#" onclick="window.print();"><button type="button" class="btn btn-default custom-btn pull-right">
 			<span class="glyphicon glyphicon-print custom-glyphicon-left" aria-hidden="true"></span>Drucken
 		</button></a>
 	</div>
@@ -64,10 +64,10 @@
 								<td>{{ article.Maintenance }}</td>
 								<td>{{ article.Start | date:'dd.MM.yyyy' }}</td>
 								<td>
-									<a href="/#/wartungsvertraege/artikel/{{ article.ID }}/edit/{{ showId }}">
+									<a class="hidden-print" href="/#/wartungsvertraege/artikel/{{ article.ID }}/edit/{{ showId }}">
 										<span class="glyphicon glyphicon-pencil hidden-print" aria-hidden="true"></span>
 									</a>&nbsp;&nbsp;
-									<a href="#" ng-click="deleteArticle(article.ID)">
+									<a class="hidden-print" href="#" ng-click="deleteArticle(article.ID)">
 										<span class="glyphicon glyphicon-remove hidden-print" aria-hidden="true"></span>
 									</a>
 								</td>
@@ -77,7 +77,7 @@
 				</div>
 			</div>
 		</div>
-		<a href="/#/wartungsvertraege/artikel/neu/{{ showId }}"><button class="btn btn-primary custom-btn-article pull-right hidden-print"
+		<a class="hidden-print" href="/#/wartungsvertraege/artikel/neu/{{ showId }}"><button class="btn btn-primary custom-btn-article pull-right hidden-print"
 			type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Artikel hinzufügen
 		</button></a>
 	</div>
@@ -112,10 +112,10 @@
 								<td>{{ pool.Stundensatz }}</td>
 								<td>{{ pool.Rechnungsnummer }}</td>
 								<td>
-									<a href="/#/wartungsvertraege/pool/{{ pool.ID }}/edit/{{ showId }}">
+									<a class="hidden-print" href="/#/wartungsvertraege/pool/{{ pool.ID }}/edit/{{ showId }}">
 										<span class="glyphicon glyphicon-pencil hidden-print" aria-hidden="true"></span>
 									</a>&nbsp;&nbsp;
-									<a href="#" ng-click="deletePool(pool.ID)">
+									<a class="hidden-print" href="#" ng-click="deletePool(pool.ID)">
 										<span class="glyphicon glyphicon-remove hidden-print" aria-hidden="true"></span>
 									</a>
 								</td>
@@ -125,7 +125,7 @@
 				</div>
 			</div>
 		</div>
-		<a href="/#/wartungsvertraege/pool/neu/{{ showId }}">
+		<a class="hidden-print" href="/#/wartungsvertraege/pool/neu/{{ showId }}">
 			<button class="btn btn-primary custom-btn-stundenpool pull-right hidden-print"
 			type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			&nbsp;&nbsp;&nbsp;Stundenpool hinzufügen
@@ -135,7 +135,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 col-ms-12 col-md-2 col-md-offset-2 hidden-print ">
-		<a href="/#/wartungsvertraege">
+		<a class="hidden-print" href="/#/wartungsvertraege/index">
 			<button class="btn btn-primary custom-btn hidden-print" type="submit">
 				<span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
 				&nbsp;&nbsp;&nbsp;Zurück
