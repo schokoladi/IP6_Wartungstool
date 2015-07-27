@@ -32,9 +32,11 @@ Route::group(array('prefix' => 'api'), function() {
 
   // Produkte-Routing
   Route::resource('products', 'ProductController');
+  Route::get('products/{manufacturerId}/{productName}', 'ProductController@reference');
 
-  // Produkte-Routing
+  // Artikel-Routing
   Route::resource('articles', 'ArticleController');
+  Route::get('articles/{productId}', 'ProductController@product');
 
   // Waehrungen-Routing
   Route::resource('stundenpools', 'PoolController');
