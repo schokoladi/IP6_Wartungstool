@@ -14,6 +14,9 @@ app.factory('Article', function($http) {
     show: function(contractId) {
       return $http.get('/api/articles/' + contractId);
     },
+    product: function(productId) {
+      return $http.get('/api/articles/' + productId);
+    },
     edit: function(editId) {
       return $http.get('/api/articles/' + editId + '/edit');
     },
@@ -183,6 +186,11 @@ app.factory('Product', function($http) {
       return $http.get('/api/products/' + manufacturerId);
     },
 
+    // Produkt eines bestimmten Herstellers anzeigen
+    reference: function(manufacturerId, productName) {
+      return $http.get('/api/products/' + manufacturerId + '/' + productName);
+    },
+
     // Produkt editieren: Werte via API aus Datenbank holen
     edit: function(editId) {
       return $http.get('/api/products/' + editId + '/edit');
@@ -248,7 +256,7 @@ app.factory('OS_Stundenpool', function($http) {
 app.factory('Message', function($routeParams) {
   return {
     get: function() {
-      
+
       var split = $routeParams.message.split('~');
       var msg.type = split[0];
       msg.message = split[1];
