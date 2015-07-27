@@ -1,0 +1,11 @@
+<!-- Messages -->
+<div ng-show="messageType == 0" class="alert alert-dismissable alert-warning custom-alert" >
+  <p class="text-center"><span class="glyphicon glyphicon-trash custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+</div>
+<div ng-show="messageType == 1" class="alert alert-dismissable alert-info custom-alert" >
+  <p class="text-center"><span class="glyphicon glyphicon-pencil custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+</div>
+<div ng-show="messageType == 2" class="alert alert-dismissable alert-success custom-alert" >
+  <p class="text-center"><span class="glyphicon glyphicon-ok custom-glyphicon-left" aria-hidden="true"></span>{{ messageText }}</p>
+</div>
+<!-- /Messages -->
