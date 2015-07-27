@@ -1,0 +1,36 @@
+<div class="list-group custom-list-group-fixed">
+  <div class="list-group-item inactive">
+    <h5 class="list-group-item-heading custom-h5-article">
+      <span class="glyphicon glyphicon-list-alt custom-glyphicon-left" aria-hidden="true"></span>Artikel
+    </h5>
+    <p class="list-group-item-text">
+      <ul class="list-unstyled custom-list-unstyled">
+        <li ng-repeat="article in articles">
+          <a href="#" ng-click="deleteArticle(article.ID)">
+            <span class="glyphicon glyphicon-remove red custom-glyphicon-left" aria-hidden="true"></span>
+          </a>
+          <a href="/#/wartungsvertraege/artikel/{{ article.ID }}/edit/{{ contractId }}">
+            <small>{{ article.Hersteller }} {{ article.Produkt }}<br />({{ article.Seriennummer }})</small>
+          </a>
+        </li>
+      </ul>
+    </p>
+  </div>
+  <div class="list-group-item inactive">
+    <h5 class="list-group-item-heading custom-h5-pool">
+      <span class="glyphicon glyphicon-time custom-glyphicon-left" aria-hidden="true"></span>Stundenpools
+    </h5>
+    <p class="list-group-item-text">
+      <ul class="list-unstyled custom-list-unstyled">
+        <li ng-repeat="pool in pools">
+          <a href="#" ng-click="deletePool(pool.ID)">
+            <span class="glyphicon glyphicon-remove red custom-glyphicon-left" aria-hidden="true"></span>
+          </a>
+          <a href="/#/wartungsvertraege/pool/{{ pool.ID }}/edit/{{ contractId }}">
+            <small>{{ pool.OS_Pool }} ({{ pool.Anzahl_Stunden }} Stunden)</small>
+          </a>
+        </li>
+      </ul>
+    </p>
+  </div>
+</div>
