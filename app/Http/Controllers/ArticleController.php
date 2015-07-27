@@ -105,6 +105,21 @@ class ArticleController extends Controller
     return response()->json($json);
   }
 
+
+  public function product($id)
+  {
+    //return response()->json(Article::where('Artikel_Wartungsvertraege_ID', $id)->get()); // ok
+    $articles = Article::where('Artikel_Produkte_ID', $id)->get();
+
+    if($articles) {
+      return response()->json(['success' => true]);
+    }
+    else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+
   /**
   * Show the form for editing the specified resource.
   *

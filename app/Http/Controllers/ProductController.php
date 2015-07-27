@@ -89,7 +89,12 @@ class ProductController extends Controller
   */
   public function show($id)
   {
-    return response()->json(Product::where('Produkte_Hersteller_ID', $id)->get());
+      return response()->json(Product::where('Produkte_Hersteller_ID', $id)->get());
+  }
+
+  public function reference($manufacturerId, $productName)
+  {
+    return response()->json(Product::where('Produkte_Hersteller_ID', $manufacturerId)->where('Name', $productName)->get());
   }
 
   /**
