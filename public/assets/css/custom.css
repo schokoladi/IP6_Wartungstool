@@ -316,8 +316,10 @@ color: white;
 margin-top: 20px;
 }
 .warning{
-margin-left:;
 color: white;
+}
+.warning-grey{
+color: #666;
 }
 .well-sum{
 background-color: #f0efc6;
