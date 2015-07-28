@@ -356,8 +356,7 @@
 		<div class="form-group form-horizontal">
 			<label for="OS_Art" class="col-md-4 control-label">OS-Art</label>
 			<div class="col-md-8">
-				<select class="form-control" name="OS_Art" id="OS_Art" ng-model="articleData.Artikel_Operationsupport_ID"
-				required="required">
+				<select class="form-control" name="OS_Art" id="OS_Art" ng-model="articleData.Artikel_Operationsupport_ID">
 				<option value="{{ operationsupport.ID }}" ng-hide="loading" ng-repeat="operationsupport in operationsupports">
 					{{ operationsupport.Bezeichnung }}</option>
 				</select>
@@ -372,7 +371,7 @@
 			<label for="Operationsupport_Start" class="col-md-4 control-label">Start</label>
 			<div class="col-md-8">
 				<input type="text" name="Operationsupport_Start" class="form-control" placeholder="TT.MM.JJJJ"
-				id="Operationsupport_Start" ng-model="articleData.Operationsupport_Start" required="required">
+				id="Operationsupport_Start" ng-model="articleData.Operationsupport_Start">
 			</div>
 		</div>
 	</div>
@@ -387,7 +386,7 @@
 			<label for="Operationsupport_von" class="col-md-4 control-label">Von</label>
 			<div class="col-md-8">
 				<input type="text" name="Operationsupport_von" class="form-control" id="Operationsupport_von"
-				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_von" required="required">
+				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_von">
 			</div>
 		</div>
 	</div>
@@ -399,7 +398,7 @@
 			<label for="Operationsupport_bis" class="col-md-4 control-label">Bis</label>
 			<div class="col-md-8">
 				<input type="text" name="Operationsupport_bis" class="form-control"	id="Operationsupport_bis"
-				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_bis" required="required">
+				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_bis">
 			</div>
 		</div>
 	</div>
@@ -423,7 +422,7 @@
 			<label for="VKP_Operationsupport_Waehrung" class="sr-only">Waehrung</label>
 			<div class="col-md-4">
 				<select class="form-control" name="VKP_Operationsupport_Waehrung" id="VKP_Operationsupport_Waehrung"
-				ng-model="articleData.VKP_Operationsupport_Waehrungen_ID" required="required">
+				ng-model="articleData.VKP_Operationsupport_Waehrungen_ID">
 				<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
 					{{ currency.Waehrung }}</option>
 				</select>
