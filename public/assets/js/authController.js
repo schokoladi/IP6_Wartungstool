@@ -1,11 +1,10 @@
-console.log('auth controller loaded');
+//console.log('auth controller loaded');
 
 // $routeparams statt $state
-
 app.controller('authController', function($http, $location, $auth, $scope, $rootScope) {
 
   $scope.login = function() {
-    console.log('login...');
+    //console.log('login...');
     var credentials = {
       username: $scope.auth.username,
       password: $scope.auth.password
@@ -38,7 +37,17 @@ app.controller('authController', function($http, $location, $auth, $scope, $root
       $rootScope.currentUser = user;
       // Everything worked out so we can now redirect to
       // the users state to view the data
-      $location.path('/start');
+      var roleSplit = user.role.split('~');
+      //console.log(roleSplit);
+      $rootScope.currentUserRoleId = roleSplit[0];
+      $rootScope.currentUserRole = roleSplit[1];
+      // 3; CEO
+      if(roleSplit[0] == '3') {
+        $location.path('/start');
+      }
+      else {
+        $location.path('/wartungsvertraege/index');
+      }
     });
   }
 

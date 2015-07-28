@@ -28,6 +28,9 @@ app.factory('Article', function($http) {
         headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
         data: $.param(articleData)
       });
+    },
+    destroy : function(id) {
+      return $http.delete('/api/articles/' + id);
     }
   }
 });
