@@ -5,7 +5,7 @@
     <div ng-if="authenticated">
       <h3>{{ currentUser.name }}</h3>
       <p>Benutzername: {{ currentUser.username }}</p>
-      <p>Rolle: {{ currentUser.role }}</p>
+      <p>Rolle: {{ currentUserRole }}</p>
       <p>E-Mail: {{ currentUser.email }}</p>
       <p><button class="btn btn-default custom-btn" ng-click="logout()">Logout</button></p>
     </div>

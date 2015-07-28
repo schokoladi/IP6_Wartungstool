@@ -4,10 +4,10 @@
 		<!-- testing -->
 		<form>
 			<div class="form-group">
-				<input size="10" type="text" class="form-control" placeholder="Benutzername" ng-model="auth.username" />
+				<input size="20" type="text" maxlength="30" class="form-control" placeholder="Benutzername" ng-model="auth.username" />
 			</div>
 			<div class="form-group">
-				<input size="10" type="password" class="form-control" placeholder="Passwort" ng-model="auth.password" />
+				<input size="20" type="password" maxlength="30" class="form-control" placeholder="Passwort" ng-model="auth.password" />
 			</div>
 			<button class="btn btn-default custom-btn" ng-click="login()">
 				Login
