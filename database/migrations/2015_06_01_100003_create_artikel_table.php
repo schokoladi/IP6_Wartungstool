@@ -50,13 +50,13 @@ class CreateArtikelTable extends Migration
               $table->foreign('VKP_Maintenance_Waehrungen_ID')->references('ID')->on('Waehrungen');
 
               // Operationsupport
-              $table->integer('Artikel_Operationsupport_ID')->unsigned();
+              $table->integer('Artikel_Operationsupport_ID')->unsigned()->nullable();
               $table->foreign('Artikel_Operationsupport_ID')->references('ID')->on('Operationsupport');
-              $table->date('Operationsupport_Start');
-              $table->date('Operationsupport_von');
-              $table->date('Operationsupport_bis');
-              $table->double('VKP_Operationsupport', 20, 2);
-              $table->integer('VKP_Operationsupport_Waehrungen_ID')->unsigned();
+              $table->date('Operationsupport_Start')->nullable();
+              $table->date('Operationsupport_von')->nullable();
+              $table->date('Operationsupport_bis')->nullable();
+              $table->double('VKP_Operationsupport', 20, 2)->nullable();
+              $table->integer('VKP_Operationsupport_Waehrungen_ID')->unsigned()->nullable();
               $table->foreign('VKP_Operationsupport_Waehrungen_ID')->references('ID')->on('Waehrungen');
 
               $table->integer('Artikel_Wartungsvertraege_ID')->unsigned();
