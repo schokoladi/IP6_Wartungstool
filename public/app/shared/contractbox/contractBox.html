@@ -6,7 +6,7 @@
     <p class="list-group-item-text">
       <ul class="list-unstyled custom-list-unstyled">
         <li ng-repeat="article in articles">
-          <a href="#" ng-click="deleteArticle(article.ID)">
+          <a href="#" ng-click="deleteArticle(article.ID, 'neu')">
             <span class="glyphicon glyphicon-remove red custom-glyphicon-left" aria-hidden="true"></span>
           </a>
           <a href="/#/wartungsvertraege/artikel/{{ article.ID }}/edit/{{ contractId }}">
@@ -23,7 +23,7 @@
     <p class="list-group-item-text">
       <ul class="list-unstyled custom-list-unstyled">
         <li ng-repeat="pool in pools">
-          <a href="#" ng-click="deletePool(pool.ID)">
+          <a href="#" ng-click="deletePool(pool.ID, 'neu')">
             <span class="glyphicon glyphicon-remove red custom-glyphicon-left" aria-hidden="true"></span>
           </a>
           <a href="/#/wartungsvertraege/pool/{{ pool.ID }}/edit/{{ contractId }}">
