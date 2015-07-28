@@ -1,20 +1,22 @@
-console.log('Product Controller loaded');
+//console.log('Product Controller loaded');
 
 // Controller
 // $scope, $http und $location werden 'injected', damit sie verwendet werden können
 app.controller('productController',
 function($scope, $http, $location, $routeParams, $rootScope, Product, Manufacturer, Article) {
 
-  console.log($rootScope.authenticated);
+  //console.log($rootScope.authenticated);
   $scope.loading = true;
 
   // Message-Handling
+  // Aufsplittung der per URL übergebenen Message (Bsp. '1~Produkt editiert')
   if($routeParams.message) {
+    // Split-Symbol: ~
     var split = $routeParams.message.split('~');
     // Types: 0 = error, 1 = info, 2 = success
     $scope.messageType = split[0];
     $scope.messageText = split[1];
-    console.log($scope.messageType + ' ' + $scope.messageText);
+    //console.log($scope.messageType + ' ' + $scope.messageText);
   }
 
   var editId = $routeParams.ID;
@@ -38,15 +40,24 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
       $scope.loading = false;
     });
   }
-  // Hersteller via api aus der Datenbank holen
-  showArticles = function(productId) {
+
+  // Artikel via api aus der Datenbank holen
+  checkArticles = function(productId) {
     Article.product(productId)
     .success(function(response) {
-      console.log('existiert');
-      $scope.loading = false;
-    })
-    .error(function(response){
-      console.log('nope');
+      console.log(response);
+      // Überprüfen, ob das Array 'articles' Werte enthält
+      if (response.length > 0) {
+        $location.path('/produkte/index/message/1~Produkt ist noch einem Wartungsvertrag zugewiesen!');
+      }
+      else {
+        Product.destroy(productId)
+        .success(function(data) {
+          $scope.loading = false;
+          console.log('successfully deleted product');
+          $location.path('/produkte/index/message/0~Produkt gelöscht');
+        });
+      }
     });
   }
 
@@ -122,16 +133,8 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
 
   // Produkt löschen
   $scope.deleteProduct = function(id) {
-    // Produkt mit Factory-Funktion löschen
-    showArticles(id);
-    
-/*
-    Product.destroy(id)
-    .success(function(data) {
-      $scope.loading = false;
-      console.log('successfully deleted product');
-      $location.path('/produkte/index/message/0~Produkt gelöscht');
-    });*/
+    // Produkt kann nur gelöscht werden, wenn es in keinen Artikeln mehr vorhanden ist
+    checkArticles(id);
   };
 
   $scope.order = function(predicate) {
