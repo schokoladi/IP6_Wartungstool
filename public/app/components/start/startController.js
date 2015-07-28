@@ -1,4 +1,4 @@
-console.log('start controller loaded');
+//console.log('start controller loaded');
 
 // controller for start page
 // necessary????
