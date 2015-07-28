@@ -239,8 +239,8 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       $scope.loading = false;
       console.log('successfully updated contract');
       // message string kann easy so übergeben werden
-      $location.path('/wartungsvertraege/info/' + contractEditId +
-      '/edit/message/1~Wartungsvertragsinfo bearbeitet');
+      $location.path('/wartungsvertraege/artikel/neu/' + contractEditId +
+      '/message/1~Wartungsvertragsinfo bearbeitet');
     });
   }
 
@@ -343,6 +343,19 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       saveArticle($scope.articleData);
     }
   }
+  $scope.deleteArticle = function(id, location) {
+    Article.destroy(id)
+    .success(function(data) {
+      $scope.loading = false;
+      console.log('successfully deleted article');
+      // location entweder 'index' oder 'artikel/neu/:contractId'
+      if(location == 'neu') {
+        location = 'artikel/neu/' + contractId;
+      }
+      $location.path('/wartungsvertraege/' + location +
+      '/message/0~Artikel gelöscht!');
+    });
+  }
 
   $scope.storePool = function() {
     console.log('store: ' + $scope.poolData);
@@ -354,15 +367,18 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       savePool($scope.poolData);
     }
   }
-
   // Produkt löschen
-  $scope.deletePool = function(id) {
+  $scope.deletePool = function(id, location) {
     // Produkt mit Factory-Funktion löschen
     Stundenpool.destroy(id)
     .success(function(data) {
       $scope.loading = false;
       console.log('successfully deleted pool');
-      $location.path('/wartungsvertraege/pool/neu/' + contractId +
+      // location entweder 'index' oder 'pool/neu/:contractId'
+      if(location == 'neu') {
+        location = 'pool/neu/' + contractId;
+      }
+      $location.path('/wartungsvertraege/' + location +
       '/message/0~Stundenpool gelöscht!');
     });
   }
