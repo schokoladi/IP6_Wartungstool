@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
         'name' => 'Dominik Schoch',
         'username' => 'dschoch',
         'email' => 'dominik.schoch@students.fhnw.ch',
-        'role' => 'Sekretär/in',
+        'role' => '1~Sekretär/in',
         'password' => Hash::make('w4rtungst00l'),
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder
         'name' => 'Jan Schnider',
         'username' => 'jschnider',
         'email' => 'jan.schnider@students.fhnw.ch',
-        'role' => 'Kundenverantwortliche/r',
+        'role' => '2~Kundenverantwortliche/r',
         'password' => Hash::make('w4rtungst00l'),
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
         'name' => 'Mathias Schnydrig',
         'username' => 'mschnydrig',
         'email' => 'mathias.schnydrig@amanox.ch',
-        'role' => 'Kundenverantwortliche/r',
+        'role' => '2~Kundenverantwortliche/r',
         'password' => Hash::make('w4rtungst00l'),
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -44,8 +44,35 @@ class UserTableSeeder extends Seeder
         'name' => 'Daniel Jossen',
         'username' => 'djossen',
         'email' => 'daniel.jossen@amanox.ch',
+        'role' => '3~CEO',
         'password' => Hash::make('w4rtungst00l'),
-        'role' => 'CEO',
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+      ],
+      [
+        'name' => 'Sekretär/in',
+        'username' => 'sekretaer',
+        'email' => 'sekretaer_in@amanox.ch',
+        'role' => '1~Sekretär/in',
+        'password' => Hash::make('w4rtungst00l'),
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+      ],
+      [
+        'name' => 'Kundenverantwortliche/r',
+        'username' => 'kundenverantwortlicher',
+        'email' => 'kundenverantwortlicher@amanox.ch',
+        'role' => '2~Kundenverantwortliche/r',
+        'password' => Hash::make('w4rtungst00l'),
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+      ],
+      [
+        'name' => 'CEO',
+        'username' => 'ceo',
+        'email' => 'CEO@amanox.ch',
+        'role' => '3~CEO',
+        'password' => Hash::make('w4rtungst00l'),
         'created_at' => new DateTime,
         'updated_at' => new DateTime
       ]
