@@ -14,6 +14,15 @@ use DateTime;
 
 class ArticleController extends Controller
 {
+  // dadurch wird dieser Controller nur für eingeloggte benutzer verwendet
+  public function __construct() {
+    // für alle
+    //$this->middleware('jwt.auth');
+    // Mit Ausnahmen
+    $this->middleware('jwt.auth');
+
+    // Wird dann so in den routes angezeigt!!!
+  }
   /**
   * Display a listing of the resource.
   *
@@ -109,14 +118,15 @@ class ArticleController extends Controller
   public function product($id)
   {
     //return response()->json(Article::where('Artikel_Wartungsvertraege_ID', $id)->get()); // ok
-    $articles = Article::where('Artikel_Produkte_ID', $id)->get();
-
-    if($articles) {
+    //$articles = Article::where('Artikel_Produkte_ID', $id)->get();
+    return response()->json(Article::where('Artikel_Produkte_ID', $id)->get());
+    /*i
+    f($articles) {
       return response()->json(['success' => true]);
     }
     else {
       return response()->json(['success' => false]);
-    }
+    }*/
   }
 
 
@@ -200,6 +210,8 @@ class ArticleController extends Controller
   */
   public function destroy($id)
   {
-    //
+    Article::destroy($id);
+
+    return response()->json(['success' => true]);
   }
 }
