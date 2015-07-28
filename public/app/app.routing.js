@@ -24,6 +24,10 @@ app.config(function($routeProvider, $authProvider){
   })
 
   // --- PRODUKTE-ROUTING ---
+  .when("/produkte", {
+    templateUrl:  "app/components/product/productView.html",
+    controller:   "productController"
+  })
   .when("/produkte/index", {
     templateUrl:  "app/components/product/productView.html",
     controller:   "productController"
@@ -48,7 +52,15 @@ app.config(function($routeProvider, $authProvider){
   })
 
   // --- WARTUNGSVERTRAEGE-ROUTING ---
+  .when("/wartungsvertraege", {
+    templateUrl: "app/components/contract/contractView.html",
+    controller: "contractController"
+  })
   .when("/wartungsvertraege/index", {
+    templateUrl: "app/components/contract/contractView.html",
+    controller: "contractController"
+  })
+  .when("/wartungsvertraege/index/message/:message", {
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
   })
@@ -109,27 +121,16 @@ app.config(function($routeProvider, $authProvider){
     controller: "contractController"
   })
 
-  // Upload
+  // --- Upload - Not working yet ---
   .when("/upload", {
     templateUrl: "app/components/upload/uploadView.html",
     controller: "uploadController"
-  });
-
-  // Redirect to the auth state if any other states
-  // are requested other than users
-  //$urlRouterProvider.otherwise('/auth');
-/*
-  $stateProvider
-  .state('auth', {
-    url: '/auth',
-    templateUrl: '../views/authView.html',
-    controller: 'AuthController as auth'
   })
-  .state('users', {
-    url: '/users',
-    templateUrl: '../views/userView.html',
-    controller: 'UserController as user'
+
+  // Start-Seite ist default
+  .otherwise("/start", {
+    templateUrl: "app/components/start/startView.html",
+    controller: "startController"
   });
-  */
 
 });
