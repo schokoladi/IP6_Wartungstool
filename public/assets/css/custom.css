@@ -52,7 +52,7 @@ body {
 /* custom text styles */
 .custom-h4 {
 	color: #466876;
-	font-style: bold;
+	font-weight: bold;
 	padding-left: 15px;
 	padding-bottom: 8px;
 	margin-top: 20px;
@@ -97,7 +97,7 @@ body {
 .panel-vertrag{
 	background-color: #CC3C53;
 	border-color: #CC3C53;
-/*	background-color: #edbec5;
+	/*	background-color: #edbec5;
 	border-color: #edbec5;*/
 	color: white;
 }
@@ -119,12 +119,11 @@ body {
 	position: fixed;
 }
 
-/* Sticky stuff */
+/*
 .sticky-top {
 	position: -webkit-sticky;
 	top: 60px;
 	z-index: 1;
-	background-color: ;
 }
 .sticky {
 	position: fixed;
@@ -132,6 +131,7 @@ body {
 	z-index: 100;
 	margin-bottom: 30px;
 }
+*/
 
 .custom-container {
 	background-color: #fff;
@@ -163,11 +163,11 @@ top: 30px;
 	vertical-align: bottom;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #e4e9eb;
+	background-color: #e4e9eb;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #123e50;
-  color: white;
+	background-color: #123e50;
+	color: white;
 }
 
 /* overide glyphicon styles */
@@ -198,179 +198,173 @@ top: 30px;
 }
 
 .custom-well{
-background-color: #;
-/*border: 0px solid  #;*/
-/*border-bottom: 1px solid lightgrey;*/
-padding-left: 15px;
-padding-bottom: 8px;
-padding-top: 8px;
-/*margin-bottom: 10px;*/
+	/*border: 0px solid  #;*/
+	/*border-bottom: 1px solid lightgrey;*/
+	padding-left: 15px;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	/*margin-bottom: 10px;*/
 }
 
 
 /*Buttons AppButton, wv-Button, Article-Button, Stundenpool-Button */
 .custom-btn{
-background-color: #123e50;
-border: #123e50;
-color: white;
+	background-color: #123e50;
+	border-color: #123e50;
+	color: white;
 }
 .custom-btn:hover {
-background-color: #466876;
-border: #466876;
-color: white;
+	background-color: #466876;
+	border: #466876;
+	color: white;
 }
 .custom-btn-wv{
-background-color: #CC3C53;
-border: #CC3C53;
-color: white;
-margin: 5px;
+	background-color: #CC3C53;
+	border: #CC3C53;
+	color: white;
+	margin: 5px;
 }
 .custom-btn-wv:hover{
-background-color: #d76779;
-border: #d76779;
-color: white;
+	background-color: #d76779;
+	border: #d76779;
+	color: white;
 }
 .custom-btn-article{
-background-color: #d5cf54;
-border: #d5cf54;
-color: white;
-margin: 5px;
+	background-color: #d5cf54;
+	border: #d5cf54;
+	color: white;
+	margin: 5px;
 }
 .custom-btn-article:hover{
-background-color: #ded97a;
-border: #ded97a;
-color: white;
+	background-color: #ded97a;
+	border: #ded97a;
+	color: white;
 }
 .custom-btn-stundenpool{
-background-color: #3e94b9;
-border: #3e94b9;
-color: white;
-margin: 5px;
+	background-color: #3e94b9;
+	border: #3e94b9;
+	color: white;
+	margin: 5px;
 }
 .custom-btn-stundenpool:hover{
-background-color: #68abc8;
-border: #68abc8;
-color: white;
+	background-color: #68abc8;
+	border: #68abc8;
+	color: white;
 }
 
 .custom-btn-wv-inactive{
-background-color: #f1c8ce;
-border: #f1c8ce;
-color: white;
-margin: 5px;
+	background-color: #f1c8ce;
+	border: #f1c8ce;
+	color: white;
+	margin: 5px;
 }
 .custom-btn-article-inactive{
-background-color: #f4f3d2;
-border: #f4f3d2;
-color: white;
-margin: 5px;
+	background-color: #f4f3d2;
+	border: #f4f3d2;
+	color: white;
+	margin: 5px;
 }
 .custom-btn-stundenpool-inactive{
-background-color: #e4f3fa;
-border: #e4f3fa;
-color: white;
-margin: 5px;
+	background-color: #e4f3fa;
+	border: #e4f3fa;
+	color: white;
+	margin: 5px;
 }
 .custom-btn-circle{
-width: 100px;
-height: 100px;
-border-radius: 50%;
-margin-right: 10px;
-margin-bottom: 10px;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
-
-
 
 .well-warning{
-background-color: #b0bec4;
-min-height: 120px;
-border-radius: 4px;
-padding: 0px;
-margin: 5px;
+	background-color: #b0bec4;
+	min-height: 120px;
+	border-radius: 4px;
+	padding: 0px;
+	margin: 5px;
 }
 .custom-btn-circle-1{
-width: 100px;
-height: 100px;
-border-radius: 50%;
-background-color: #123e50;
-border: #CC3C53;
-color: white;
-margin: 10px;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background-color: #123e50;
+	border: #CC3C53;
+	color: white;
+	margin: 10px;
 }
 .custom-btn-circle-2{
-width: 60px;
-height: 60px;
-border-radius: 50%;
-background-color: red;
-border: red;
-color: white;
-margin-top: 20px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: red;
+	border: red;
+	color: white;
+	margin-top: 20px;
 }
 .custom-btn-circle-3{
-width: 80px;
-height: 80px;
-border-radius: 50%;
-background-color: orange;
-border: orange;
-color: white;
-margin-top: 20px;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: orange;
+	border: orange;
+	color: white;
+	margin-top: 20px;
 }
 .warning{
-color: white;
+	color: white;
 }
 .warning-grey{
-color: #666;
+	color: #666;
 }
 .well-sum{
-background-color: #f0efc6;
-min-height: 120px;
-border-radius: 4px;
-padding: 0px;
-margin: 5px;
+	background-color: #f0efc6;
+	min-height: 120px;
+	border-radius: 4px;
+	padding: 0px;
+	margin: 5px;
 }
 .sum{
-background-color: #d5cf54;
+	background-color: #d5cf54;
 }
 .weiss{
-color: white;
+	color: white;
 }
 .gelb{
-background-color: #f0efc6;
-border-color: #f0efc6;
+	background-color: #f0efc6;
+	border-color: #f0efc6;
 }
 .blau{
-background-color: #bedbe7;
-border-color: #bedbe7;
+	background-color: #bedbe7;
+	border-color: #bedbe7;
 }
-.center{
-	display:-webkit-box;
-    -webkit-box-pack:center;
-    -webkit-box-align:center;
-    justify-content: center;
-    align-items: center;
+.center {
+	/*
+	margin: 0 auto;
+/*	float: none;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;*/
 }
 .row{
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .weiss{
-color: white;
+	color: white;
 }
 .gelb{
-background-color: #f0efc6;
-border-color: #f0efc6;
+	background-color: #f0efc6;
+	border-color: #f0efc6;
 }
 .blau{
-background-color: #bedbe7;
-border-color: #bedbe7;
+	background-color: #bedbe7;
+	border-color: #bedbe7;
 }
-.center
-{
-	display:-webkit-box;
-    -webkit-box-pack:center;
-    -webkit-box-align:center;
-    justify-content: center;
-    align-items: center;
+
+.nobr {
+	white-space: nowrap;
 }
 
 input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
