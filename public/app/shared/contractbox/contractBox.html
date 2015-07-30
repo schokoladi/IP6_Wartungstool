@@ -6,11 +6,11 @@
     <p class="list-group-item-text">
       <ul class="list-unstyled custom-list-unstyled">
         <li ng-repeat="article in articles">
-          <a href="#" ng-click="deleteArticle(article.ID, 'neu')">
-            <span class="glyphicon glyphicon-remove red custom-glyphicon-left" aria-hidden="true"></span>
-          </a>
           <a href="/#/wartungsvertraege/artikel/{{ article.ID }}/edit/{{ contractId }}">
             <small>{{ article.Hersteller }} {{ article.Produkt }}<br />({{ article.Seriennummer }})</small>
+          </a>
+          <a href="#" ng-click="deleteArticle(article.ID, 'neu')">
+            <span class="glyphicon glyphicon-remove red custom-glyphicon-right" aria-hidden="true"></span>
           </a>
         </li>
       </ul>
@@ -23,11 +23,11 @@
     <p class="list-group-item-text">
       <ul class="list-unstyled custom-list-unstyled">
         <li ng-repeat="pool in pools">
-          <a href="#" ng-click="deletePool(pool.ID, 'neu')">
-            <span class="glyphicon glyphicon-remove red custom-glyphicon-left" aria-hidden="true"></span>
-          </a>
           <a href="/#/wartungsvertraege/pool/{{ pool.ID }}/edit/{{ contractId }}">
             <small>{{ pool.OS_Pool }} ({{ pool.Anzahl_Stunden }} Stunden)</small>
+          </a>
+          <a href="#" ng-click="deletePool(pool.ID, 'neu')">
+            <span class="glyphicon glyphicon-remove red custom-glyphicon-right" aria-hidden="true"></span>
           </a>
         </li>
       </ul>
