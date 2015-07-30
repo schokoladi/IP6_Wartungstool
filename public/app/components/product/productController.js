@@ -9,18 +9,12 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
   $scope.loading = true;
 
   // Message-Handling
-  // Aufsplittung der per URL übergebenen Message (Bsp. '1~Produkt editiert')
-  if($routeParams.message) {
-    // Split-Symbol: ~
-    var split = $routeParams.message.split('~');
-    // Types: 0 = error, 1 = info, 2 = success
-    $scope.messageType = split[0];
-    $scope.messageText = split[1];
-    //console.log($scope.messageType + ' ' + $scope.messageText);
+  if($routeParams.messageType && $routeParams.messageText) {
+    $scope.messageType = $routeParams.messageType;
+    $scope.messageText = $routeParams.messageText;
   }
 
   var editId = $routeParams.ID;
-  $scope.message = $routeParams.message;
   $scope.master = {};
 
   // Produkte via api aus der Datenbank holen
@@ -48,14 +42,14 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
       console.log(response);
       // Überprüfen, ob das Array 'articles' Werte enthält
       if (response.length > 0) {
-        $location.path('/produkte/index/message/1~Produkt ist noch einem Wartungsvertrag zugewiesen!');
+        $location.path('/produkte/index/msgtype/1/msgtext/Produkt ist noch einem Wartungsvertrag zugewiesen!');
       }
       else {
         Product.destroy(productId)
         .success(function(data) {
           $scope.loading = false;
           console.log('successfully deleted product');
-          $location.path('/produkte/index/message/0~Produkt gelöscht');
+          $location.path('/produkte/index/msgtype/0/msgtext/Produkt gelöscht');
         });
       }
     });
@@ -74,7 +68,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
       $scope.loading = false;
       console.log('successfully stored product');
       // dafür wird $routeParams benötigt
-      $location.path('/produkte/index/message/2~Produkt '
+      $location.path('/produkte/index/msgtype/2/msgtext/Produkt '
       + productData.Name + ' erstellt');
     });
   }
@@ -86,7 +80,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
       $scope.loading = false;
       console.log('successfully updated product');
       // message string kann easy so übergeben werden
-      $location.path('/produkte/index/message/1~Produkt '
+      $location.path('/produkte/index/msgtype/1/msgtext/Produkt '
       + productData.Name + ' editiert');
     });
   }
