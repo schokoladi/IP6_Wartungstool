@@ -1,6 +1,6 @@
 <!-- Notifikationsbox -->
 <div class="row">
-	<div class="center col-xs-12 col-ms-12 col-md-9">
+	<div class="col-xs-12 col-ms-12 col-md-9">
 		<div ng-include='"app/shared/contractmenu/articleMenu.html"'></div>
 	</div>
 
@@ -58,10 +58,12 @@
 		</div>
 
 		<div class="row">
-			<form name="articleForm" ng-submit="articleForm.$valid && storeArticle()" novalidate>
+			<form name="articleForm" ng-submit="articleForm.$valid && storeArticle()" novalidate="novalidate">
 				<!-- je nach edit / new der Wert gesetzt PUT / POST -->
 				<input type="hidden" name="_method" value="{{ formMethod }}">
+
 				<div class="col-sm-12 col-md-12">
+
 					<div class="row">
 
 						<!-- Hersteller -->
@@ -185,7 +187,7 @@
 	<!-- Auftragsnummer -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="Auftragsnummer" class="col-md-4 control-label">Auftrags-Nr.</label>
+			<label for="Auftragsnummer" class="col-md-4 control-label">Auftr.-Nr.</label>
 			<div class="col-md-8">
 				<input type="text" name="Auftragsnummer" class="form-control" placeholder="Auftragsnummer"
 				id="Auftragsnummer" ng-model="articleData.Auftragsnummer">
@@ -245,7 +247,7 @@
 	<!-- Wartungsart -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="Wartungsart" class="col-md-4 control-label">Wartungsart</label>
+			<label for="Wartungsart" class="col-md-4 control-label">Art</label>
 			<div class="col-md-8">
 				<select class="form-control" name="Wartungsart" id="Wartungsart"
 				ng-model="articleData.Artikel_Maintenance_ID" ng-change="refreshOperationsupport()"
@@ -357,102 +359,103 @@
 			<label for="OS_Art" class="col-md-4 control-label">OS-Art</label>
 			<div class="col-md-8">
 				<select class="form-control" name="OS_Art" id="OS_Art" ng-model="articleData.Artikel_Operationsupport_ID">
-				<option value="{{ operationsupport.ID }}" ng-hide="loading" ng-repeat="operationsupport in operationsupports">
-					{{ operationsupport.Bezeichnung }}</option>
-				</select>
+					<option value="{{ operationsupport.ID }}" ng-hide="loading" ng-repeat="operationsupport in operationsupports">
+						{{ operationsupport.Bezeichnung }}</option>
+					</select>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- /OS-Art -->
+		<!-- /OS-Art -->
 
-	<!-- Startdatum OS -->
-	<div class="col-sm-6 col-md-6">
-		<div class="form-group form-horizontal">
-			<label for="Operationsupport_Start" class="col-md-4 control-label">Start</label>
-			<div class="col-md-8">
-				<input type="text" name="Operationsupport_Start" class="form-control" placeholder="TT.MM.JJJJ"
-				id="Operationsupport_Start" ng-model="articleData.Operationsupport_Start">
+		<!-- Startdatum OS -->
+		<div class="col-sm-6 col-md-6">
+			<div class="form-group form-horizontal">
+				<label for="Operationsupport_Start" class="col-md-4 control-label">Start</label>
+				<div class="col-md-8">
+					<input type="text" name="Operationsupport_Start" class="form-control" placeholder="TT.MM.JJJJ"
+					id="Operationsupport_Start" ng-model="articleData.Operationsupport_Start">
+				</div>
 			</div>
 		</div>
+		<!-- /Startdatum Maintenance -->
+
 	</div>
-	<!-- /Startdatum Maintenance -->
+	<div class="row">
 
-</div>
-<div class="row">
-
-	<!-- Operation Support von -->
-	<div class="col-sm-6 col-md-6">
-		<div class="form-group form-horizontal">
-			<label for="Operationsupport_von" class="col-md-4 control-label">Von</label>
-			<div class="col-md-8">
-				<input type="text" name="Operationsupport_von" class="form-control" id="Operationsupport_von"
-				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_von">
+		<!-- Operation Support von -->
+		<div class="col-sm-6 col-md-6">
+			<div class="form-group form-horizontal">
+				<label for="Operationsupport_von" class="col-md-4 control-label">Von</label>
+				<div class="col-md-8">
+					<input type="text" name="Operationsupport_von" class="form-control" id="Operationsupport_von"
+					placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_von">
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- /Operation Support von -->
+		<!-- /Operation Support von -->
 
-	<!-- Operation Support bis -->
-	<div class="col-sm-6 col-md-6">
-		<div class="form-group form-horizontal">
-			<label for="Operationsupport_bis" class="col-md-4 control-label">Bis</label>
-			<div class="col-md-8">
-				<input type="text" name="Operationsupport_bis" class="form-control"	id="Operationsupport_bis"
-				placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_bis">
+		<!-- Operation Support bis -->
+		<div class="col-sm-6 col-md-6">
+			<div class="form-group form-horizontal">
+				<label for="Operationsupport_bis" class="col-md-4 control-label">Bis</label>
+				<div class="col-md-8">
+					<input type="text" name="Operationsupport_bis" class="form-control"	id="Operationsupport_bis"
+					placeholder="TT.MM.JJJJ" ng-model="articleData.Operationsupport_bis">
+				</div>
 			</div>
 		</div>
+		<!-- /Operation Support bis -->
+
 	</div>
-	<!-- /Operation Support bis -->
+	<div class="row">
 
-</div>
-<div class="row">
+		<div class="col-sm-6 col-md-6">
+		</div>
 
-	<div class="col-sm-6 col-md-6">
-	</div>
-
-	<!-- OS-Verkaufspreis -->
-	<div class="col-sm-6 col-md-6">
-		<div class="form-group form-horizontal">
-			<label for="VKP_Operationsupport" class="col-md-4 control-label">Verk.-Preis</label>
-			<div class="col-md-4">
-				<input type="text" name="VKP_Operationsupport" class="form-control"	id="VKP_Operationsupport"
-				ng-model="articleData.VKP_Operationsupport">
-			</div>
-			<!-- Waehrung -->
-			<label for="VKP_Operationsupport_Waehrung" class="sr-only">Waehrung</label>
-			<div class="col-md-4">
-				<select class="form-control" name="VKP_Operationsupport_Waehrung" id="VKP_Operationsupport_Waehrung"
-				ng-model="articleData.VKP_Operationsupport_Waehrungen_ID">
-				<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
-					{{ currency.Waehrung }}</option>
-				</select>
+		<!-- OS-Verkaufspreis -->
+		<div class="col-sm-6 col-md-6">
+			<div class="form-group form-horizontal">
+				<label for="VKP_Operationsupport" class="col-md-4 control-label">Verk.-Preis</label>
+				<div class="col-md-4">
+					<input type="text" name="VKP_Operationsupport" class="form-control"	id="VKP_Operationsupport"
+					ng-model="articleData.VKP_Operationsupport">
+				</div>
+				<!-- Waehrung -->
+				<label for="VKP_Operationsupport_Waehrung" class="sr-only">Waehrung</label>
+				<div class="col-md-4">
+					<select class="form-control" name="VKP_Operationsupport_Waehrung" id="VKP_Operationsupport_Waehrung"
+					ng-model="articleData.VKP_Operationsupport_Waehrungen_ID">
+					<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+						{{ currency.Waehrung }}</option>
+					</select>
+				</div>
 			</div>
 		</div>
+		<!-- /OS-Verkaufpreis -->
+
+
 	</div>
-	<!-- /OS-Verkaufpreis -->
 
-</div>
-
-<div class="row">
-	<h4 class="custom-h4"></h4>
-</div>
-
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-6">
-
-		<input type="hidden" name="Wartungsvertrag_ID" ng-model="articleData.Artikel_Wartungsvertraege_ID">
-
-		<button type="submit" class="btn btn-default custom-btn">
-			<span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern
-		</button>&nbsp;
-		<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
-		<a href="/#/produkte/neu">
-			<button type="button" class="btn btn-default custom-btn">
-				<span class=" glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>Produkt erfassen
-			</button>
-		</a>
+	<div class="row">
+		<h4 class="custom-h4"></h4>
 	</div>
-</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-6">
+
+			<input type="hidden" name="Wartungsvertrag_ID" ng-model="articleData.Artikel_Wartungsvertraege_ID">
+			<button type="submit" class="btn btn-default custom-btn">
+				<span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern
+			</button>&nbsp;
+			<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset">
+			<a href="/#/produkte/neu">
+				<button type="button" class="btn btn-default custom-btn">
+					<span class=" glyphicon glyphicon-plus-sign custom-glyphicon-left" aria-hidden="true"></span>Produkt erfassen
+				</button>
+			</a>
+
+		</div>
+	</div>
 
 </form>
 </div>

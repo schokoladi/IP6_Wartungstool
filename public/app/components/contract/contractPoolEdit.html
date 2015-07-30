@@ -49,7 +49,7 @@
 </div>
 
 <div class="row">
-	<form name="poolForm" ng-submit="poolForm.$valid && storePool()" novalidate>
+	<form name="poolForm" ng-submit="poolForm.$valid && storePool()" novalidate="novalidate">
 		<div class="col-xs-12 col-sm-12 col-md-9">
 			<div class="row">
 				<h4 class="custom-h4">Stundenpool</h4>
@@ -117,7 +117,7 @@
 			<!-- Stundensatz -->
 			<div class="col-sm-6 col-md-6">
 				<div class="form-group form-horizontal">
-					<label for="Stundensatz" class="col-md-4 control-label">Stundensatz</label>
+					<label for="Stundensatz" class="col-md-4 control-label">Std.-Satz</label>
 					<div class="col-md-4">
 						<input class="form-control form-horizontal" type="text" name="Stundensatz"
 						id="Stundensatz" ng-model="poolData.Stundensatz" required="required">
@@ -188,7 +188,7 @@
 				<button type="submit" class="btn btn-default custom-btn">
 					<span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern
 				</button>&nbsp;
-				<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset" />
+				<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset">
 				<!-- /Buttons -->
 
 			</div>

@@ -1,18 +1,16 @@
-console.log('contract controller loaded');
+//console.log('contract controller loaded');
 
 app.controller('contractController',
-function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, Customer, Contact, Manufacturer, Product, Currency, Maintenance, Operationsupport, Stundenpool, OS_Stundenpool) {
+function($scope, $http, $location, $routeParams, $rootScope, Article, Contract,
+  Customer, Contact, Manufacturer, Product, Currency, Maintenance, Operationsupport, Stundenpool, OS_Stundenpool) {
 
   console.log($rootScope.authenticated);
   $scope.loading = true;
 
   // Message-Handling
-  if($routeParams.message) {
-    var split = $routeParams.message.split('~');
-    // Types: 0 = error, 1 = info, 2 = success
-    $scope.messageType = split[0];
-    $scope.messageText = split[1];
-    console.log($scope.messageType + ' ' + $scope.messageText);
+  if($routeParams.messageType && $routeParams.messageText) {
+    $scope.messageType = $routeParams.messageType;
+    $scope.messageText = $routeParams.messageText;
   }
 
   // ------ DEFINING VARIABLES ------
@@ -24,7 +22,6 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
   $scope.showId       = showId;
   $scope.contractId   = contractId;
   $scope.contractEditId = contractEditId;
-  $scope.message      = $routeParams.message;
   master = {};
 
   // ------ GET METHODS ------
@@ -216,7 +213,6 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
   *  @return
   */
   $scope.reset = function() {
-    $scope.contractData = angular.copy(master);
     $scope.articleData  = angular.copy(master);
     $scope.poolData     = angular.copy(master);
     $scope.loading = false;
@@ -229,7 +225,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       $scope.loading = false;
       console.log('successfully saved contract');
       $location.path('/wartungsvertraege/artikel/neu/' + contractInfo.Contract.ID +
-      '/message/2~Wartungsvertrag ' + contractInfo.Contract.Vertragsnummer + ' erstellt');
+      '/msgtype/2/msgtext/Wartungsvertrag ' + contractInfo.Contract.Vertragsnummer + ' erstellt');
     });
   }
   // Produkt aktualisieren
@@ -240,7 +236,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       console.log('successfully updated contract');
       // message string kann easy so übergeben werden
       $location.path('/wartungsvertraege/artikel/neu/' + contractEditId +
-      '/message/1~Wartungsvertragsinfo bearbeitet');
+      '/msgtype/1/msgtext/Wartungsvertragsinfo bearbeitet');
     });
   }
 
@@ -250,7 +246,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       $scope.loading = false;
       console.log('successfully saved article');
       $location.path('/wartungsvertraege/artikel/neu/' + contractId +
-      '/message/2~Artikel erfasst');
+      '/msgtype/2/msgtext/Artikel erfasst');
     });
   }
   updateArticle = function(articleData) {
@@ -259,7 +255,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       $scope.loading = false;
       console.log('successfully updated article');
       $location.path('/wartungsvertraege/artikel/' + articleEditId +
-      '/edit/' + contractId + '/message/1~Artikel bearbeitet');
+      '/edit/' + contractId + '/msgtype/1/msgtext/Artikel bearbeitet');
     });
   }
 
@@ -269,7 +265,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       $scope.loading = false;
       console.log('successfully saved pool');
       $location.path('/wartungsvertraege/pool/neu/' + contractId +
-      '/message/2~Stundenpool erfasst');
+      '/msgtype/2/msgtext/Stundenpool erfasst');
     });
   }
   updatePool = function(poolData) {
@@ -278,7 +274,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       $scope.loading = false;
       console.log('successfully updated pool');
       $location.path('/wartungsvertraege/pool/' + poolEditId +
-      '/edit/' + contractId + '/message/1~Stundenpool bearbeitet');
+      '/edit/' + contractId + '/msgtype/1/msgtext/Stundenpool bearbeitet');
     });
   }
 
@@ -295,8 +291,10 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
     var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
     console.log(dateNow.toLocaleDateString('{"format":"yyyy-MM-dd"}'));
   }
-
-  // TODO: Wieso funktionierts nid
+  
+  /*
+  // Funktion nicht verwendet
+  // Idee: Überprüfen ob Einkaufspreis * EK-Kurs > Verkaufspreis * VK-Kurs
   checkPrices = function(price1, currency1, price2, currency2) {
     Currency.show(currency1)
     .success(function(response) {
@@ -317,7 +315,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
       return false;
     }
   }
-  //var price = checkPrices('100', '3', '200', '2');
+  */
 
   $scope.storeContract = function() {
     console.log('store' + $scope.contractData);
@@ -353,7 +351,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
         location = 'artikel/neu/' + contractId;
       }
       $location.path('/wartungsvertraege/' + location +
-      '/message/0~Artikel gelöscht!');
+      '/msgtype/0/msgtext/Artikel gelöscht!');
     });
   }
 
@@ -379,7 +377,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract, 
         location = 'pool/neu/' + contractId;
       }
       $location.path('/wartungsvertraege/' + location +
-      '/message/0~Stundenpool gelöscht!');
+      '/msgtype/0/msgtext/Stundenpool gelöscht!');
     });
   }
 
