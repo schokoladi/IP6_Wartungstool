@@ -17,6 +17,10 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/login/loginView.html",
     controller: "authController"
   })
+  .when("/login/msgtype/:messageType/msgtext/:messageText", {
+    templateUrl: "app/components/login/loginView.html",
+    controller: "authController"
+  })
   // Die user-Seite wird erstellt, um über den Controller das Logout zu ermöglichen
   .when("/user", {
     templateUrl: "app/components/login/userView.html",
@@ -32,7 +36,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl:  "app/components/product/productView.html",
     controller:   "productController"
   })
-  .when("/produkte/index/message/:message", {
+  .when("/produkte/index/msgtype/:messageType/msgtext/:messageText", {
     templateUrl:  "app/components/product/productView.html",
     controller:   "productController"
   })
@@ -60,7 +64,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/index/message/:message", {
+  .when("/wartungsvertraege/index/msgtype/:messageType/msgtext/:messageText", {
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
   })
@@ -74,7 +78,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/info/neu/message/:message", {
+  .when("/wartungsvertraege/info/neu/msgtype/:messageType/msgtext/:messageText", {
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
@@ -82,7 +86,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/info/:contractEditId/edit/message/:message", {
+  .when("/wartungsvertraege/info/:contractEditId/edit/msgtype/:messageType/msgtext/:messageText", {
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
@@ -91,7 +95,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/artikel/neu/:contractId/message/:message", {
+  .when("/wartungsvertraege/artikel/neu/:contractId/msgtype/:messageType/msgtext/:messageText", {
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
@@ -99,7 +103,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/artikel/:articleEditId/edit/:contractId/message/:message", {
+  .when("/wartungsvertraege/artikel/:articleEditId/edit/:contractId/msgtype/:messageType/msgtext/:messageText", {
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
@@ -116,7 +120,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/pool/:poolEditId/edit/:contractId/message/:message", {
+  .when("/wartungsvertraege/pool/:poolEditId/edit/:contractId/msgtype/:messageType/msgtext/:messageText", {
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   })
