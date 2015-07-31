@@ -46,6 +46,15 @@ body {
 	background-color: #d5cf54;
 }
 
+.text-required-info {
+	color: #cc3c53;
+}
+.text-required-article {
+	color: #d5cf54;
+}
+.text-required-pool {
+	color: #3e94b9;
+}
 
 /* Override Container */
 
