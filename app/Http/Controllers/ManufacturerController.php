@@ -15,6 +15,14 @@ use Log;
 
 class ManufacturerController extends Controller
 {
+  public function __construct() {
+    // für alle
+    //$this->middleware('jwt.auth');
+    // Mit Ausnahmen
+    $this->middleware('jwt.auth');
+
+    // Wird dann so in den routes angezeigt!!!
+  }
   /**
   * Display a listing of the resource.
   *
@@ -54,60 +62,60 @@ class ManufacturerController extends Controller
     return response()->json([
       'success' => true,
       'Manufacturer' => Manufacturer::orderBy('ID', 'desc')->first()
-    ]);
-  }
+      ]);
+    }
 
-  /**
-  * Display the specified resource.
-  *
-  * @param  int  $id
-  * @return Response
-  */
-  public function show($id)
-  {
-    //
-  }
+    /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function show($id)
+    {
+      //
+    }
 
-  public function exists($name)
-  {
-    // gib true oder false als String zurück, boolean nicht möglich
-    if(Manufacturer::where('Name', '=', $name)->exists()) {
-      return response()->json(['success' => true]);
-    } else {
-      return response()->json(['success' => false]);
+    public function exists($name)
+    {
+      // gib true oder false als String zurück, boolean nicht möglich
+      if(Manufacturer::where('Name', '=', $name)->exists()) {
+        return response()->json(['success' => true]);
+      } else {
+        return response()->json(['success' => false]);
+      }
+    }
+
+    /**
+    * Show the form for editing the specified resource.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function edit($id)
+    {
+      //
+    }
+
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function update($id)
+    {
+      //
+    }
+
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function destroy($id)
+    {
+      //
     }
   }
-
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  int  $id
-  * @return Response
-  */
-  public function edit($id)
-  {
-    //
-  }
-
-  /**
-  * Update the specified resource in storage.
-  *
-  * @param  int  $id
-  * @return Response
-  */
-  public function update($id)
-  {
-    //
-  }
-
-  /**
-  * Remove the specified resource from storage.
-  *
-  * @param  int  $id
-  * @return Response
-  */
-  public function destroy($id)
-  {
-    //
-  }
-}

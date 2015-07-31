@@ -12,6 +12,15 @@ use App\Http\Controllers\Controller;
 
 class ContactController extends Controller
 {
+  
+  public function __construct() {
+    // für alle
+    //$this->middleware('jwt.auth');
+    // Mit Ausnahmen
+    $this->middleware('jwt.auth');
+
+    // Wird dann so in den routes angezeigt!!!
+  }
   /**
   * Display a listing of the resource.
   *

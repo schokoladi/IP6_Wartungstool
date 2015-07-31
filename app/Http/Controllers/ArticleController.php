@@ -15,7 +15,7 @@ use DateTime;
 class ArticleController extends Controller
 {
   // dadurch wird dieser Controller nur für eingeloggte benutzer verwendet
-  /*
+
   public function __construct() {
     // für alle
     //$this->middleware('jwt.auth');
@@ -24,7 +24,7 @@ class ArticleController extends Controller
 
     // Wird dann so in den routes angezeigt!!!
   }
-  */
+  
   /**
   * Display a listing of the resource.
   *

@@ -15,7 +15,6 @@ use DateTime;
 
 class ProductController extends Controller
 {
-
   // dadurch wird dieser Controller nur für eingeloggte benutzer verwendet
   public function __construct() {
     // für alle
@@ -89,7 +88,7 @@ class ProductController extends Controller
   */
   public function show($id)
   {
-      return response()->json(Product::where('Produkte_Hersteller_ID', $id)->get());
+    return response()->json(Product::where('Produkte_Hersteller_ID', $id)->get());
   }
 
   public function reference($manufacturerId, $productName)
