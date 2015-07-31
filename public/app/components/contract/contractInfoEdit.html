@@ -25,9 +25,7 @@
             <!-- Kundenauswahl -->
             <div class="col-sm-6 col-md-6">
               <div class="form-group form-horizontal">
-                <label class="col-md-4 control-label" for="Kunden_ID">
-                  Kunde
-                </label>
+                <label class="col-md-4 control-label text-required-info" for="Kunden_ID">Kunde</label>
                 <div class="col-md-8">
                   <select class="form-control" name="Kunden_ID" id="Kunden_ID" ng-model="contractData.Wartungsvertraege_Kunden_ID"
                   ng-change="refreshInfo()" required="required">
@@ -44,9 +42,7 @@
         <!-- Kontakt-Feld -->
         <div class="col-sm-6 col-md-6">
           <div class="form-group form-horizontal">
-            <label for="Kontaktpersonen_ID" class="col-md-4 control-label">
-              Kontakt
-            </label>
+            <label for="Kontaktpersonen_ID" class="col-md-4 control-label text-required-info">Kontakt</label>
             <div class="col-md-8">
               <select class="form-control" name="Kontaktpersonen_ID" id="Kontaktpersonen_ID"
               ng-model="contractData.Wartungsvertraege_Kontaktpersonen_ID" required="required">
@@ -65,11 +61,9 @@
       <!-- Vertragsnummer-Feld -->
       <div class="col-sm-6 col-md-6">
         <div class="form-group form-horizontal">
-          <label for="Vertragsnummer" class="col-md-4 control-label">
-            Nummer
-          </label>
+          <label for="Vertragsnummer" class="col-md-4 control-label text-required-info">Nummer</label>
           <div class="col-md-8">
-            <input type="text" name="Vertragsnummer" value="contractData.Vertragsnummer"
+            <input type="text" name="Vertragsnummer" placeholder="Vertragsnummer"
             id="Vertragsnummer" class="form-control" ng-model="contractData.Vertragsnummer"
             required="required">
           </div>
@@ -80,11 +74,9 @@
       <!-- Zuständigkeit-Feld -->
       <div class="col-sm-6 col-md-6">
         <div class="form-group form-horizontal">
-          <label class="col-md-4 control-label" for="Zustaendigkeit">
-            Zuständig
-          </label>
+          <label class="col-md-4 control-label text-required-info" for="Zustaendigkeit">Zuständig</label>
           <div class="col-md-8">
-            <input type="text" name="Zustaendigkeit" value="contractData.Zustaendigkeit"
+            <input type="text" name="Zustaendigkeit" placeholder="Zuständige Person"
             id="Zustaendigkeit" class="form-control" ng-model="contractData.Zustaendigkeit"
             required="required">
           </div>
@@ -98,12 +90,10 @@
       <!-- Beschreibung-Feld -->
       <div class="col-sm-8 col-md-8">
         <div class="form-group form-horizontal">
-          <label for="Beschreibung" class="col-md-3 control-label">
-            Beschreibung
-          </label>
+          <label for="Beschreibung" class="col-md-3 control-label">Beschreibung</label>
           <div class="col-md-9">
-            <textarea name="Beschreibung" value="contractData.Beschreibung" class="form-control"
-            rows="3" id="Beschreibung" ng-model="contractData.Beschreibung"></textarea>
+            <textarea name="Beschreibung" class="form-control" rows="3" id="Beschreibung"
+            ng-model="contractData.Beschreibung"></textarea>
           </div>
         </div>
       </div>
@@ -113,9 +103,7 @@
       <div class="col-sm-4 col-md-4">
         <div class="form-group form-horizontal">
           <label class="col-md-8 col-md-offset-4 control-label" class="checkbox">
-            <input type="checkbox" ng-model="contractData.Inaktiv">
-            inaktiv
-          </label>
+            <input type="checkbox" ng-model="contractData.Inaktiv">inaktiv</label>
         </div>
       </div>
       <!-- /Inaktiv-Checkbox -->

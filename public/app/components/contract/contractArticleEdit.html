@@ -69,7 +69,7 @@
 						<!-- Hersteller -->
 						<div class="col-sm-6 col-md-6">
 							<div class="form-group form-horizontal">
-								<label for="Hersteller" class="col-md-4 control-label">Hersteller</label>
+								<label for="Hersteller" class="col-md-4 control-label text-required-article">Hersteller</label>
 								<div class="col-md-8">
 									<select class="form-control" name="Hersteller" id="Hersteller"
 									ng-model="articleData.Hersteller_ID" ng-change="refreshProducts()"
@@ -86,7 +86,7 @@
 					<!-- Produkt -->
 					<div class="col-sm-6 col-md-6">
 						<div class="form-group form-horizontal">
-							<label class="col-md-4 control-label" for="Produkt">Produkt</label>
+							<label class="col-md-4 control-label text-required-article" for="Produkt">Produkt</label>
 							<div class="col-md-8">
 								<select class="form-control" name="Produkt" id="Produkt" ng-model="articleData.Artikel_Produkte_ID"
 								ng-change="refreshProducts()" required="required">
@@ -105,7 +105,7 @@
 				<!-- Artikelnummer -->
 				<div class="col-sm-6 col-md-6">
 					<div class="form-group form-horizontal">
-						<label class="col-md-4 control-label" for="Artikelnummer">Artikel-Nr.</label>
+						<label class="col-md-4 control-label text-required-article" for="Artikelnummer">Artikel-Nr.</label>
 						<div class="col-md-8">
 							<select class="form-control" name="Artikelnummer" id="Artikelnummer"
 							ng-model="articleData.Artikelnummer" required="required">
@@ -121,7 +121,7 @@
 			<!-- Seriennummer -->
 			<div class="col-sm-6 col-md-6">
 				<div class="form-group form-horizontal">
-					<label for="Seriennummer" class="col-md-4 control-label">Serien-Nr.</label>
+					<label for="Seriennummer" class="col-md-4 control-label text-required-article">Serien-Nr.</label>
 					<div class="col-md-8">
 						<input type="text" name="Seriennummer" class="form-control" placeholder="Seriennummer"
 						id="Seriennummer" ng-model="articleData.Seriennummer" required="required">
@@ -136,7 +136,7 @@
 			<!-- Artikel Einkaufspreis und -Waehrung -->
 			<div class="col-sm-6 col-md-6">
 				<div class="form-group form-horizontal">
-					<label for="EKP_Artikel" class="col-md-4 control-label">Eink.-Preis</label>
+					<label for="EKP_Artikel" class="col-md-4 control-label text-required-article">Eink.-Preis</label>
 					<div class="col-md-4">
 						<input class="form-control" type="text" name="EKP_Artikel" id="EKP_Artikel"
 						ng-model="articleData.EKP_Artikel" required="required">
@@ -162,7 +162,7 @@
 	<!-- Artikel Verkaufspreis und -Waehrung -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="VKP_Artikel" class="col-md-4 control-label">Verk.-Preis</label>
+			<label for="VKP_Artikel" class="col-md-4 control-label text-required-article">Verk.-Preis</label>
 			<div class="col-md-4">
 				<input type="text" name="VKP_Artikel" class="form-control" id="VKP_Artikel"
 				ng-model="articleData.VKP_Artikel" required="required">
@@ -247,7 +247,7 @@
 	<!-- Wartungsart -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="Wartungsart" class="col-md-4 control-label">Art</label>
+			<label for="Wartungsart" class="col-md-4 control-label text-required-article">Art</label>
 			<div class="col-md-8">
 				<select class="form-control" name="Wartungsart" id="Wartungsart"
 				ng-model="articleData.Artikel_Maintenance_ID" ng-change="refreshOperationsupport()"
@@ -264,7 +264,7 @@
 <!-- Startdatum Maintenance -->
 <div class="col-sm-6 col-md-6">
 	<div class="form-group form-horizontal">
-		<label for="Maintenance_Start" class="col-md-4 control-label">Start</label>
+		<label for="Maintenance_Start" class="col-md-4 control-label text-required-article">Start</label>
 		<div class="col-md-8">
 			<input type="text" name="Maintenance_Start" class="form-control" placeholder="TT.MM.JJJJ"
 			id="Maintenance_Start" ng-model="articleData.Maintenance_Start" required="required">
@@ -279,7 +279,7 @@
 	<!-- Maintenance von -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="Maintenance_von" class="col-md-4 control-label">Von</label>
+			<label for="Maintenance_von" class="col-md-4 control-label text-required-article">Von</label>
 			<div class="col-md-8">
 				<input type="text" name="Maintenance_von" class="form-control" id="Maintenance_von"
 				placeholder="TT.MM.JJJJ" ng-model="articleData.Maintenance_von" required="required">
@@ -291,7 +291,7 @@
 	<!-- Maintenance bis -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="Maintenance_bis" class="col-md-4 control-label">Bis</label>
+			<label for="Maintenance_bis" class="col-md-4 control-label text-required-article">Bis</label>
 			<div class="col-md-8">
 				<input type="text" name="Maintenance_bis" class="form-control" id="Maintenance_bis"
 				placeholder="TT.MM.JJJJ" ng-model="articleData.Maintenance_bis" required="required">
@@ -306,7 +306,7 @@
 	<!-- Maintenance Einkaufspreis und -Waehrung -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="EKP_Maintenance" class="col-md-4 control-label">Eink.-Preis</label>
+			<label for="EKP_Maintenance" class="col-md-4 control-label text-required-article">Eink.-Preis</label>
 			<div class="col-md-4">
 				<input class="form-control" type="text" name="EKP_Maintenance" id="EKP_Maintenance"
 				ng-model="articleData.EKP_Maintenance" required="required">
@@ -327,7 +327,7 @@
 	<!-- Maintenance Verkaufspreis und -Waehrung -->
 	<div class="col-sm-6 col-md-6">
 		<div class="form-group form-horizontal">
-			<label for="VKP_Maintenance" class="col-md-4 control-label">Verk.-Preis</label>
+			<label for="VKP_Maintenance" class="col-md-4 control-label text-required-article">Verk.-Preis</label>
 			<div class="col-md-4">
 				<input type="text" name="VKP_Maintenance" class="form-control" id="VKP_Maintenance"
 				ng-model="articleData.VKP_Maintenance" required="required">

@@ -291,7 +291,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Article, Contract,
     var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
     console.log(dateNow.toLocaleDateString('{"format":"yyyy-MM-dd"}'));
   }
-  
+
   /*
   // Funktion nicht verwendet
   // Idee: Überprüfen ob Einkaufspreis * EK-Kurs > Verkaufspreis * VK-Kurs
