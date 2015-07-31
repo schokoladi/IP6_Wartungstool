@@ -50,7 +50,7 @@ app.config(function($routeProvider, $authProvider){
     controller:   "productController"
   })
   // produkte neu
-  .when("/produkte/:ID/edit", {
+  .when("/produkte/:editId/edit", {
     templateUrl:  "app/components/product/productEdit.html",
     controller:   "productController"
   })
@@ -112,7 +112,7 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   })
-  .when("/wartungsvertraege/pool/neu/:contractId/message/:message", {
+  .when("/wartungsvertraege/pool/neu/:contractId/msgtype/:messageType/msgtext/:messageText", {
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
   })

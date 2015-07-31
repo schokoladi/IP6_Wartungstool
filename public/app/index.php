@@ -31,7 +31,7 @@
     <div ng-view></div>
   </div>
 
-  <!-- note jquery tag has to go before boostrap -->
+  <!-- jQuery muss vor Bootstrap geladen werden! -->
   <!-- WARNING: jquery 1 instead of 2 used because of INTERNET EXPLORER support! -->
   <!-- jQuery v1.11.3 -->
   <script src="assets/libs/jquery.min.js"></script>
