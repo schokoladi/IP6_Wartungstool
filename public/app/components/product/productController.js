@@ -1,7 +1,6 @@
 //console.log('Product Controller loaded');
 
-// Controller
-// $scope, $http und $location werden 'injected', damit sie verwendet werden können
+// Controller für die Produkte
 app.controller('productController',
 function($scope, $http, $location, $routeParams, $rootScope, Product, Manufacturer, Article) {
 
@@ -14,7 +13,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     $scope.messageText = $routeParams.messageText;
   }
 
-  var editId = $routeParams.ID;
+  var editId = $routeParams.editId;
   $scope.master = {};
 
   // Produkte via api aus der Datenbank holen
@@ -95,6 +94,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
       $scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
       // Wenn Produkt editiert wird, updaten
       if(editId) {
+        $scope.productData.ID = editId;
         updateProduct($scope.productData);
         // Bei neuem Produkt erstellen
       } else {
