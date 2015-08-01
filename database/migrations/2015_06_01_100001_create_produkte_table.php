@@ -17,9 +17,10 @@ class CreateProdukteTable extends Migration
           Schema::create('Produkte', function (Blueprint $table) {
               $table->increments('ID');
 
-              $table->string('Artikelnummer', 100)->unique();
               $table->string('Name', 150);
+              $table->string('Artikelnummer', 100)->unique();
 
+              // Relation mit Hersteller
               $table->integer('Produkte_Hersteller_ID')->unsigned();
               $table->foreign('Produkte_Hersteller_ID')->references('ID')->on('Hersteller');
 

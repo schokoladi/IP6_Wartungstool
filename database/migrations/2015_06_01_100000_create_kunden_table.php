@@ -17,11 +17,11 @@ class CreateKundenTable extends Migration
           Schema::create('Kunden', function (Blueprint $table) {
               $table->increments('ID');
 
-              $table->string('Name');
+              $table->string('Name', 100)->unique();
               $table->string('Adresse', 100);
-              $table->string('PLZ'); // TODO: Einschränkunge? integer, 4?
+              $table->string('PLZ', 10); // Keine Einschränkungen
               $table->string('Ort', 50);
-              // TODO: weitere Kundenattribute je nach Inntact-Export
+              // weitere Kundenattribute je nach Inntact-Export
 
               $table->timestamps();
           });

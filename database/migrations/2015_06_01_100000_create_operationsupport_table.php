@@ -17,7 +17,7 @@ class CreateOperationsupportTable extends Migration
           Schema::create('Operationsupport', function (Blueprint $table) {
               $table->increments('ID');
 
-              $table->string('Bezeichnung');
+              $table->string('Bezeichnung', 20);
 
               $table->timestamps();
           });

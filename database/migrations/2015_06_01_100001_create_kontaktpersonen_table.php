@@ -20,9 +20,10 @@ class CreateKontaktpersonenTable extends Migration
               $table->string('Vorname', 50);
               $table->string('Name', 50);
 
+              // Verknüpfung mit Kunden
               $table->integer('Kontaktpersonen_Kunden_ID')->unsigned();
               $table->foreign('Kontaktpersonen_Kunden_ID')->references('ID')->on('Kunden');
-              // TODO: weitere Attribute gemäss Inntact-Export
+              // Weitere Attribute gemäss Inntact-Export
 
               $table->timestamps();
           });

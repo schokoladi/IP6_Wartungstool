@@ -26,14 +26,14 @@ class CreateArtikelTable extends Migration
               $table->string('Seriennummer', 100)->unique();
 
               // Artikel
-              $table->double('EKP_Artikel', 20, 2); // 20 total, 2 after decimal
+              $table->decimal('EKP_Artikel', 20, 2); // 20 total, 2 after decimal
               $table->integer('EKP_Artikel_Waehrungen_ID')->unsigned();
               $table->foreign('EKP_Artikel_Waehrungen_ID')->references('ID')->on('Waehrungen');
-              $table->double('VKP_Artikel', 20, 2);
+              $table->decimal('VKP_Artikel', 20, 2);
               $table->integer('VKP_Artikel_Waehrungen_ID')->unsigned();
               $table->foreign('VKP_Artikel_Waehrungen_ID')->references('ID')->on('Waehrungen');
 
-              // Auftrag und Rechnung sind nicht notwendig
+              // Auftrag und Rechnung sowie deren Datum sind nicht notwendig
               // können nachträglich eingetragen werden
               $table->string('Auftragsnummer', 100)->nullable();
               $table->date('Auftragsdatum')->nullable();
@@ -47,20 +47,20 @@ class CreateArtikelTable extends Migration
               $table->date('Maintenance_von');
               $table->date('Maintenance_bis');
 
-              $table->double('EKP_Maintenance', 20, 2);
+              $table->decimal('EKP_Maintenance', 20, 2);
               $table->integer('EKP_Maintenance_Waehrungen_ID')->unsigned();
               $table->foreign('EKP_Maintenance_Waehrungen_ID')->references('ID')->on('Waehrungen');
-              $table->double('VKP_Maintenance', 20, 2);
+              $table->decimal('VKP_Maintenance', 20, 2);
               $table->integer('VKP_Maintenance_Waehrungen_ID')->unsigned();
               $table->foreign('VKP_Maintenance_Waehrungen_ID')->references('ID')->on('Waehrungen');
 
-              // Operationsupport
+              // Operationsupport (Fakultativ)
               $table->integer('Artikel_Operationsupport_ID')->unsigned()->nullable();
               $table->foreign('Artikel_Operationsupport_ID')->references('ID')->on('Operationsupport');
               $table->date('Operationsupport_Start')->nullable();
               $table->date('Operationsupport_von')->nullable();
               $table->date('Operationsupport_bis')->nullable();
-              $table->double('VKP_Operationsupport', 20, 2)->nullable();
+              $table->decimal('VKP_Operationsupport', 20, 2)->nullable();
               $table->integer('VKP_Operationsupport_Waehrungen_ID')->unsigned()->nullable();
               $table->foreign('VKP_Operationsupport_Waehrungen_ID')->references('ID')->on('Waehrungen');
 

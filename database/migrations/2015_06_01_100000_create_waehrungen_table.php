@@ -18,7 +18,7 @@ class CreateWaehrungenTable extends Migration
               $table->increments('ID');
 
               $table->string('Waehrung', 3); // CHF, USD, EUR..
-              $table->double('Kurs', 8, 4); // 4 Nachkommastellen, 8 Total
+              $table->decimal('Kurs', 8, 4); // 4 Nachkommastellen, 8 Total
 
               $table->timestamps();
           });
