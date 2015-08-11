@@ -20,6 +20,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
   getProducts = function() {
     Product.get()
     .success(function(response) {
+      console.log(response);
       $scope.products = response;
       $scope.loading = false;
     });
