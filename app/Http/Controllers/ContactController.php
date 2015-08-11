@@ -4,23 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// Notwendig und nicht standardmässig eingefügt
 use App\Contact;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+ * Die ContactController-Klasse handlet alle Funktionen (Actions), welche über
+ * die URL 'api/contacts' aufgerufen werden
+ */
 class ContactController extends Controller
 {
-  
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
-    $this->middleware('jwt.auth');
 
-    // Wird dann so in den routes angezeigt!!!
+  /**
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
   }
+
   /**
   * Display a listing of the resource.
   *
@@ -52,10 +56,12 @@ class ContactController extends Controller
   }
 
   /**
-  * Display the specified resource.
+  * Holt die Kontaktpersonen aus der Datenbank, welche dem übergebenen Kunden
+  * zugeordnet sind.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Übergebene ID des Kunden
+  * @return response  Datenbankobjekt als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function show($id)
   {
@@ -94,4 +100,5 @@ class ContactController extends Controller
   {
     //
   }
+
 }

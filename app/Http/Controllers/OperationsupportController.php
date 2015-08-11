@@ -11,20 +11,27 @@ use App\Http\Controllers\Controller;
 use Input;
 use DateTime;
 
+/**
+ * Die OperationsupportController-Klasse handlet alle Funktionen (Actions), welche
+ * über die URL 'api/operationsupport' aufgerufen werden
+ */
 class OperationsupportController extends Controller
 {
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
-    $this->middleware('jwt.auth');
 
-    // Wird dann so in den routes angezeigt!!!
-  }
   /**
-  * Display a listing of the resource.
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
+  }
+
+  /**
+  * Gibt alle Operation Supports als Objekte in einem JSON-String zurück
   *
-  * @return Response
+  * @return response  OS-Objekte als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function index()
   {
@@ -53,10 +60,11 @@ class OperationsupportController extends Controller
   }
 
   /**
-  * Display the specified resource.
+  * Gibt einen bestimmten Operation Support anhand der übergebenen ID zurück.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Übergebene ID des Operation Supports
+  * @return response  OS-Objekt als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function show($id)
   {

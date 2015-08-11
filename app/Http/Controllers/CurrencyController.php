@@ -4,26 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// Notwendig und nicht standardmässig eingefügt
 use App\Currency;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+* Die CurrencyController-Klasse handlet alle Funktionen (Actions), welche über
+* die URL 'api/currencies' aufgerufen werden
+*/
 class CurrencyController extends Controller
 {
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
-    $this->middleware('jwt.auth');
 
-    // Wird dann so in den routes angezeigt!!!
-  }
   /**
-  * Display a listing of the resource.
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
+  }
+
+  /**
+  * Holt alle Währungen aus der Datenbank und gibt sie als JSON-Objekt zurück.
   *
-  * @return Response
+  * @return response  Curreny-Objekt als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function index()
   {
@@ -51,10 +57,11 @@ class CurrencyController extends Controller
   }
 
   /**
-  * Display the specified resource.
+  * Gibt die Währung der mitgegebenen ID zurück.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Übergebene ID der Wärhung
+  * @return response  Währungsobjekt als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function show($id)
   {
@@ -93,4 +100,5 @@ class CurrencyController extends Controller
   {
     //
   }
+  
 }

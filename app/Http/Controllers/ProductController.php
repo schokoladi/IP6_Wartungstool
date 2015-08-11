@@ -4,30 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// Notwendig für das Model
 use App\Product;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Input;
 use DateTime;
-//use Log;
 
+/**
+ * Die ArticleController-Klasse handlet alle Funktionen (Actions), welche über
+ * die URL 'api/articles' aufgerufen werden
+ */
 class ProductController extends Controller
 {
-  // dadurch wird dieser Controller nur für eingeloggte benutzer verwendet
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
-    $this->middleware('jwt.auth');
 
-    // Wird dann so in den routes angezeigt!!!
-  }
   /**
-  * Display a listing of the resource.
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
+  }
+
+  /**
+  * Gibt alle bestehenden Produkte zurück und holt zudem jeweils den dazugehörigen
+  * Herstellen per Methode manufacturer() des Models Product.
   *
-  * @return Response
+  * @return response  Erstelltes Array als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function index()
   {
@@ -42,12 +47,12 @@ class ProductController extends Controller
       $json[$i]['ID'] = $product->ID;
       $json[$i]['Name'] = $product->Name;
       $json[$i]['Artikelnummer'] = $product->Artikelnummer;
-      // Hol den zum Produkt gehörigen Hersteller
-      //$manufacturer = Product::find($product->ID);
+
+      // Holt den zum Produkt gehörigen Hersteller
       $json[$i]['Hersteller'] = $product->manufacturer->Name;
       $i++;
     }
-    // gib das Array als json-String
+
     return response()->json($json);
   }
 
@@ -62,9 +67,10 @@ class ProductController extends Controller
   }
 
   /**
-  * Store a newly created resource in storage.
+  * Speichert ein Produkt in der Datenbank mit den per Input übergebenen Formulardaten.
   *
-  * @return Response
+  * @return response  Success-Meldung als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function store()
   {
@@ -75,53 +81,66 @@ class ProductController extends Controller
     $product->Produkte_Hersteller_ID = Input::get('Produkte_Hersteller_ID');
     $product->created_at = new DateTime;
     $product->updated_at = new DateTime;
+
     $product->save();
 
     return response()->json(['success' => true]);
   }
 
   /**
-  * Display the specified resource.
+  * Gibt ein Produkte anhand der übergebenen Hersteller-ID zurück.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Hersteller-ID
+  * @return response  Produkte als Objekte in JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function show($id)
   {
     return response()->json(Product::where('Produkte_Hersteller_ID', $id)->get());
   }
 
+  /**
+  * Dient der Einschränkung eines Produkts anhand der übergebenen Hersteller-ID
+  * und des Produktnamens. So kann schlussendlich nur noch die Artikelnummer aus-
+  * gewählt werden.
+  *
+  * @param  integer   Hersteller-ID
+  * @param  integer   Produktname
+  * @return response  Product-Objekte als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   public function reference($manufacturerId, $productName)
   {
     return response()->json(Product::where('Produkte_Hersteller_ID', $manufacturerId)->where('Name', $productName)->get());
   }
 
   /**
-  * Show the form for editing the specified resource.
+  * Gibt ein Produkt anhand der übergebenen ID zum bearbeiten zurück.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Produkt-ID
+  * @return response  Product-Objekt als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function edit($id)
   {
-    // gib das Array als json-String. findOrFail gibt sonst Exception zurück
     return response()->json(Product::findOrFail($id));
   }
 
   /**
-  * Update the specified resource in storage.
+  * Aktualisiert ein Produkt anhand der mit Input übergebenen Formulardaten.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Produkt-ID
+  * @return response  Success-Meldung als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function update(Request $request, $id)
   {
     $product = Product::find($id);
+
     // Nur notwendige Werte ändern, 'updated_at' wird automatisch aktualisiert
-    //Log::info($request);
-    $product->Artikelnummer = $request->input('Artikelnummer');
-    $product->Name = $request->input('Name');
-    $product->Produkte_Hersteller_ID = $request->input('Produkte_Hersteller_ID');
+    $product->Artikelnummer = Input::get('Artikelnummer');
+    $product->Name = Input::get('Name');
+    $product->Produkte_Hersteller_ID = Input::get('Produkte_Hersteller_ID');
 
     $product->save();
 
@@ -129,10 +148,11 @@ class ProductController extends Controller
   }
 
   /**
-  * Remove the specified resource from storage.
+  * Löscht ein Produkt anhand der übergebenen ID.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Produkt-ID
+  * @return response  Success-Meldung als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function destroy($id)
   {
@@ -140,4 +160,5 @@ class ProductController extends Controller
 
     return response()->json(['success' => true]);
   }
+  
 }

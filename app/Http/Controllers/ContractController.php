@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// Notwendig für das Model
 use App\Contract;
 
 use App\Http\Requests;
@@ -12,21 +11,29 @@ use App\Http\Controllers\Controller;
 use Input;
 use DateTime;
 
+/**
+ * Die ContractController-Klasse handlet alle Funktionen (Actions), welche über
+ * die URL 'api/contracts' aufgerufen werden
+ */
 class ContractController extends Controller
 {
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
-    $this->middleware('jwt.auth');
 
-    // Wird dann so in den routes angezeigt!!!
+  /**
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
   }
 
   /**
-  * Display a listing of the resource.
+  * Holt alle Wartungsverträge aus der Datenbank und fügt dem Array zusätzlich
+  * verknüpfte daten hinzu. Dies wird mit den Methoden customer() und contact()
+  * des Contract-Models erreicht.
   *
-  * @return Response
+  * @return response  Generiertes Array als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function index()
   {
@@ -48,10 +55,8 @@ class ContractController extends Controller
       $json[$i]['Kontaktperson_Name'] = $contract->contact->Name;
       $i++;
     }
-    // gib das Array als json-String
-    return response()->json($json);
 
-    //return response()->json(Contract::get());
+    return response()->json($json);
   }
 
   /**
@@ -65,13 +70,18 @@ class ContractController extends Controller
   }
 
   /**
-  * Store a newly created resource in storage.
+  * Speichert einen Wartungsvertrag und dessen Details per übergebener Formular-
+  * werte. Im JSON-String wird die erstellte Wartungsvertrags-ID zurückgegeben,
+  * damit diese für die weitere Erfassung von Warutngsvertragsatrikeln verwendet
+  * werden kann.
   *
-  * @return Response
+  * @return response  Generiertes Array als JSON-String mit der letzten WV-ID
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function store()
   {
     $contract = new Contract;
+
     $contract->Vertragsnummer = Input::get('Vertragsnummer');
     $contract->Beschreibung = Input::get('Beschreibung');
     $contract->Inaktiv = Input::get('Inaktiv');
@@ -86,14 +96,15 @@ class ContractController extends Controller
       'success' => true,
       'Contract' => Contract::orderBy('ID', 'desc')->first()
       ]);
-
     }
 
     /**
-    * Display the specified resource.
+    * Holt einen Wartungsvertrag und dessen Artikel und Stundenpools aus der
+    * Datenbank für die Detailsansicht. Dafür wird ein Array zusammengestellt.
     *
-    * @param  int  $id
-    * @return Response
+    * @param  integer   Übergebene ID des Wartungsvertrages
+    * @return response  Generiertes Array als JSON-String
+    * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
     */
     public function show($id)
     {
@@ -107,12 +118,15 @@ class ContractController extends Controller
       $json['Beschreibung'] = $contract->Beschreibung;
       $json['Inaktiv'] = $contract->Inaktiv;
       $json['Zustaendigkeit'] = $contract->Zustaendigkeit;
+
       // Kunde und Kontaktperson via ID holen
       $json['Kunde'] = $contract->customer->Name;
       $json['Kontaktperson_Vorname'] = $contract->contact->Vorname;
       $json['Kontaktperson_Name'] = $contract->contact->Name;
 
+      // Zum Wartungsvertrag gehörige Artikel holen
       $articles = Contract::find($id)->articles;
+
       // Artikel nür füllen, wenn Werte vorhanden
       if(!empty($articles)) {
         foreach($articles as $article) {
@@ -127,7 +141,9 @@ class ContractController extends Controller
         }
       }
 
+      // Zum Wartungsvertrag gehörige Stundenpools holen
       $pools = Contract::find($id)->pools;
+
       // Pools nür füllen wenn Werte vorhanden
       if(!empty($pools)) {
         foreach($pools as $pool) {
@@ -144,26 +160,29 @@ class ContractController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
+    * Holt einen Wartungsvertrag aus der Datenbank zum editieren.
     *
-    * @param  int  $id
-    * @return Response
+    * @param  integer   Übergebene ID des Wartungsvertrages
+    * @return response  Contract-Objekt als JSON-String
+    * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
     */
     public function edit($id)
     {
-      // gib das Array als json-String. findOrFail gibt sonst Exception zurück
       return response()->json(Contract::findOrFail($id));
     }
 
     /**
-    * Update the specified resource in storage.
+    * Aktualisiert einen Wartungsvertrag mit den übergebenen Formularwerten.
     *
-    * @param  int  $id
-    * @return Response
+    * @param  Request   Formularwerte
+    * @param  integer   Übergebene ID des Wartungsvertrages
+    * @return response  Success-Meldung als JSON-String
+    * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
     */
     public function update(Request $request, $id)
     {
       $contract = Contract::find($id);
+
       $contract->Vertragsnummer = $request->input('Vertragsnummer');
       $contract->Beschreibung = $request->input('Beschreibung');
       $contract->Inaktiv = $request->input('Inaktiv');
@@ -184,6 +203,7 @@ class ContractController extends Controller
     */
     public function destroy($id)
     {
-      //
+      // Das Löschen einen Wartungsvertrags ist nicht vorgesehehen.
+      // Dafür kann er auf inaktiv geschaltet werden
     }
   }

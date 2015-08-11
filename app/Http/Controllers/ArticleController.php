@@ -12,19 +12,22 @@ use Carbon\Carbon;
 use Input;
 use DateTime;
 
+/**
+ * Die ArticleController-Klasse handlet alle Funktionen (Actions), welche über
+ * die URL 'api/articles' aufgerufen werden
+ */
 class ArticleController extends Controller
 {
-  // dadurch wird dieser Controller nur für eingeloggte benutzer verwendet
 
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
+  /**
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
     $this->middleware('jwt.auth');
-
-    // Wird dann so in den routes angezeigt!!!
   }
-  
+
   /**
   * Display a listing of the resource.
   *
@@ -46,10 +49,12 @@ class ArticleController extends Controller
   }
 
   /**
-  * Store a newly created resource in storage.
+  * Speichert einen neuen Wartungsvertragsartikel. Alle Daten der Eingabefelder
+  * werden mit Input als Formularfelder im lokal erzeugten Objekt gespeichert,
+  * welches am Schluss in der Datenbank abgelegt wird
   *
-  * @param  Request  $request
-  * @return Response
+  * @return response  Success-Meldung als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function store()
   {
@@ -91,14 +96,17 @@ class ArticleController extends Controller
   }
 
   /**
-  * Display the specified resource.
+  * Holt alle Artikel aus der Datenbank, welche zu einem bestimmtem Wartungsvertrag
+  * gehören und gibt diese in einem JSON-Array zurück
+  * Dabei werden die Methoden product() und manufacturer() der Article- und Product-
+  * Models verwendet.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   Übergebene ID des Wartungsvertrages
+  * @return response  Generiertes Array als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function show($id)
   {
-    //return response()->json(Article::where('Artikel_Wartungsvertraege_ID', $id)->get()); // ok
     $articles = Article::where('Artikel_Wartungsvertraege_ID', $id)->get();
     $json = array();
     $i = 0;
@@ -116,35 +124,33 @@ class ArticleController extends Controller
     return response()->json($json);
   }
 
-
+  /**
+  * Es werden die Artikel, welche zu einem bestimmten Produkt gehören, zurückgegeben.
+  * Dies dients der Kontrolle, ob ein Produkt gelöscht werden kann oder ob es noch
+  * einem Wartungsvertragsartikel zugeordnet ist.
+  *
+  * @param  integer   ID des Produkts
+  * @return response  Artikel-Objekt(e) als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   public function product($id)
   {
-    //return response()->json(Article::where('Artikel_Wartungsvertraege_ID', $id)->get()); // ok
-    //$articles = Article::where('Artikel_Produkte_ID', $id)->get();
     return response()->json(Article::where('Artikel_Produkte_ID', $id)->get());
-    /*i
-    f($articles) {
-      return response()->json(['success' => true]);
-    }
-    else {
-      return response()->json(['success' => false]);
-    }*/
   }
 
-
   /**
-  * Show the form for editing the specified resource.
+  * Lädt den Artikel der übergebenen ID zum Bearbeiten und passt die Daten dem
+  * Format des Formulars (TT.MM.JJJJ) an. in der DB sind sie als YYYY-MM-DD gespeichert.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   ID des zu bearbeitenden Artikels
+  * @return response  Artikel-Objekt als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function edit($id)
   {
-    //return response()->json(Article::findOrFail($id));
     $article = Article::findOrFail($id);
 
     // Formatiere das Datum wieder um (die DB gibt YYYY-MM-DD zurück)
-    //$article->Auftragsdatum = Carbon::createFromDate('d.m.Y', $article->Auftragsdatum);
     $article->Auftragsdatum = date("d.m.Y", strtotime($article->Auftragsdatum));
     $article->Rechnungsdatum = date("d.m.Y", strtotime($article->Rechnungsdatum));
 
@@ -160,15 +166,19 @@ class ArticleController extends Controller
   }
 
   /**
-  * Update the specified resource in storage.
+  * Aktualisiert einen bearbeiteten Wartungsvertragsartikel anhand der übergebenen
+  * Formularwerte, welche dank Request als solche eingelesen und im Objekt gespeichert
+  * werden können.
   *
-  * @param  Request  $request
-  * @param  int  $id
-  * @return Response
+  * @param  Request   Formularwerte
+  * @param  integer   ID des Artikels
+  * @return response  Success-Meldung als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function update(Request $request, $id)
   {
     $article = Article::find($id);
+
     // Nur notwendige Werte ändern, 'updated_at' wird automatisch aktualisiert
     $article->Artikel_Produkte_ID = $request->input('Artikel_Produkte_ID');
 
@@ -205,10 +215,11 @@ class ArticleController extends Controller
   }
 
   /**
-  * Remove the specified resource from storage.
+  * Löscht einen Wartungsvertragsartikel per übergebener ID.
   *
-  * @param  int  $id
-  * @return Response
+  * @param  integer   ID des zu löschenden Wartungsvertragsartikels
+  * @return response  Success-Meldung als JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function destroy($id)
   {
@@ -216,4 +227,5 @@ class ArticleController extends Controller
 
     return response()->json(['success' => true]);
   }
+
 }

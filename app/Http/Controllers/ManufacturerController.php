@@ -4,33 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// Notwendig für das Model
 use App\Manufacturer;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Input;
 use DateTime;
-use Log;
 
+/**
+ * Die ManufacturerController-Klasse handlet alle Funktionen (Actions), welche über
+ * die URL 'api/manufacturers' aufgerufen werden
+ */
 class ManufacturerController extends Controller
 {
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
-    $this->middleware('jwt.auth');
 
-    // Wird dann so in den routes angezeigt!!!
-  }
   /**
-  * Display a listing of the resource.
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
+  }
+
+  /**
+  * Gibt alle Hersteller als Objekte in einem JSON-String zurück
   *
-  * @return Response
+  * @return response  Hersteller als Objekte in JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function index()
   {
-    // Alle Hersteller als json-String zurückgeben
     return response()->json(Manufacturer::all());
   }
 
@@ -45,14 +49,15 @@ class ManufacturerController extends Controller
   }
 
   /**
-  * Store a newly created resource in storage.
+  * Erstellt einen neuen Hersteller und gibt dessen ID zusammen mit der Success-
+  * Meldung als JSON-String zurück.
   *
-  * @return Response
+  * @return response  Success-Meldung und ID des erstellten Herstellers als JSON
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function store()
   {
     // firstOrNew sucht sich bestehenden Wert mit 'Name' oder Erstellt einen neuen
-    // Log::info('Hersteller: '. Input::get('Hersteller'));
     $manufacturer = Manufacturer::firstOrNew(['Name' => Input::get('Hersteller')]);
     $manufacturer->created_at = new DateTime;
     $manufacturer->updated_at = new DateTime;
@@ -74,16 +79,6 @@ class ManufacturerController extends Controller
     public function show($id)
     {
       //
-    }
-
-    public function exists($name)
-    {
-      // gib true oder false als String zurück, boolean nicht möglich
-      if(Manufacturer::where('Name', '=', $name)->exists()) {
-        return response()->json(['success' => true]);
-      } else {
-        return response()->json(['success' => false]);
-      }
     }
 
     /**

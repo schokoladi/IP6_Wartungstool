@@ -9,20 +9,27 @@ use App\Maintenance;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+ * Die MaintenanceController-Klasse handlet alle Funktionen (Actions), welche über
+ * die URL 'api/maintenances' aufgerufen werden
+ */
 class MaintenanceController extends Controller
 {
-  public function __construct() {
-    // für alle
-    //$this->middleware('jwt.auth');
-    // Mit Ausnahmen
-    $this->middleware('jwt.auth');
 
-    // Wird dann so in den routes angezeigt!!!
-  }
   /**
-  * Display a listing of the resource.
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert
+  */
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
+  }
+
+  /**
+  * Gibt alle Wartungen in einem JSON-String als Objekte zurück
   *
-  * @return Response
+  * @return response  Alle Wartungen als Objekte in JSON-String
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
   */
   public function index()
   {

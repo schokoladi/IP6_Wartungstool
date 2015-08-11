@@ -4,25 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-// needed for jwtauth-usage
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+
+/**
+* Die AuthenticateController-Klasse handlet alle Funktionen (Actions), welche über
+* die URL 'api/authenticate' aufgerufen werden und dient dem Login bzw. der Token-
+* verwaltung
+* Diese Klasse wurde gemäss einem Tutorial von scotch.io [1] adaptiert
+* [1] https://scotch.io/tutorials/token-based-authentication-for-angularjs-and-laravel-apps
+*/
 class AuthenticateController extends Controller
 {
 
+  /**
+  * Mit dem Konstruktor wird diese Klasse in der Middleware registriert, welche
+  * beim Seitenaufruf zwischengeschaltet wird und filtert.
+  * Eine Ausnahme wird mit 'except' definiert, damit eine initiale Authentifizierung
+  * möglich ist.
+  */
   public function __construct()
   {
-    // Apply the jwt.auth middleware to all methods in this controller
-    // except for the authenticate method. We don't want to prevent
-    // the user from retrieving their token if they don't already have it
     $this->middleware('jwt.auth', ['except' => ['authenticate']]);
   }
 
+  /**
+  * Der authentifizierte Benutzer wird geholt oder ein Fehler zurückgegeben
+  *
+  * @return response  Fehlercode oder Benutzer als JSON-String
+  * @author Ryan Chenkie
+  */
   public function getAuthenticatedUser()
   {
     try {
@@ -40,6 +55,14 @@ class AuthenticateController extends Controller
     return response()->json(compact('user'));
   }
 
+  /**
+  * Die Formulardaten werden überprüft und ein Fehler oder ein generierter Token
+  * zurückgegeben.
+  *
+  * @param  Request   Eingegebene Formularwerte
+  * @return response  Fehler oder Token als JSON-String
+  * @author Ryan Chenkie
+  */
   public function authenticate(Request $request)
   {
     $credentials = $request->only('username', 'password');
@@ -47,7 +70,6 @@ class AuthenticateController extends Controller
     try {
       // verify the credentials and create a token for the user
       if (!$token = JWTAuth::attempt($credentials)) {
-        // DOSC: Works!
         return response()->json(['error' => 'invalid_credentials'], 401);
       }
     } catch (JWTException $e) {
@@ -58,4 +80,5 @@ class AuthenticateController extends Controller
     // if no errors are encountered we can return a JWT
     return response()->json(compact('token'));
   }
+
 }
