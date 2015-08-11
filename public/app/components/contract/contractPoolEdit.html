@@ -1,9 +1,8 @@
 <!-- Liste mit den 3 Wartungsvertrags-Tabs (Wartungsvertrag / Artikel / Stundenpool) -->
 <div class="row">
-	<div class="center col-xs-12 col-ms-12 col-md-9">
+	<div class="col-xs-12 col-ms-12 col-md-9">
 		<div ng-include='"app/shared/contractmenu/poolMenu.html"'></div>
 	</div>
-
 
 	<!-- list-group mit Wartungsvertragsinfos -->
 	<div class="hidden-xs hidden-sm col-md-3">
@@ -26,6 +25,7 @@
 <!-- Vertragsinfos -->
 <div class="row">
 	<div class="col-xs-12 col-ms-12 col-md-9">
+
 		<div class="panel panel-default custom-panel sticky-top panel-vertrag">
 			<a href="/#/wartungsvertraege/detail/{{ contractId }}">
 				<div class="panel-body">
@@ -45,157 +45,169 @@
 				</div>
 			</a>
 		</div>
+
 	</div>
 </div>
 
 <div class="row">
-	<form name="poolForm" ng-submit="poolForm.$valid && storePool()" novalidate="novalidate">
-		<div class="col-xs-12 col-sm-12 col-md-9">
-			<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-9">
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
 				<h4 class="custom-h4">Stundenpool</h4>
 			</div>
-			<div class="row">
-
-				<!-- Stundenpool-Art (Operationsupport_Stundenpool) -->
-				<div class="col-sm-6 col-md-6">
-					<div class="form-group form-horizontal">
-						<label for="OS_Pool" class="col-md-4 control-label text-required-pool">Art</label>
-						<div class="col-md-8">
-							<select class="form-control" name="OS_Pool" id="OS_Pool" ng-model="poolData.Stundenpools_OS_Stundenpools_ID"
-							required="required">
-							<option value="{{ ospool.ID }}" ng-hide="loading" ng-repeat="ospool in ospools">
-								{{ ospool.Bezeichnung }}
-							</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<!-- /Stundenpool-Art -->
-
-			<!-- Startdatum -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Stundenpool_Start" class="col-md-4 control-label text-required-pool">Start</label>
-					<div class="col-md-8">
-						<input type="text" name="Stundenpool_Start" class="form-control" placeholder="TT.MM.JJJJ"
-						id="Stundenpool_Start" ng-model="poolData.Stundenpool_Start" required="required">
-					</div>
-				</div>
-			</div>
-			<!-- Startdatum -->
-
-		</div>
-		<div class="row">
-
-			<!-- Stundenpool von -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Stundenpool_von" class="col-md-4 control-label text-required-pool">Von</label>
-					<div class="col-md-8">
-						<input type="text" name="Stundenpool_von" class="form-control" placeholder="TT.MM.JJJJ"
-						id="Stundenpool_von" ng-model="poolData.Stundenpool_von" required="required">
-					</div>
-				</div>
-			</div>
-			<!-- /Stundenpool von -->
-
-			<!-- Stundenpool bis -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Stundenpool_bis" class="col-md-4 control-label text-required-pool">Bis</label>
-					<div class="col-md-8">
-						<input type="text" name="Stundenpool_bis" class="form-control" placeholder="TT.MM.JJJJ"
-						id="Stundenpool_bis" ng-model="poolData.Stundenpool_bis" required="required">
-					</div>
-				</div>
-			</div>
-			<!-- /Stundenpool bis -->
-
-		</div>
-		<div class="row">
-
-			<!-- Stundensatz -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Stundensatz" class="col-md-4 control-label text-required-pool">Std.-Satz</label>
-					<div class="col-md-4">
-						<input class="form-control form-horizontal" type="text" name="Stundensatz"
-						id="Stundensatz" ng-model="poolData.Stundensatz" required="required">
-					</div>
-					<!-- Waehrung -->
-					<label for="Stundensatz_Waehrung" class="sr-only">Waehrung</label>
-					<div class="col-md-4">
-						<select class="form-control" name="Stundensatz_Waehrung" id="Stundensatz_Waehrung"
-						ng-model="poolData.Stundensatz_Waehrungen_ID" required="required">
-						<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
-							{{ currency.Waehrung }}</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<!-- /Stundensatz -->
-
-			<!-- Anzahl Stunden -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Anzahl_Stunden" class="col-md-4 control-label text-required-pool">Anz. Std.</label>
-					<div class="col-md-8">
-						<input type="text" name="Anzahl_Stunden" class="form-control" placeholder="Anzahl Stunden"
-						id="Anzahl_Stunden"	ng-model="poolData.Anzahl_Stunden" required="required">
-					</div>
-				</div>
-			</div>
-			<!-- /Anzahl Stunden -->
-
-		</div>
-		<div class="row">
-
-			<!-- Rechnungsnummer -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Rechnungsnummer" class="col-md-4 control-label">Rechn.-Nr.</label>
-					<div class="col-md-8">
-						<input type="text" name="Rechnungsnummer" placeholder="Rechnungsnummer"
-						id="Rechnungsnummer" class="form-control" ng-model="poolData.Rechnungsnummer">
-					</div>
-				</div>
-			</div>
-			<!-- /Rechnungsnummer -->
-
-			<!-- Rechnungsdatum -->
-			<div class="col-sm-6 col-md-6">
-				<div class="form-group form-horizontal">
-					<label for="Rechnungsdatum" class="col-md-4 control-label">Datum</label>
-					<div class="col-md-8">
-						<input type="text" name="Rechnungsdatum" class="form-control" placeholder="TT.MM.JJJJ"
-						id="Rechnungsdatum"	ng-model="poolData.Rechnungsdatum">
-					</div>
-				</div>
-			</div>
-			<!-- /Rechnungsdatum -->
-
 		</div>
 
 		<div class="row">
-			<h4 class="custom-h4"></h4>
-		</div>
+			<form name="poolForm" ng-submit="poolForm.$valid && storePool()" novalidate="novalidate">
+				<!-- je nach edit / new der Wert gesetzt PUT / POST -->
+				<input type="hidden" name="_method" value="{{ formMethod }}">
 
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-8">
+				<div class="col-sm-12 col-md-12">
 
-				<input type="hidden" name="Wartungsvertrag_ID" ng-model="poolData.Stundenpools_Wartungsvertraege_ID">
-				<!-- Buttons -->
-				<button type="submit" class="btn btn-default custom-btn">
-					<span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern
-				</button>&nbsp;
-				<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset">
-				<!-- /Buttons -->
+					<div class="row">
+
+						<!-- Stundenpool-Art (Operationsupport_Stundenpool) -->
+						<div class="col-sm-6 col-md-6">
+							<div class="form-group form-horizontal">
+								<label for="OS_Pool" class="col-md-4 control-label text-required-pool">Art</label>
+								<div class="col-md-8">
+									<select class="form-control" name="OS_Pool" id="OS_Pool" ng-model="poolData.Stundenpools_OS_Stundenpools_ID"
+									required="required">
+									<option value="{{ ospool.ID }}" ng-hide="loading" ng-repeat="ospool in ospools">
+										{{ ospool.Bezeichnung }}
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- /Stundenpool-Art -->
+
+					<!-- Startdatum -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group form-horizontal">
+							<label for="Stundenpool_Start" class="col-md-4 control-label text-required-pool">Start</label>
+							<div class="col-md-8">
+								<input type="text" name="Stundenpool_Start" class="form-control" placeholder="TT.MM.JJJJ"
+								id="Stundenpool_Start" ng-model="poolData.Stundenpool_Start" required="required">
+							</div>
+						</div>
+					</div>
+					<!-- Startdatum -->
+
+				</div>
+				<div class="row">
+
+					<!-- Stundenpool von -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group form-horizontal">
+							<label for="Stundenpool_von" class="col-md-4 control-label text-required-pool">Von</label>
+							<div class="col-md-8">
+								<input type="text" name="Stundenpool_von" class="form-control" placeholder="TT.MM.JJJJ"
+								id="Stundenpool_von" ng-model="poolData.Stundenpool_von" required="required">
+							</div>
+						</div>
+					</div>
+					<!-- /Stundenpool von -->
+
+					<!-- Stundenpool bis -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group form-horizontal">
+							<label for="Stundenpool_bis" class="col-md-4 control-label text-required-pool">Bis</label>
+							<div class="col-md-8">
+								<input type="text" name="Stundenpool_bis" class="form-control" placeholder="TT.MM.JJJJ"
+								id="Stundenpool_bis" ng-model="poolData.Stundenpool_bis" required="required">
+							</div>
+						</div>
+					</div>
+					<!-- /Stundenpool bis -->
+
+				</div>
+				<div class="row">
+
+					<!-- Stundensatz -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group form-horizontal">
+							<label for="Stundensatz" class="col-md-4 control-label text-required-pool">Std.-Satz</label>
+							<div class="col-md-4">
+								<input class="form-control form-horizontal" type="text" name="Stundensatz"
+								id="Stundensatz" ng-model="poolData.Stundensatz" required="required">
+							</div>
+							<!-- Waehrung -->
+							<label for="Stundensatz_Waehrung" class="sr-only">Waehrung</label>
+							<div class="col-md-4">
+								<select class="form-control" name="Stundensatz_Waehrung" id="Stundensatz_Waehrung"
+								ng-model="poolData.Stundensatz_Waehrungen_ID" required="required">
+								<option value="{{ currency.ID }}" ng-hide="loading" ng-repeat="currency in currencies">
+									{{ currency.Waehrung }}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- /Stundensatz -->
+
+					<!-- Anzahl Stunden -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group form-horizontal">
+							<label for="Anzahl_Stunden" class="col-md-4 control-label text-required-pool">Anz. Std.</label>
+							<div class="col-md-8">
+								<input type="text" name="Anzahl_Stunden" class="form-control" placeholder="Anzahl Stunden"
+								id="Anzahl_Stunden"	ng-model="poolData.Anzahl_Stunden" required="required">
+							</div>
+						</div>
+					</div>
+					<!-- /Anzahl Stunden -->
+
+				</div>
+				<div class="row">
+
+					<!-- Rechnungsnummer -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group form-horizontal">
+							<label for="Rechnungsnummer" class="col-md-4 control-label">Rechn.-Nr.</label>
+							<div class="col-md-8">
+								<input type="text" name="Rechnungsnummer" placeholder="Rechnungsnummer"
+								id="Rechnungsnummer" class="form-control" ng-model="poolData.Rechnungsnummer">
+							</div>
+						</div>
+					</div>
+					<!-- /Rechnungsnummer -->
+
+					<!-- Rechnungsdatum -->
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group form-horizontal">
+							<label for="Rechnungsdatum" class="col-md-4 control-label">Datum</label>
+							<div class="col-md-8">
+								<input type="text" name="Rechnungsdatum" class="form-control" placeholder="TT.MM.JJJJ"
+								id="Rechnungsdatum"	ng-model="poolData.Rechnungsdatum">
+							</div>
+						</div>
+					</div>
+					<!-- /Rechnungsdatum -->
+
+				</div>
+
+				<div class="row">
+					<h4 class="custom-h4"></h4>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-8">
+
+						<input type="hidden" name="Wartungsvertrag_ID" ng-model="poolData.Stundenpools_Wartungsvertraege_ID">
+						<!-- Buttons -->
+						<button type="submit" class="btn btn-default custom-btn">
+							<span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern
+						</button>&nbsp;
+						<input type="button" class="btn btn-default custom-btn" ng-click="reset()" value="Reset">
+						<!-- /Buttons -->
+
+					</div>
+				</div>
 
 			</div>
-		</div>
-
+		</form>
 	</div>
-</form>
+</div>
 </div>
 
 <!-- {{ poolData | json }} -->
