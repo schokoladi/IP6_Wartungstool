@@ -4,11 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Die Article-Klasse beschreibt das Artikel-Modell, über welches auf die Datenbank
+ * zugegriffen werden kann.
+ */
 class Article extends Model
 {
+
+  // Tabellenname und Primärschlüssel
   protected $table = 'Artikel';
   protected $primaryKey = 'ID';
 
+  // Füllbare Tabellenfelder
   protected $fillable = [
     'Artikel_Wartungsvertraege_ID',
     'Artikel_Produkte_ID',
@@ -37,30 +44,23 @@ class Article extends Model
     'VKP_Operationsupport_Waehrungen_ID'
   ];
 
+  // Timestamps ('created_at' und 'updated_at')
   public $timestamps = true;
 
-
+  /**
+  * Holt das zum Artikel gehörige Produkt aus dessen Model / Tabelle
+  */
   public function product()
   {
     return $this->hasOne('App\Product', 'ID', 'Artikel_Produkte_ID');
   }
-  /*
-  public function currency()
-  {
-    return $this->hasOne('App\Curreny', 'ID', 'Wartungsvertraege_Kunden_ID');
-  }
-  */
 
+  /**
+  * Holt die zum Artikel gehörige Wartung aus deren Model / Tabelle
+  */
   public function maintenance()
   {
     return $this->hasOne('App\Maintenance', 'ID', 'Artikel_Maintenance_ID');
   }
-
-  /*
-  public function operationsupport()
-  {
-    return $this->hasOne('App\Operationsupport', 'ID', 'Artikel_OperationSupports_ID');
-  }
-  */
 
 }
