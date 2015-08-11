@@ -26,8 +26,8 @@ class CreateStundenpoolsTable extends Migration
               $table->foreign('Stundensatz_Waehrungen_ID')->references('ID')->on('Waehrungen');
               $table->integer('Anzahl_Stunden'); // Integer oder Float (bzw. decimal)?
 
-              $table->string('Rechnungsnummer', 100);
-              $table->date('Rechnungsdatum');
+              $table->string('Rechnungsnummer', 100)->nullable();
+              $table->date('Rechnungsdatum')->nullable();
 
               // Relation mit Wartungsvertrag
               $table->integer('Stundenpools_Wartungsvertraege_ID')->unsigned();
