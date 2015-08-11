@@ -11,38 +11,36 @@
 |
 */
 
-/*Route::get('/', function () {
-return view('welcome');
-});*/
-
+// Index-Route
 Route::get('/', function () {
   return View::make('index');
 });
 
-// API-Prefix -> /api/Produkte/...
+// API-Prefix -> /api/.../...
 Route::group(array('prefix' => 'api'), function() {
 
-  // Authenticate controller
-  //Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+  // Authenticate-Routing
   Route::post('authenticate', 'AuthenticateController@authenticate');
   Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
 
-  // Hier wird von Deutsch auf Englisch weitergeleitet
+  // Wartungsvertraege-Routing
   Route::resource('contracts', 'ContractController');
 
   // Produkte-Routing
   Route::resource('products', 'ProductController');
+  // Zusätzliche GET-Route für die Kontrolle mit Hersteller und Produktname
   Route::get('products/{manufacturerId}/{productName}', 'ProductController@reference');
 
   // Artikel-Routing
   Route::resource('articles', 'ArticleController');
+  // Zusätzliche GET-Route für die Kontrolle, ob dem Artikel noch Produkte
+  // zugewiesen sind
   Route::get('articles/{productId}', 'ProductController@product');
 
-  // Waehrungen-Routing
+  // Stundenpools-Routing
   Route::resource('stundenpools', 'PoolController');
 
   // Hersteller-Routing
-  Route::get('manufacturers/exists/{manufacturer}', 'ManufacturerController@exists');
   Route::resource('manufacturers', 'ManufacturerController');
 
   // Kunden-Routing
@@ -54,30 +52,13 @@ Route::group(array('prefix' => 'api'), function() {
   // Waehrungen-Routing
   Route::resource('currencies', 'CurrencyController');
 
-  // Waehrungen-Routing
+  // Wartungen-Routing
   Route::resource('maintenances', 'MaintenanceController');
 
-  // Waehrungen-Routing
+  // Operation-Support-Routing
   Route::resource('operationsupports', 'OperationsupportController');
 
-  // Waehrungen-Routing
+  // OS-Stundenpools-Routing
   Route::resource('osstundenpools', 'OperationsupportStundenpoolController');
 
 });
-
-/*
-Route::controllers([
-  'auth' => 'Auth\AuthController',
-  'password' => 'Auth\PasswordController'
-  ]);
-*/
-//Route::controller('Produkte', 'ProdukteController');
-
-/*Route::get('/home', function () {
-return view('home');
-});*/
-
-// Catch Exceptions -> führt zu Exception :(
-/*App::missing(function($exception) {
-return View::make('index');
-});*/
