@@ -5,19 +5,19 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <!-- disable scrolling on mobile -->
+  <!-- Scrolling auf Mobiles deaktivieren -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <!-- Meatdaten -->
+  <meta name="description" content="Amanox Wartungstool">
+  <meta name="author" content="Jan Schnider, Dominik Schoch">
   <link rel="icon" href="favicon.ico">
 
-  <title>IP6 Wartungstool</title>
+  <title>Wartungstool</title>
 
   <!-- Bootstrap core CSS -->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
-  <!-- Custom style -->
+  <!-- Custom styles -->
   <link href="assets/css/custom.css" rel="stylesheet">
   <link href="assets/css/print.css" rel="stylesheet">
 
@@ -60,6 +60,6 @@
   <script src="app/components/product/productController.js"></script>
   <script src="app/components/start/startController.js"></script>
   <script src="app/components/upload/uploadController.js"></script>
-
+  
 </body>
 </html>

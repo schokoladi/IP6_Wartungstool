@@ -1,18 +1,23 @@
-// angular page routing
-
+/**
+ * Angular-Routing-Konfiguration
+ */
 app.config(function($routeProvider, $authProvider){
 
+  // URL für die Backend-Authentifizierung
   $authProvider.loginUrl = '/api/authenticate';
 
+  // Routes...
   $routeProvider
 
-  // --- START PAGES ---
+  // ------ Start-Seiten ------
+
   .when("/start", {
     templateUrl: "app/components/start/startView.html",
     controller: "startController"
   })
 
-  // --- LOGIN ---
+  // ------ Login-Seiten ------
+
   .when("/login", {
     templateUrl: "app/components/login/loginView.html",
     controller: "authController"
@@ -27,7 +32,7 @@ app.config(function($routeProvider, $authProvider){
     controller: "authController"
   })
 
-  // --- PRODUKTE-ROUTING ---
+  // ------ Produkt-Seiten ------
   .when("/produkte", {
     templateUrl:  "app/components/product/productView.html",
     controller:   "productController"
@@ -44,18 +49,18 @@ app.config(function($routeProvider, $authProvider){
     templateUrl:  "app/components/product/productView.html",
     controller:   "productController"
   })
-  // produkte neu
   .when("/produkte/neu", {
     templateUrl:  "app/components/product/productEdit.html",
     controller:   "productController"
   })
-  // produkte neu
   .when("/produkte/:editId/edit", {
     templateUrl:  "app/components/product/productEdit.html",
     controller:   "productController"
   })
 
-  // --- WARTUNGSVERTRAEGE-ROUTING ---
+  // ------ Wartungsverträge-Seiten ------
+
+  // Index / Übersicht
   .when("/wartungsvertraege", {
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
@@ -68,12 +73,14 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractView.html",
     controller: "contractController"
   })
+
   // Detailsansicht eines Wartungsvertrags
   .when("/wartungsvertraege/detail/:showId", {
     templateUrl: "app/components/contract/contractDetail.html",
     controller: "contractController"
   })
-  // Info
+
+  // Info-Seiten
   .when("/wartungsvertraege/info/neu", {
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
@@ -90,7 +97,8 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractInfoEdit.html",
     controller: "contractController"
   })
-  // Artikel
+
+  // Artikel-Seiten
   .when("/wartungsvertraege/artikel/neu/:contractId", {
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
@@ -107,7 +115,8 @@ app.config(function($routeProvider, $authProvider){
     templateUrl: "app/components/contract/contractArticleEdit.html",
     controller: "contractController"
   })
-  // Stundenpool
+
+  // Stundenpool-Seiten
   .when("/wartungsvertraege/pool/neu/:contractId", {
     templateUrl: "app/components/contract/contractPoolEdit.html",
     controller: "contractController"
@@ -125,13 +134,15 @@ app.config(function($routeProvider, $authProvider){
     controller: "contractController"
   })
 
-  // --- Upload - Not working yet ---
+  // ------ Upload-Seiten ------
+
+  // Noch nicht implementiert
   .when("/upload", {
     templateUrl: "app/components/upload/uploadView.html",
     controller: "uploadController"
   })
 
-  // Start-Seite ist default
+  // ------ Default-Seite ------
   .otherwise("/start", {
     templateUrl: "app/components/start/startView.html",
     controller: "startController"
