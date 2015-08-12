@@ -1,6 +1,8 @@
 //console.log('start controller loaded');
 
-// Controller für die Startseite, keine Funktionen benötigt
+/**
+* Der startController würde alle Funktionen der Startseite verwalten
+*/
 app.controller('startController', function($scope, $http, $rootScope) {
-  console.log($rootScope.authenticated);
+  //console.log($rootScope.authenticated);
 });
