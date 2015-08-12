@@ -5,20 +5,20 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use DateTime;
 
+/**
+ * Die ProductTest-Klasse enthält Methoden zum Testen der product-APIs
+ */
 class ProductTest extends TestCase
 {
 
-  // Die Middleware für den Test der API ausgeschaltet
+  // Die Middleware für den Test der API ausgeschaltet, damit die API ohne Token
+  // verwendet werden können
   use WithoutMiddleware;
-  // besser?
-  //use DatabaseTransactions;
-  //use DatabaseMigrations;
 
   /**
-  * A basic functional test example.
-  *
-  * @return void
-  */
+   * Ein JSON-Objekt mit einem Produkt wird erstellt und via API versucht zu speichern.
+   * Die Rückmeldung kann mit seeJson() getestet werden
+   */
   public function testStoreProduct()
   {
     $this->post('/api/products',
@@ -33,6 +33,10 @@ class ProductTest extends TestCase
       ->seeJson(['success' => true]);
   }
 
+  /**
+   * testGetProducts überprüft, ob das eben erstellte Produkt in der Produktabfrage
+   * via API vorhanden ist (mit seeJson).
+   */
   public function testGetProducts()
   {
     $this->get('/api/products')
@@ -42,10 +46,12 @@ class ProductTest extends TestCase
         'Artikelnummer' => 'TE-TEST-1234',
         'Hersteller' => 'Infoblox'
       ]);
-    // Höchste ID holen funktioniert,
-    // kann aber in anderen Testfunktionen nicht genutzt werden
   }
 
+  /**
+   * Testet, ob das erstellte Produkt unter dem Hersteller, dessen ID per API übergeben
+   * wird, vorhanden ist.
+   */
   public function testShowProduct()
   {
     // Hersteller-ID wird übergeben
@@ -57,7 +63,12 @@ class ProductTest extends TestCase
         'Produkte_Hersteller_ID' => 3
       ]);
   }
-  
+
+  /**
+   * Prüft, ob das Löschen eines Produkts via API funktioniert.
+   * Dafür wird die ID des neusten (eben erstellten) Produkts geholt und als
+   * Parameter übergeben.
+   */
   public function testDestroyProduct()
   {
     $productIdMax = 0;
@@ -65,10 +76,11 @@ class ProductTest extends TestCase
     $data = json_decode($res->getContent());
     foreach($data as $product)
     {
-      ($product->ID > $productIdMax) ? $productIdMax = $product->ID: $productIdMax = $productIdMax; // returns true
+      ($product->ID > $productIdMax) ? $productIdMax = $product->ID: $productIdMax = $productIdMax;
     }
     $this->delete('/api/products/'. $productIdMax)
       // Rückmeldung überprüfen
       ->seeJson(['success' => true]);
   }
+
 }
