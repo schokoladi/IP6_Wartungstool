@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die KundenTableSeeder-Klasse füllt die Kunden-Tabelle mit den angegebenen Werten
+*/
 class KundenTableSeeder extends Seeder
 {
   /**
@@ -14,10 +17,10 @@ class KundenTableSeeder extends Seeder
     DB::table('Kunden')->delete();
     DB::table('Kunden')->insert([
       [
-        'Name' => 'BKW Energie AG',
-        'Adresse' => 'Viktoriaplatz 2',
-        'PLZ' => '3013',
-        'Ort' => 'Bern',
+        'Name' => 'Nestlé',
+        'Adresse' => 'Avenue Nestlé 55',
+        'PLZ' => '1800',
+        'Ort' => 'Vevey',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
       ],
@@ -45,6 +48,7 @@ class KundenTableSeeder extends Seeder
         'created_at' => new DateTime,
         'updated_at' => new DateTime
         ]
-        ]);
-      }
-    }
+      ]);
+  }
+
+}

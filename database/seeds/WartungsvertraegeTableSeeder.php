@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die WartungsvertraegeTableSeeder-Klasse füllt die Wartungsvertraege-Tabelle
+* mit den angegebenen Werten
+*/
 class WartungsvertraegeTableSeeder extends Seeder
 {
     /**

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die MaintenanceTableSeeder-Klasse füllt die Maintenance-Tabelle mit den angegebenen Werten
+*/
 class MaintenanceTableSeeder extends Seeder
 {
     /**

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die ArtikelTableSeeder-Klasse füllt die Artikel-Tabelle mit den angegebenen Werten
+*/
 class ArtikelTableSeeder extends Seeder
 {
     /**

@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die OperationsupportTableSeeder-Klasse füllt die Operationsupport-Tabelle mit
+* den angegebenen Werten
+*/
 class OperationsupportTableSeeder extends Seeder
 {
     /**

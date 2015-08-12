@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die ProdukteTableSeeder-Klasse füllt die Produkte-Tabelle mit den angegebenen Werten
+*/
 class ProdukteTableSeeder extends Seeder
 {
     /**

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die UserTableSeeder-Klasse füllt die User-Tabelle mit den angegebenen Werten
+*/
 class UserTableSeeder extends Seeder
 {
   /**

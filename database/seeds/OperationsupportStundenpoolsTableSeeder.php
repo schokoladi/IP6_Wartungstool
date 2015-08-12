@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die OperationsupportStundenpoolsTableSeeder-Klasse füllt die Operationsupport_Stundenpools-
+* Tabelle mit den angegebenen Werten
+*/
 class OperationsupportStundenpoolsTableSeeder extends Seeder
 {
     /**

@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die KontaktpersonenTableSeeder-Klasse füllt die Kontaktpersonen-Tabelle mit den
+* angegebenen Werten
+*/
 class KontaktpersonenTableSeeder extends Seeder
 {
   /**
@@ -14,15 +18,15 @@ class KontaktpersonenTableSeeder extends Seeder
     DB::table('Kontaktpersonen')->delete();
     DB::table('Kontaktpersonen')->insert([
       [
-        'Vorname' => 'Suzanne',
-        'Name' => 'Thoma',
+        'Vorname' => 'Paul',
+        'Name' => 'Bulke',
         'Kontaktpersonen_Kunden_ID' => '1',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
       ],
       [
-        'Vorname' => 'Urs',
-        'Name' => 'Gasche',
+        'Vorname' => 'Peter',
+        'Name' => 'Brabeck',
         'Kontaktpersonen_Kunden_ID' => '1',
         'created_at' => new DateTime,
         'updated_at' => new DateTime

@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die StundenpoolsTableSeeder-Klasse füllt die Stundenpool-Tabelle mit den
+* angegebenen Werten
+*/
 class StundenpoolsTableSeeder extends Seeder
 {
     /**

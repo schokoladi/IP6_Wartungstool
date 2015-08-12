@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+/**
+* Die WaehrungenTableSeeder-Klasse füllt die Waehrungen-Tabelle mit den angegebenen
+* Werten. Die Kurse sind manuell eingetragen.
+*/
 class WaehrungenTableSeeder extends Seeder
 {
     /**
