@@ -1,25 +1,36 @@
 //console.log('auth controller loaded');
 
-// $routeparams statt $state
+/**
+* Der authController steuert das Login und kommuniziert mit den Satellizer-Funktionen.
+* Dafür wurde eine Anleitung von Ryan Chenkie befolgt [1]
+*
+* [1] http://ryanchenkie.com/token-based-authentication-for-angularjs-and-laravel-apps/
+*/
 app.controller('authController', function($http, $location, $auth, $scope, $rootScope, $routeParams) {
 
+  // Message-Variablendeklaration
   if($routeParams.messageType && $routeParams.messageText) {
-    //var split = $routeParams.message.split('~');
-    // Types: 0 = error, 1 = info, 2 = success
-    /*$scope.messageType = split[0];
-    $scope.messageText = split[1];*/
     $scope.messageType = $routeParams.messageType;
     $scope.messageText = $routeParams.messageText;
-    //console.log($scope.messageType + ' ' + $scope.messageText);
   }
 
+  // ------ SCOPE-Funktionen ------
+  // Scope-Funktionen sind von den HTML-Seiten aus aufrufbar
+
+  /**
+  * Kontrolliert die übergebenen Login-Daten und setzt bei Erfolg die globalen
+  * $rootScope-Variablen
+  *
+  * @author Ryan Chenkie
+  */
   $scope.login = function() {
-    //console.log('login...');
+    // Login-Referenzen werden in ein Array gespeichert
     var credentials = {
       username: $scope.auth.username,
       password: $scope.auth.password
     }
 
+    // Ruft die Login-Funktion der Satellizer-Bibliothek auf
     $auth.login(credentials)
     .then(function() {
       // Return an $http request for the now authenticated
@@ -30,6 +41,7 @@ app.controller('authController', function($http, $location, $auth, $scope, $root
       var loginError = true;
       var loginErrorText = error.data.error;
 
+      // Weiterleitung mit einer Message
       $location.path('/login/msgtype/0/msgtext/Login fehlgeschlagen');
 
       // Because we returned the $http.get request in the $auth.login
@@ -64,8 +76,14 @@ app.controller('authController', function($http, $location, $auth, $scope, $root
     });
   }
 
+  /**
+  * Das Logout setzt die globalen Variablen zurück
+  *
+  * @author Ryan Chenkie
+  */
   $scope.logout = function() {
 
+    // Ruft die Satellizer-Funktion auf
     $auth.logout().then(function() {
       // Remove the authenticated user from local storage
       localStorage.removeItem('user');
@@ -76,9 +94,7 @@ app.controller('authController', function($http, $location, $auth, $scope, $root
       $rootScope.currentUser = null;
 
       $location.path('/start');
-
     });
-
   }
-
+  
 });
