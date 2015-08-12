@@ -1,13 +1,17 @@
 <div class="row">
+
+  <!-- Wartungsvertragsmenü -->
   <div class="col-xs-12 col-ms-12 col-md-9" ng-show="!contractEditId">
     <div ng-include='"app/shared/contractmenu/contractMenuNew.html"'></div>
   </div>
   <div class="col-xs-12 col-ms-12 col-md-9" ng-show="contractEditId">
     <div ng-include='"app/shared/contractmenu/contractMenuEdit.html"'></div>
   </div>
-</div>
+  <!-- /Wartungsvertragsmenü -->
 
+</div>
 <div class="row">
+
   <div class="col-xs-12 col-sm-12 col-md-9">
     <div class="row">
       <div class="col-sm-12 col-md-12">
@@ -15,11 +19,13 @@
       </div>
     </div>
 
-    <form name="contractForm" ng-submit="contractForm.$valid && storeContract()" novalidate="novalidate">
-      <div class="row">
+    <div class="row">
+      <form name="contractForm" ng-submit="contractForm.$valid && storeContract()" novalidate="novalidate">
         <!-- je nach edit / new der Wert gesetzt PUT / POST -->
         <input type="hidden" name="_method" value="{{ formMethod }}">
+
         <div class="col-sm-12 col-md-12">
+
           <div class="row">
 
             <!-- Kundenauswahl -->
@@ -104,28 +110,34 @@
         <div class="form-group form-horizontal">
           <label class="col-md-8 col-md-offset-4 control-label" class="checkbox">
             <input type="checkbox" ng-model="contractData.Inaktiv">inaktiv</label>
+          </div>
+        </div>
+        <!-- /Inaktiv-Checkbox -->
+
+      </div>
+
+      <div class="row">
+        <h4 class="custom-h4"></h4>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-8">
+
+          <!-- Buttons -->
+          <button type="submit" class="btn btn-default custom-btn">
+            <span class="glyphicon glyphicon-circle-arrow-right custom-glyphicon-left"
+            aria-hidden="true"></span>Speichern und weiter
+          </button>
+          <!-- /Buttons -->
+
         </div>
       </div>
-      <!-- /Inaktiv-Checkbox -->
 
     </div>
 
-    <div class="row">
-      <h4 class="custom-h4"></h4>
-    </div>
+  </form>
+</div>
+</div>
+</div>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-8">
-        <button type="submit" class="btn btn-default custom-btn">
-          <span class="glyphicon glyphicon-circle-arrow-right custom-glyphicon-left"
-          aria-hidden="true"></span>Speichern und weiter
-        </button>
-      </div>
-    </div>
-
-  </div>
-  <!-- {{ contractData | json }} -->
-</div>
-</form>
-</div>
-</div>
+<!-- {{ contractData | json }} -->

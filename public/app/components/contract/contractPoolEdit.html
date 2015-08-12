@@ -1,8 +1,10 @@
-<!-- Liste mit den 3 Wartungsvertrags-Tabs (Wartungsvertrag / Artikel / Stundenpool) -->
 <div class="row">
+
+	<!-- Wartungsvertragsmenü -->
 	<div class="col-xs-12 col-ms-12 col-md-9">
 		<div ng-include='"app/shared/contractmenu/poolMenu.html"'></div>
 	</div>
+	<!-- /Wartungsvertragsmenü -->
 
 	<!-- list-group mit Wartungsvertragsinfos -->
 	<div class="hidden-xs hidden-sm col-md-3">
@@ -12,6 +14,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- /list-group mit Wartungsvertragsinfos -->
+
 </div>
 
 <!-- Messages -->
@@ -22,10 +26,10 @@
 </div>
 <!-- /Messages -->
 
-<!-- Vertragsinfos -->
 <div class="row">
-	<div class="col-xs-12 col-ms-12 col-md-9">
 
+	<!-- Vertragsinfos -->
+	<div class="col-xs-12 col-ms-12 col-md-9">
 		<div class="panel panel-default custom-panel sticky-top panel-vertrag">
 			<a href="/#/wartungsvertraege/detail/{{ contractId }}">
 				<div class="panel-body">
@@ -45,8 +49,9 @@
 				</div>
 			</a>
 		</div>
-
 	</div>
+	<!-- Vertragsinfos -->
+
 </div>
 
 <div class="row">
@@ -194,6 +199,7 @@
 					<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-8">
 
 						<input type="hidden" name="Wartungsvertrag_ID" ng-model="poolData.Stundenpools_Wartungsvertraege_ID">
+
 						<!-- Buttons -->
 						<button type="submit" class="btn btn-default custom-btn">
 							<span class="glyphicon glyphicon-ok-sign custom-glyphicon-left" aria-hidden="true"></span>Speichern

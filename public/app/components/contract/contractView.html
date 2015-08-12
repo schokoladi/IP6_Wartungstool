@@ -1,4 +1,5 @@
 <div class="row">
+
 	<div class="col-xs-12 col-sm-8 col-md-4">
 		<h3>Übersicht Wartungsverträge</h3>
 	</div>
@@ -10,90 +11,75 @@
 			</button>
 		</a>
 	</div>
-</div>
 
+</div>
 <div class="row">
+
 	<div class="col-xs-12 col-ms-12 col-md-9">
+		<!-- Message-Box -->
 		<div ng-include='"app/shared/messagebox/messageBox.html"'></div>
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
-				<!-- ng-hide="loading" ng-repeat="product in products | filter:prfilter | orderBy : 'Name'" -->
 				<thead>
 					<tr>
 						<th>Kunde
-						<a href="" ng-click="order('Kunde')">
-							<span class="sortorder" ng-show="predicate === 'Kunde'" ng-class="{reverse:reverse}"></span>
-							<span class="glyphicon glyphicon-sort custom-glyphicon-right"	aria-hidden="true"></span>
-						</a></th>
-						<th>Vertragsnummmer
-							<a href="" ng-click="order('Vertragsnummer')">
-								<span class="sortorder" ng-show="predicate === 'Vertragsnummer'" ng-class="{reverse:reverse}"></span>
+							<a href="" ng-click="order('Kunde')">
+								<span class="sortorder" ng-show="predicate === 'Kunde'" ng-class="{reverse:reverse}"></span>
 								<span class="glyphicon glyphicon-sort custom-glyphicon-right"	aria-hidden="true"></span>
-							</a>
-						</th>
-						<th class="text-right">Status
-							<a href="" ng-click="order('Status')">
-								<span class="sortorder" ng-show="predicate === 'Status'" ng-class="{reverse:reverse}"></span>
-								<span class="glyphicon glyphicon-sort custom-glyphicon-right"	aria-hidden="true"></span>
-							</a>
-						</th>
-						<th>&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-hide="loading" ng-repeat="contract in contracts | filter:contractFilter | orderBy:predicate:reverse">
-						<td>{{ contract.Kunde }}</td>
-						<td>{{ contract.Vertragsnummer }}</td>
-						<td class="text-right">
-							<span class="glyphicon glyphicon-ok green" aria-hidden="true"
-							ng-show="contract.Inaktiv == false"></span>
-							<span class="glyphicon glyphicon-remove red" aria-hidden="true"
-							ng-show="contract.Inaktiv == true"></span>
-						</td>
-						<td>
-							<a href="/#/wartungsvertraege/detail/{{ contract.ID }}">
-								<span class="glyphicon glyphicon-eye-open hidden-print" aria-hidden="true"></span>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							</a></th>
+							<th>Vertragsnummmer
+								<a href="" ng-click="order('Vertragsnummer')">
+									<span class="sortorder" ng-show="predicate === 'Vertragsnummer'" ng-class="{reverse:reverse}"></span>
+									<span class="glyphicon glyphicon-sort custom-glyphicon-right"	aria-hidden="true"></span>
+								</a>
+							</th>
+							<th class="text-right">Status
+								<a href="" ng-click="order('Status')">
+									<span class="sortorder" ng-show="predicate === 'Status'" ng-class="{reverse:reverse}"></span>
+									<span class="glyphicon glyphicon-sort custom-glyphicon-right"	aria-hidden="true"></span>
+								</a>
+							</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr ng-hide="loading" ng-repeat="contract in contracts | filter:contractFilter | orderBy:predicate:reverse">
+							<td>{{ contract.Kunde }}</td>
+							<td>{{ contract.Vertragsnummer }}</td>
+							<td class="text-right">
+								<span class="glyphicon glyphicon-ok green" aria-hidden="true"
+								ng-show="contract.Inaktiv == false"></span>
+								<span class="glyphicon glyphicon-remove red" aria-hidden="true"
+								ng-show="contract.Inaktiv == true"></span>
+							</td>
+							<td>
+								<a href="/#/wartungsvertraege/detail/{{ contract.ID }}">
+									<span class="glyphicon glyphicon-eye-open hidden-print" aria-hidden="true"></span>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
-	<!-- Panel für den Filter -->
-	<div class="col-xs-12 col-sm-12 col-md-3">
-		<div class="panel panel-default custom-panel-fixed panel-filter">
-			<div class="panel-body">
-				<div class="form-group form-group-sm form-horizontal">
-					<div class="col-xs-10 col-sm-9">
-						<!-- .sr-only hides the label field which is needed for screen readers... -->
-						<label class="sr-only" for="filter">Filter</label>
-						<input type="text" ng-model="contractFilter" class="form-control input-sm" id="Filter" placeholder="Filter">
+
+		<!-- Panel für den Filter -->
+		<div class="col-xs-12 col-sm-12 col-md-3">
+			<div class="panel panel-default custom-panel-fixed panel-filter">
+				<div class="panel-body">
+					<div class="form-group form-group-sm form-horizontal">
+						<div class="col-xs-10 col-sm-9">
+							<label class="sr-only" for="filter">Filter</label>
+							<input type="text" ng-model="contractFilter" class="form-control input-sm" id="Filter" placeholder="Filter">
+						</div>
+						<button type="submit" ng-click="contractFilter = undefined" class="btn btn-default custom-btn btn-sm">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
 					</div>
-					<button type="submit" ng-click="contractFilter = undefined" class="btn btn-default custom-btn btn-sm">
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					</button>
 				</div>
 			</div>
 		</div>
-	</div>
-<!-- /Panel für den Filter -->
-</div>
+		<!-- /Panel für den Filter -->
 
-<!--
-<div class="row">
-	<div class="col-xs-12 col-ms-12 col-md-9">
-		<nav>
-			<ul class="pagination custom-pagination">
-				<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-			</ul>
-		</nav>
 	</div>
-</div>
--->

@@ -1,17 +1,22 @@
 <div class="row hidden-print">
+	<!-- Print-Button -->
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<a href="#" onclick="window.print();"><button type="button" class="btn btn-default custom-btn pull-right">
 			<span class="glyphicon glyphicon-print custom-glyphicon-left" aria-hidden="true"></span>Drucken
 		</button></a>
 	</div>
-</div>
+	<!-- /Print-Button -->
 
+</div>
 <div class="row">
+
+	<!-- Wartungsvertragsinfo -->
 	<div class="hidden-xs col-sm-2 col-md-2 hidden-print">
 		<button class="custom-btn-wv custom-btn-circle hidden-print">
 			<span class="glyphicon glyphicon-file custom-glyphicon-left" aria-hidden="true"></span>Info
 		</button>
 	</div>
+
 	<div class="custom-well col-xs-12 col-sm-10 col-md-10">
 		<h4 class="well-article">Wartungsvertrag Info</h4>
 		<br>
@@ -26,9 +31,11 @@
 			TL&nbsp;&nbsp;&nbsp;&nbsp;
 		</p>
 	</div>
-</div>
+	<!-- /Wartungsvertragsinfo -->
 
+</div>
 <div class="row hidden-print">
+
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<a class="" href="/#/wartungsvertraege/info/{{ showId }}/edit">
 			<button class="btn btn-primary custom-btn-wv pull-right col-md-2 hidden-print" type="submit">
@@ -36,9 +43,11 @@
 			</button>
 		</a>
 	</div>
-</div>
 
+</div>
 <div class="row">
+
+	<!-- Wartungsvertragsartikel -->
 	<div class="hidden-xs col-sm-2 col-md-2 hidden-print">
 		<button class="custom-btn-article custom-btn-circle">
 			<span class="glyphicon glyphicon-list-alt custom-glyphicon-left" aria-hidden="true"></span>Artikel
@@ -82,9 +91,11 @@
 			</table>
 		</div>
 	</div>
-</div>
+	<!-- /Wartungsvertragsartikel -->
 
+</div>
 <div class="row hidden-print">
+
 	<div class="col-xs-12 col-sm-12 col-md-12">
 		<a class="hidden-print" href="/#/wartungsvertraege/artikel/neu/{{ showId }}">
 			<button class="btn btn-primary custom-btn-article pull-right hidden-print" type="submit">
@@ -92,9 +103,11 @@
 			</button>
 		</a>
 	</div>
-</div>
 
+</div>
 <div class="row">
+
+	<!-- Stundenpools -->
 	<div class="hidden-xs col-sm-2 col-md-2 hidden-print">
 		<button class="custom-btn-stundenpool custom-btn-circle col-xs-12 col-sm-4 col-md-4">
 			<span class="glyphicon glyphicon-time custom-glyphicon-left" aria-hidden="true"></span>Pool
@@ -134,15 +147,22 @@
 			</table>
 		</div>
 	</div>
-</div>
+	<!-- /Stundenpools -->
 
+</div>
 <div class="row hidden-print">
-	<div class="col-xs-12 col-sm-12 col-md-12">
-		<a class="hidden-print" href="/#/wartungsvertraege/pool/neu/{{ showId }}"><button class="btn btn-primary custom-btn-stundenpool pull-right hidden-print" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Stundenpool hinzufügen</button></a>
-	</div>
-</div>
 
+	<div class="col-xs-12 col-sm-12 col-md-12">
+		<a class="hidden-print" href="/#/wartungsvertraege/pool/neu/{{ showId }}">
+			<button class="btn btn-primary custom-btn-stundenpool pull-right hidden-print" type="submit">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Stundenpool hinzufügen
+			</button>
+		</a>
+	</div>
+
+</div>
 <div class="row">
+
 	<div class="col-xs-12 col-sm-2 col-sm-offset-2 col-md-2 col-md-offset-2 hidden-print ">
 		<a class="hidden-print" href="/#/wartungsvertraege/index">
 			<button class="btn btn-primary custom-btn hidden-print" type="submit">
@@ -151,5 +171,7 @@
 			</button>
 		</a>
 	</div>
+
 </div>
+
 <!-- {{ contractData | json }} -->
