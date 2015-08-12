@@ -1,21 +1,22 @@
 /*!
 * Custom Bootstrap CSS
+* Hier werden die benötigten Eigenschaften überschrieben und neue definiert
 */
 
-/* overwrite standard width */
+/* Standardbreite überschreiben */
 @media (min-width: 1000px) {
 	.container {
 		width: 970px;
 	}
 }
 
-/* custom font */
+/* Schrift der Amanox Solutions AG */
 @font-face {
 	font-family: 'DIN Next LT Pro';
 	src: url('../fonts/DINNextLTPro-Light.ttf');
 }
 
-/* Overide body style */
+/* Body überschreiben */
 body {
 	font-family: "DIN Next LT Pro";
 	font-size: 15px;
@@ -25,7 +26,7 @@ body {
 	background-color: #ffffff;
 }
 
-/* override navbar style */
+/* Navbar überschreiben */
 .custom-navbar {
 	background-color: #ffffff;
 	color: #4b4a4d;
@@ -40,25 +41,9 @@ body {
 .custom-navbar-container {
 	padding-left: 20px;
 	padding-right: 20px;
-	/*max-width: 1000px;*/
-}
-.highlight{
-	background-color: #d5cf54;
 }
 
-.text-required-info {
-	color: #cc3c53;
-}
-.text-required-article {
-	color: #d5cf54;
-}
-.text-required-pool {
-	color: #3e94b9;
-}
-
-/* Override Container */
-
-/* custom text styles */
+/* Text styles überschreiben */
 .custom-h4 {
 	color: #466876;
 	font-weight: bold;
@@ -67,7 +52,6 @@ body {
 	margin-top: 20px;
 	margin-bottom: 5px;
 }
-
 .custom-h5-article {
 	color: #d5cf54;
 	font-weight: bold;
@@ -79,17 +63,7 @@ body {
 	margin-bottom: 8px;
 }
 
-.custom-list-unstyled li {
-	margin-top: 5px;
-}
-
-/* override  */
-.custom-alert {
-	padding: 10px;
-	margin-bottom: 10px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-}
+/* custom panel style  */
 .custom-panel {
 	height: 48px;
 	padding: 0;
@@ -100,123 +74,22 @@ body {
 	text-decoration: none;
 }
 .panel-body {
-	/*height: 48px;*/
 	border-radius: 4px
 }
 .panel-vertrag{
 	background-color: #CC3C53;
 	border-color: #CC3C53;
-	/*	background-color: #edbec5;
-	border-color: #edbec5;*/
 	color: white;
 }
 .panel-filter {
 	background-color: #cad4d8;
 	border-color: #cad4d8;
 }
-
 .custom-panel-fixed {
 	/*min-width: 210px;*/
 }
-.custom-list-group {
-	min-width: 210px;
-	min-height: 20px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-.custom-list-group-fixed {
-	position: fixed;
-}
 
-/*
-.sticky-top {
-	position: -webkit-sticky;
-	top: 60px;
-	z-index: 1;
-}
-.sticky {
-	position: fixed;
-	top: 60px;
-	z-index: 100;
-	margin-bottom: 30px;
-}
-*/
-
-.custom-container {
-	background-color: #fff;
-}
-
-/*
-.fixed-container {
-padding-top: 80px;
-background-color: #0f0;
-}
-.sticky-top {
-top: 0px;
-background-color: #003;
-}
-#sticky-top {
-top: 30px;
-}*/
-
-/* custom login form */
-.custom-form-login {
-	margin: 10px;
-}
-
-/* custom table styles */
-.custom-border-left {
-	border-left: 1px solid #ddd;
-}
-.custom-table > tfoot > tr > td {
-	vertical-align: bottom;
-}
-.table-striped > tbody > tr:nth-of-type(odd) {
-	background-color: #e4e9eb;
-}
-.table-hover > tbody > tr:hover {
-	background-color: #123e50;
-	color: white;
-}
-
-/* overide glyphicon styles */
-.custom-glyphicon-left {
-	margin-right: 10px;
-}
-.custom-glyphicon-right {
-	margin-left: 10px;
-}
-.custom-glyphicon{
-	color: #123e50;
-}
-
-.green{
-	color: green;
-}
-
-.custom-glyphicon{
-	color: #123e50;
-}
-
-.green{
-	color: green;
-}
-
-.red{
-	color: red;
-}
-
-.custom-well{
-	/*border: 0px solid  #;*/
-	/*border-bottom: 1px solid lightgrey;*/
-	padding-left: 15px;
-	padding-bottom: 8px;
-	padding-top: 8px;
-	/*margin-bottom: 10px;*/
-}
-
-
-/*Buttons AppButton, wv-Button, Article-Button, Stundenpool-Button */
+/* custom-btn styles */
 .custom-btn{
 	background-color: #123e50;
 	border-color: #123e50;
@@ -260,7 +133,6 @@ top: 30px;
 	border: #68abc8;
 	color: white;
 }
-
 .custom-btn-wv-inactive{
 	background-color: #f1c8ce;
 	border: #f1c8ce;
@@ -285,14 +157,6 @@ top: 30px;
 	border-radius: 50%;
 	margin-right: 10px;
 	margin-bottom: 10px;
-}
-
-.well-warning{
-	background-color: #b0bec4;
-	min-height: 120px;
-	border-radius: 4px;
-	padding: 0px;
-	margin: 5px;
 }
 .custom-btn-circle-1{
 	width: 100px;
@@ -321,6 +185,113 @@ top: 30px;
 	color: white;
 	margin-top: 20px;
 }
+
+/* custom Inputfeld-Pflichtfeld */
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+	border-color: red;
+}
+
+/* Label der Pflichtfelder */
+.text-required-info {
+	color: #cc3c53;
+}
+.text-required-article {
+	color: #d5cf54;
+}
+.text-required-pool {
+	color: #3e94b9;
+}
+
+/* kein Zeilenumbruch*/
+.nobr {
+	white-space: nowrap;
+}
+
+/* hervorheben */
+.highlight{
+	background-color: #d5cf54;
+}
+
+/* custom list styles */
+.custom-list-unstyled li {
+	margin-top: 5px;
+}
+.custom-list-group {
+	min-width: 210px;
+	min-height: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.custom-list-group-fixed {
+	position: fixed;
+}
+
+/* custom alert style  */
+.custom-alert {
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+/* custom panel style  */
+.custom-container {
+	background-color: #fff;
+}
+
+/* custom login form */
+.custom-form-login {
+	margin: 10px;
+}
+
+/* custom table styles */
+.custom-border-left {
+	border-left: 1px solid #ddd;
+}
+.custom-table > tfoot > tr > td {
+	vertical-align: bottom;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+	background-color: #e4e9eb;
+}
+.table-hover > tbody > tr:hover {
+	background-color: #123e50;
+	color: white;
+}
+
+/* custom glyphicon styles */
+.custom-glyphicon-left {
+	margin-right: 10px;
+}
+.custom-glyphicon-right {
+	margin-left: 10px;
+}
+.custom-glyphicon{
+	color: #123e50;
+}
+.green{
+	color: green;
+}
+.custom-glyphicon{
+	color: #123e50;
+}
+.red{
+	color: red;
+}
+
+/* overide well styles */
+.custom-well{
+	padding-left: 15px;
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+.well-warning{
+	background-color: #b0bec4;
+	min-height: 120px;
+	border-radius: 4px;
+	padding: 0px;
+	margin: 5px;
+}
 .warning{
 	color: white;
 }
@@ -348,18 +319,9 @@ top: 30px;
 	background-color: #bedbe7;
 	border-color: #bedbe7;
 }
-.center {
-	/*
-	margin: 0 auto;
-/*	float: none;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;*/
-}
 .row{
 	margin-bottom: 10px;
 }
-
 .weiss{
 	color: white;
 }
@@ -370,12 +332,4 @@ top: 30px;
 .blau{
 	background-color: #bedbe7;
 	border-color: #bedbe7;
-}
-
-.nobr {
-	white-space: nowrap;
-}
-
-input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
-	border-color: red;
 }
