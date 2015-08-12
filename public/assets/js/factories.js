@@ -1,8 +1,15 @@
-// Factories
+/**
+* Factories stellen Services zur Verfügung, welche über Funktionen aus diversen
+* Controllern aufgerufen werden können.
+* Die Factories rufen dabei über die REST-API die Backend-Funktionen auf, welche
+* den Datenbankzugriff kontrollieren.
+*/
 
+// Artikel-Factory
 app.factory('Article', function($http) {
   return {
-    // Artikel speichern
+
+    // Artikel speichern per POST
     save: function(articleData) {
       return $http({
         method: 'POST',
@@ -11,15 +18,22 @@ app.factory('Article', function($http) {
         data: $.param(articleData)
       });
     },
+
+    // Artikel anzeigen anhand einer WV-ID
     show: function(contractId) {
       return $http.get('/api/articles/' + contractId);
     },
+
+    // Anzeigen anhand einer Produkt-ID
     product: function(productId) {
       return $http.get('/api/articles/' + productId);
     },
+
+    // Artikel holen anhand einer ID
     edit: function(editId) {
       return $http.get('/api/articles/' + editId + '/edit');
     },
+
     // Artikel aktualisieren per POST
     update: function(articleData) {
       return $http({
@@ -29,27 +43,34 @@ app.factory('Article', function($http) {
         data: $.param(articleData)
       });
     },
+
+    // Artikel löschen über API mit ID
     destroy : function(id) {
       return $http.delete('/api/articles/' + id);
     }
   }
 });
 
+// Wartungsvertrags-Factory
 app.factory('Contract', function($http) {
   return {
-    //
+
+    // Alle Wartungsverträge holen
     get: function() {
       return $http.get('/api/contracts');
     },
-    // Wartungsvertragsdetails anzeigen
+
+    // Wartungsvertragsdetails anzeigen anhand der ID
     show: function(showId) {
       return $http.get('/api/contracts/' + showId);
     },
+
     // Produkt editieren: Werte via API aus Datenbank holen
     edit: function(editId) {
       return $http.get('/api/contracts/' + editId + '/edit');
     },
-    // Produkt speichern
+
+    // Wartungsvertrag speichern per POST
     save: function(contractData) {
       return $http({
         method: 'POST',
@@ -58,6 +79,7 @@ app.factory('Contract', function($http) {
         data: $.param(contractData)
       });
     },
+
     // Wartungsvertrag aktualisieren per PUT
     update: function(contractData) {
       return $http({
@@ -67,6 +89,7 @@ app.factory('Contract', function($http) {
         data: $.param(contractData)
       });
     },
+
     // Wartungsvertrag löschen
     destroy : function(id) {
       return $http.delete('/api/contracts/' + id);
@@ -74,14 +97,20 @@ app.factory('Contract', function($http) {
   }
 });
 
+// Stundenpool-Factory
 app.factory('Stundenpool', function($http) {
   return {
+
+    // Stundenpools anzeigen anhand einer WV-ID
     show: function(contractId) {
       return $http.get('api/stundenpools/' + contractId);
     },
+
+    // Stundenpool bearbeiten
     edit: function(editId) {
       return $http.get('/api/stundenpools/' + editId + '/edit');
     },
+
     // Stundenpool speichern per POST
     save: function(poolData) {
       return $http({
@@ -91,7 +120,8 @@ app.factory('Stundenpool', function($http) {
         data: $.param(poolData)
       });
     },
-    // Wartungsvertrag aktualisieren per PUT
+
+    // Stundenpool aktualisieren per PUT
     update: function(poolData) {
       return $http({
         method: 'PUT',
@@ -100,6 +130,8 @@ app.factory('Stundenpool', function($http) {
         data: $.param(poolData)
       });
     },
+
+    // Stundenpool löschen
     destroy : function(id) {
       return $http.delete('/api/stundenpools/' + id);
     }
@@ -109,17 +141,24 @@ app.factory('Stundenpool', function($http) {
 // Kunden-Factory
 app.factory('Customer', function($http) {
   return {
+
+    // Kunden anzeigen
     get: function() {
       return $http.get('/api/customers');
     }
   }
 });
 
+// Kontaktpersonen-Factory
 app.factory('Contact', function($http) {
   return {
+
+    // Alle Kontakpersonen holen
     get: function() {
       return $http.get('/api/contacts');
     },
+
+    // Nur Kontaktpersonen eines Kunden holen
     show: function(customerId) {
       return $http.get('/api/contacts/' + customerId);
     }
@@ -129,6 +168,7 @@ app.factory('Contact', function($http) {
 // Hersteller-Factory
 app.factory('Manufacturer', function($http) {
   return {
+
     // Hersteller aus Datenbank holen
     get: function() {
       return $http.get('/api/manufacturers');
@@ -144,7 +184,8 @@ app.factory('Manufacturer', function($http) {
       });
     },
 
-    // überprüfen, ob existiert
+    // überprüfen, ob existiert: Wird nicht mehr benötigt dank UNIQUE-DB-Feld
+    /*
     exists: function(productData) {
       var deferred = $q.defer();
       $http.get('/api/manufacturers/exists' + productData)
@@ -155,20 +196,21 @@ app.factory('Manufacturer', function($http) {
         deferred.resolve();
       });
       return deferred.promise;
-      /*
       return $http({
       method:   'POST',
       url:      '/api/manufacturers/exists',
       headers:  {'Content-Type': 'application/x-www-form-urlencoded'},
       data:     $.param(productData)
     });
-    */
     }
+    */
   }
 });
 
+// Produkt-Factory
 app.factory('Product', function($http) {
   return {
+
     // Produkte via API aus datenbank holen
     get: function() {
       return $http.get('/api/products');
@@ -189,7 +231,7 @@ app.factory('Product', function($http) {
       return $http.get('/api/products/' + manufacturerId);
     },
 
-    // Produkt eines bestimmten Herstellers anzeigen
+    // Produkt eines bestimmten Herstellers und Produktnamen anzeigen
     reference: function(manufacturerId, productName) {
       return $http.get('/api/products/' + manufacturerId + '/' + productName);
     },
@@ -216,38 +258,54 @@ app.factory('Product', function($http) {
   }
 });
 
+// Währungen-Factory
 app.factory('Currency', function($http) {
   return {
+
+    // Währungen per API holen
     get: function() {
       return $http.get('/api/currencies');
     },
+
+    // Bestimmte Währung anzeigen
     show: function(currencyId) {
       return $http.get('/api/currencies/' + currencyId);
     }
   }
 });
 
+// Wartungs--Factory
 app.factory('Maintenance', function($http) {
   return {
+
+    // Wartungen holen
     get: function() {
       return $http.get('/api/maintenances');
     }
   }
 });
 
+// Operation-Support-Factory
 app.factory('Operationsupport', function($http) {
   return {
+
+    // Alle Operation Supports holen
     get: function() {
       return $http.get('/api/operationsupports');
     },
+
+    // bestimmten Operation Support holen anhand der ID
     show: function(maintenanceId) {
       return $http.get('/api/operationsupports/' + maintenanceId);
     }
   }
 });
 
+// OS-Stundenpool-Factory
 app.factory('OS_Stundenpool', function($http) {
   return {
+
+    // Alle Operation-Support-Stundenpools holen
     get: function() {
       return $http.get('/api/osstundenpools');
     }
