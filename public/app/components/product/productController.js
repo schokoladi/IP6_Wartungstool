@@ -1,6 +1,8 @@
-//console.log('Product Controller loaded');
+//console.log('product controller loaded');
 
-// Controller für die Produkte
+/**
+* Der productController verwaltet die Anzeige, Erfassung und Bearbeitung der Produkte
+*/
 app.controller('productController',
 function($scope, $http, $location, $routeParams, $rootScope, Product, Manufacturer, Article) {
 
@@ -13,20 +15,20 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     $scope.messageText = $routeParams.messageText;
   }
 
+  // Variablendeklaration
   var editId = $routeParams.editId;
   $scope.master = {};
 
-  // Produkte via api aus der Datenbank holen
+  // ------ GET-Methoden ------
+
   getProducts = function() {
     Product.get()
     .success(function(response) {
-      console.log(response);
+      //console.log(response);
       $scope.products = response;
       $scope.loading = false;
     });
   }
-
-  // Hersteller via api aus der Datenbank holen
   getManufacturers = function() {
     Manufacturer.get()
     .success(function(response) {
@@ -35,11 +37,20 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     });
   }
 
-  // Artikel via api aus der Datenbank holen
+  // ------ Funktionen ------
+
+  /**
+  * Kontrolliert, ob das Produkt noch einem Wartungsvertragsartikel zugeordnet ist.
+  * TODO: Diese Funktion funktioniert nicht zuverlässig. Bei gewissen Produkten
+  * greift sie nicht und es wird ein Backend-Fehler zurückgegeben.
+  *
+  * @param  integer  Produkt-ID
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   checkArticles = function(productId) {
     Article.product(productId)
     .success(function(response) {
-      console.log(response);
+      //console.log(response);
       // Überprüfen, ob das Array 'articles' Werte enthält
       if (response.length > 0) {
         $location.path('/produkte/index/msgtype/1/msgtext/Produkt ist noch einem Wartungsvertrag zugewiesen!');
@@ -48,49 +59,55 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
         Product.destroy(productId)
         .success(function(data) {
           $scope.loading = false;
-          console.log('successfully deleted product');
+          //console.log('successfully deleted product');
           $location.path('/produkte/index/msgtype/0/msgtext/Produkt gelöscht');
         });
       }
     });
   }
 
-  // Produkt-Formular Handling
-  $scope.reset = function() {
-    $scope.productData = angular.copy($scope.master);
-    $scope.loading = false;
-  };
-
-  // Produkt erstellen
+  /**
+  * Speichert ein Pordukt mit den übergebenen Formulardaten.
+  *
+  * @param  Object  Objekt mit den Formulardaten
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   saveProduct = function(productData) {
     Product.save(productData)
     .success(function(data) {
       $scope.loading = false;
-      console.log('successfully stored product');
-      // dafür wird $routeParams benötigt
+      //console.log('successfully stored product');
       $location.path('/produkte/index/msgtype/2/msgtext/Produkt '
       + productData.Name + ' erstellt');
     });
   }
 
-  // Produkt aktualisieren
+  /**
+  * Aktualisiert ein Produkt und gibt eine Message zurück
+  *
+  * @param  Object  Objekt mit den Formulardaten
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   updateProduct = function(productData) {
     Product.update(productData)
     .success(function(data) {
       $scope.loading = false;
-      console.log('successfully updated product');
-      // message string kann easy so übergeben werden
+      //console.log('successfully updated product');
       $location.path('/produkte/index/msgtype/1/msgtext/Produkt '
       + productData.Name + ' editiert');
     });
   }
 
-  // separate Funktion zum Speichern des Herstellers
+  /**
+  * Speichert einen neuen Hersteller und übergibt dessen ID dem zu speichernden
+  * oder updatenden Produkt.
+  *
+  * @param  Object  Objekt mit den Formulardaten
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   saveManufacturer = function(productData) {
-    // Hersteller speichern wenn nicht leer
     Manufacturer.save(productData)
-    .success(function(manufacturerData){
-      console.log('successfully stored manufacturer');
+    .success(function(manufacturerData) {
       // ID des gespeicherten Herstellers Produkt übergeben
       $scope.productData.Produkte_Hersteller_ID = manufacturerData.Manufacturer.ID;
       // Wenn Produkt editiert wird, updaten
@@ -104,7 +121,25 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     });
   }
 
-  // Produkt speichern
+  // ------ SCOPE-Funktionen ------
+  // Scope-Funktionen sind von den HTML-Seiten aus aufrufbar
+
+  /**
+  * Setzt die Formulardaten zurück und überschreibt dabei die Input-Felder.
+  *
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
+  $scope.reset = function() {
+    $scope.productData = angular.copy($scope.master);
+    $scope.loading = false;
+  };
+
+  /**
+  * Funktion zum speichern oder aktualisieren eines Produkts.
+  * Handhabt zusätzlich das Erstellen eines neuen Herstellers.
+  *
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   $scope.storeProduct = function() {
     // Wenn eine id (/edit) mitgegeben wird, update das Produkt
     if(editId) {
@@ -126,21 +161,35 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     }
   };
 
-  // Produkt löschen
+  /**
+  * Formularfunktion zum Löschen eines Produkts und Kontrolle, ob das Produkt noch
+  * in einem Wartungsvertragsartikel vorhanden ist.
+  *
+  * @param  integer   Produkt-ID
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   $scope.deleteProduct = function(id) {
     // Produkt kann nur gelöscht werden, wenn es in keinen Artikeln mehr vorhanden ist
     checkArticles(id);
   };
 
+  /**
+  * Handhabt das Sortieren der Tabelleninhalte anhand übergebener predicates.
+  *
+  * @param  predicate   Tabellenfeld, nach welchem sortiert werden soll
+  * @author Dominik Schoch <dominik.schoch@students.fhnw.ch>
+  */
   $scope.order = function(predicate) {
     $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
     $scope.predicate = predicate;
   };
 
-  // Produkt editieren
   getProducts();
   getManufacturers();
+
+  // Produkt editieren-Seite
   if(editId) {
+    // Formularmethode für update definieren
     $scope.formMethod = 'PUT';
     Product.edit(editId)
     .success(function(response) {
@@ -149,6 +198,7 @@ function($scope, $http, $location, $routeParams, $rootScope, Product, Manufactur
     });
   }
   else {
+    // Formularmethode für neu definieren
     $scope.formMethod = 'POST';
     $scope.predicate = 'Artikelnummer';
     $scope.reverse = true;

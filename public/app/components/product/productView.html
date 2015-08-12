@@ -1,4 +1,5 @@
 <div class="row">
+
 	<div class="col-xs-6 col-sm-6 col-md-3">
 		<h3>Übersicht Produkte</h3>
 	</div>
@@ -9,12 +10,13 @@
 			</button>
 		</a>
 	</div>
-</div>
 
+</div>
 <div class="row">
 
-	<!-- messages -->
 	<div class="col-xs-12 col-ms-12 col-md-9">
+
+		<!-- Messages -->
 		<div ng-include='"app/shared/messagebox/messageBox.html"'></div>
 
 		<div class="table-responsive">
@@ -67,7 +69,6 @@
 			<div class="panel-body">
 				<div class="form-group form-group-sm form-horizontal">
 					<div class="col-xs-10 col-sm-9">
-						<!-- .sr-only hides the label field which is needed for screen readers... -->
 						<label class="sr-only" for="filter">Filter</label>
 						<input type="text" ng-model="productFilter" class="form-control input-sm" id="Filter" placeholder="Filter">
 					</div>
@@ -78,23 +79,6 @@
 			</div>
 		</div>
 	</div>
-</div>
-<!-- /Panel für den Filter -->
+	<!-- /Panel für den Filter -->
 
-<!-- Pagination vorerst nicht umgesetzt
-<div class="row">
-<div class="col-xs-12 col-ms-12 col-md-9">
-<nav>
-<ul class="pagination">
-<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-<li class="active"><a href="#">1</a></li>
-<li><a href="#">2</a></li>
-<li><a href="#">3</a></li>
-<li><a href="#">4</a></li>
-<li><a href="#">5</a></li>
-<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-</ul>
-</nav>
 </div>
-</div>
--->
