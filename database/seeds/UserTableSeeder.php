@@ -78,6 +78,24 @@ class UserTableSeeder extends Seeder
         'password' => Hash::make('w4rtungst00l'),
         'created_at' => new DateTime,
         'updated_at' => new DateTime
+      ],
+      [
+        'name' => 'Konrad Durrer',
+        'username' => 'kdurrer',
+        'email' => 'konrad.durrer@bluewin.ch',
+        'role' => '3~CEO',
+        'password' => Hash::make('w4rtungst00l'),
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+      ],
+      [
+        'name' => 'Jürg Luthiger',
+        'username' => 'jluthiger',
+        'email' => 'juerg.luthiger@fhnw.ch',
+        'role' => '2~Kundenverantwortliche/r',
+        'password' => Hash::make('w4rtungst00l'),
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
       ]
     ]);
   }
